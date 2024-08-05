@@ -123,8 +123,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 =======
+=======
+>>>>>>> 48540d5d7b9680d7f8f1cd7f8ab7df92508da290
 --- !u!1 &77267432
 GameObject:
   m_ObjectHideFlags: 0
@@ -137,7 +140,10 @@ GameObject:
   - component: {fileID: 77267436}
   - component: {fileID: 77267435}
   - component: {fileID: 77267434}
+<<<<<<< HEAD
   - component: {fileID: 77267437}
+=======
+>>>>>>> 48540d5d7b9680d7f8f1cd7f8ab7df92508da290
   m_Layer: 0
   m_Name: Cube (5)
   m_TagString: Untagged
@@ -231,6 +237,7 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 77267432}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+<<<<<<< HEAD
 --- !u!208 &77267437
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -248,6 +255,8 @@ NavMeshObstacle:
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
 >>>>>>> Stashed changes
+=======
+>>>>>>> 48540d5d7b9680d7f8f1cd7f8ab7df92508da290
 --- !u!1 &128027786
 GameObject:
   m_ObjectHideFlags: 0
@@ -276,7 +285,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 2028901835}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &153746354
@@ -386,6 +396,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2075230802}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 =======
 --- !u!114 &153746359
@@ -419,6 +430,8 @@ MonoBehaviour:
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 23800000, guid: 34f07ad70f7c96c4ba6a8b45bed18a54, type: 2}
   m_BuildHeightMesh: 0
+=======
+>>>>>>> 48540d5d7b9680d7f8f1cd7f8ab7df92508da290
 --- !u!1 &279990953
 GameObject:
   m_ObjectHideFlags: 0
@@ -431,7 +444,10 @@ GameObject:
   - component: {fileID: 279990957}
   - component: {fileID: 279990956}
   - component: {fileID: 279990955}
+<<<<<<< HEAD
   - component: {fileID: 279990958}
+=======
+>>>>>>> 48540d5d7b9680d7f8f1cd7f8ab7df92508da290
   m_Layer: 0
   m_Name: Cube (6)
   m_TagString: Untagged
@@ -525,6 +541,7 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 279990953}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+<<<<<<< HEAD
 --- !u!208 &279990958
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -541,6 +558,8 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
+=======
+>>>>>>> 48540d5d7b9680d7f8f1cd7f8ab7df92508da290
 --- !u!1 &280882282
 GameObject:
   m_ObjectHideFlags: 0
@@ -553,7 +572,10 @@ GameObject:
   - component: {fileID: 280882286}
   - component: {fileID: 280882285}
   - component: {fileID: 280882284}
+<<<<<<< HEAD
   - component: {fileID: 280882287}
+=======
+>>>>>>> 48540d5d7b9680d7f8f1cd7f8ab7df92508da290
   m_Layer: 0
   m_Name: Cube (2)
   m_TagString: Untagged
@@ -647,6 +669,7 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 280882282}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+<<<<<<< HEAD
 --- !u!208 &280882287
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -664,6 +687,8 @@ NavMeshObstacle:
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
 >>>>>>> Stashed changes
+=======
+>>>>>>> 48540d5d7b9680d7f8f1cd7f8ab7df92508da290
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -758,8 +783,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 =======
+=======
+>>>>>>> 48540d5d7b9680d7f8f1cd7f8ab7df92508da290
 --- !u!1 &706325780
 GameObject:
   m_ObjectHideFlags: 0
@@ -772,7 +800,10 @@ GameObject:
   - component: {fileID: 706325783}
   - component: {fileID: 706325782}
   - component: {fileID: 706325781}
+<<<<<<< HEAD
   - component: {fileID: 706325785}
+=======
+>>>>>>> 48540d5d7b9680d7f8f1cd7f8ab7df92508da290
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -866,6 +897,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1307478368}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+<<<<<<< HEAD
 --- !u!208 &706325785
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -883,6 +915,8 @@ NavMeshObstacle:
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
 >>>>>>> Stashed changes
+=======
+>>>>>>> 48540d5d7b9680d7f8f1cd7f8ab7df92508da290
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -975,8 +1009,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2032532719}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 =======
+=======
+>>>>>>> 48540d5d7b9680d7f8f1cd7f8ab7df92508da290
 --- !u!1 &1023008141
 GameObject:
   m_ObjectHideFlags: 0
@@ -989,7 +1026,10 @@ GameObject:
   - component: {fileID: 1023008145}
   - component: {fileID: 1023008144}
   - component: {fileID: 1023008143}
+<<<<<<< HEAD
   - component: {fileID: 1023008146}
+=======
+>>>>>>> 48540d5d7b9680d7f8f1cd7f8ab7df92508da290
   m_Layer: 0
   m_Name: Cube (1)
   m_TagString: Untagged
@@ -1083,6 +1123,7 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1023008141}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+<<<<<<< HEAD
 --- !u!208 &1023008146
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -1099,6 +1140,8 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
+=======
+>>>>>>> 48540d5d7b9680d7f8f1cd7f8ab7df92508da290
 --- !u!1 &1037486943
 GameObject:
   m_ObjectHideFlags: 0
@@ -1111,7 +1154,10 @@ GameObject:
   - component: {fileID: 1037486947}
   - component: {fileID: 1037486946}
   - component: {fileID: 1037486945}
+<<<<<<< HEAD
   - component: {fileID: 1037486948}
+=======
+>>>>>>> 48540d5d7b9680d7f8f1cd7f8ab7df92508da290
   m_Layer: 0
   m_Name: Cube (7)
   m_TagString: Untagged
@@ -1205,6 +1251,7 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1037486943}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+<<<<<<< HEAD
 --- !u!208 &1037486948
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -1221,6 +1268,8 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
+=======
+>>>>>>> 48540d5d7b9680d7f8f1cd7f8ab7df92508da290
 --- !u!1 &1307478367
 GameObject:
   m_ObjectHideFlags: 0
@@ -1272,7 +1321,10 @@ GameObject:
   - component: {fileID: 1709569464}
   - component: {fileID: 1709569463}
   - component: {fileID: 1709569462}
+<<<<<<< HEAD
   - component: {fileID: 1709569465}
+=======
+>>>>>>> 48540d5d7b9680d7f8f1cd7f8ab7df92508da290
   m_Layer: 0
   m_Name: Cube (4)
   m_TagString: Untagged
@@ -1366,6 +1418,7 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1709569460}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+<<<<<<< HEAD
 --- !u!208 &1709569465
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -1382,6 +1435,8 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
+=======
+>>>>>>> 48540d5d7b9680d7f8f1cd7f8ab7df92508da290
 --- !u!1 &2028901834
 GameObject:
   m_ObjectHideFlags: 0
@@ -1394,7 +1449,10 @@ GameObject:
   - component: {fileID: 2028901838}
   - component: {fileID: 2028901837}
   - component: {fileID: 2028901836}
+<<<<<<< HEAD
   - component: {fileID: 2028901839}
+=======
+>>>>>>> 48540d5d7b9680d7f8f1cd7f8ab7df92508da290
   m_Layer: 0
   m_Name: TestEnemyBehavior
   m_TagString: Untagged
@@ -1490,6 +1548,7 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2028901834}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+<<<<<<< HEAD
 --- !u!195 &2028901839
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1513,6 +1572,8 @@ NavMeshAgent:
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
 >>>>>>> Stashed changes
+=======
+>>>>>>> 48540d5d7b9680d7f8f1cd7f8ab7df92508da290
 --- !u!1 &2032532715
 GameObject:
   m_ObjectHideFlags: 0
@@ -1674,10 +1735,14 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 153746358}
+  - {fileID: 1307478368}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 =======
+=======
+>>>>>>> 48540d5d7b9680d7f8f1cd7f8ab7df92508da290
 --- !u!1 &2097004552
 GameObject:
   m_ObjectHideFlags: 0
@@ -1690,7 +1755,10 @@ GameObject:
   - component: {fileID: 2097004556}
   - component: {fileID: 2097004555}
   - component: {fileID: 2097004554}
+<<<<<<< HEAD
   - component: {fileID: 2097004557}
+=======
+>>>>>>> 48540d5d7b9680d7f8f1cd7f8ab7df92508da290
   m_Layer: 0
   m_Name: Cube (3)
   m_TagString: Untagged
@@ -1784,6 +1852,7 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2097004552}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+<<<<<<< HEAD
 --- !u!208 &2097004557
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -1801,6 +1870,8 @@ NavMeshObstacle:
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
 >>>>>>> Stashed changes
+=======
+>>>>>>> 48540d5d7b9680d7f8f1cd7f8ab7df92508da290
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
