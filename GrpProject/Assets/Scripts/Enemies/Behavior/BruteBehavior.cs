@@ -6,6 +6,7 @@ using UnityEngine.AI; // required for NavMesh
 public class BruteBehavior : MonoBehaviour
 {
     [SerializeField] private Transform playerTransform; // to allow AI to follow player
+    [SerializeField] private Enemy enemyScript;
     NavMeshAgent agent; 
 
     private IEnumerator AgentNearPlayer()
@@ -31,6 +32,22 @@ public class BruteBehavior : MonoBehaviour
             yield return null;
             agent.destination = playerTransform.position;
         }
+    }
+
+    // when shock takes effect, enemy stays in place for 3 sec
+    public IEnumerator ShockEnemy(int timeInSec)
+    {
+        agent.isStopped = true;
+        yield return new WaitForSeconds(timeInSec);
+        agent.isStopped = false;
+    }
+
+    // when poision is in effect, slow enemies
+    public IEnumerator PoisonEnemy(int timeInSec, float spdFactor)
+    {
+        agent.speed *= spdFactor;
+        yield return new WaitForSeconds(timeInSec);
+        agent.speed /= spdFactor;
     }
 
     private void Start()
