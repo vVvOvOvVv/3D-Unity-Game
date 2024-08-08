@@ -7,7 +7,7 @@ public class BruteBehavior : MonoBehaviour
 {
     [SerializeField] private Transform playerTransform; // to allow AI to follow player
     [SerializeField] private Enemy enemyScript;
-    NavMeshAgent agent; 
+    NavMeshAgent agent;
 
     private IEnumerator AgentNearPlayer()
     {
@@ -16,7 +16,7 @@ public class BruteBehavior : MonoBehaviour
         float distanceToPlayer = Vector3.Distance(agent.transform.position, playerTransform.position);
         if (distanceToPlayer <= 10.0f)
         {
-            agent.isStopped = true; 
+            agent.isStopped = true;
             Vector3 target = playerTransform.position;
             agent.destination = target;
             yield return new WaitForSeconds(1); // charge animation
@@ -34,12 +34,14 @@ public class BruteBehavior : MonoBehaviour
         }
     }
 
-    // when shock takes effect, enemy stays in place for 3 sec
+    // when shock takes effect, enemy stays in place for 3 sec (just added debuglogs to test shock effect)
     public IEnumerator ShockEnemy(int timeInSec)
     {
+        Debug.Log("Shock effect on: " + gameObject.name);
         agent.isStopped = true;
         yield return new WaitForSeconds(timeInSec);
         agent.isStopped = false;
+        Debug.Log("Shock effect ended on: " + gameObject.name);
     }
 
     // when poision is in effect, slow enemies
@@ -56,7 +58,7 @@ public class BruteBehavior : MonoBehaviour
     }
 
     private void Update()
-    { 
+    {
         StartCoroutine(AgentNearPlayer());
     }
 }

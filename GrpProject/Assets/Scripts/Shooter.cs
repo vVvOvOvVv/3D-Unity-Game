@@ -5,12 +5,10 @@ using UnityEngine;
 public class Shooter : MonoBehaviour
 {
     private Camera cam;
-
     private Weapon currentWeapon;
-
     private bool showAim;
+    private float nextFireTime = 0.3f;
 
-    // Start is called before the first frame update
     void Start()
     {
         cam = Camera.main;
@@ -20,26 +18,52 @@ public class Shooter : MonoBehaviour
 
     void OnGUI()
     {
-        if(showAim)
+        if (showAim)
         {
             int size = 12;
             float posX = cam.pixelWidth / 2 - size / 4;
             float posY = cam.pixelHeight / 2 - size / 2;
             GUI.Label(new Rect(posX, posY, size, size), "*");
-        }  
+        }
     }
 
-    // Update is called once per frame
     void Update()
     {
         currentWeapon = Inventory.Instance.GetCurrentWeapon();
         if (currentWeapon != null)
         {
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButton(0)) // left mouse button held down
             {
-                currentWeapon.Shoot();
+                if (currentWeapon is MachineGun machineGun)
+                {
+                    if (Time.time >= nextFireTime)
+                    {
+                        machineGun.Shoot();
+                        nextFireTime = Time.time + machineGun.fireRate;
+                    }
+                }
+                else
+                {
+                    if (currentWeapon.canFire)
+                    {
+                        currentWeapon.Shoot();
+                        currentWeapon.canFire = false; // prevent continuous firing for handguns/or other guns
+                    }
+                }
             }
-            if (Input.GetMouseButtonDown(1)) // Right mouse button to aim
+            else if (Input.GetMouseButtonUp(0)) // left mouse button released
+            {
+                if (currentWeapon is MachineGun mg)
+                {
+                    mg.StopFiring();
+                }
+                else
+                {
+                    currentWeapon.canFire = true; // allow firing again for handguns/or other guns
+                }
+            }
+
+            if (Input.GetMouseButtonDown(1)) // right mouse button to aim
             {
                 showAim = !showAim; // Toggle GUI visibility
             }
