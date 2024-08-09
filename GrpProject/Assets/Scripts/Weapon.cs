@@ -9,9 +9,10 @@ public abstract class Weapon : MonoBehaviour
 
     public int maxAmmo = 10; // Maximum ammo capacity    
     [SerializeField] public int currentAmmo;  // Current ammo count
-   
+
     protected bool isReloading = false;
     public float reloadTime = 1.5f;
+    public bool canFire = true; 
 
     protected virtual void Start()
     {
@@ -45,4 +46,3 @@ public abstract class Weapon : MonoBehaviour
         Debug.Log("Reloading complete.");
     }
 }
-

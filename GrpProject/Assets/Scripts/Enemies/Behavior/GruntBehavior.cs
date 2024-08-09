@@ -28,9 +28,11 @@ public class GruntBehavior : MonoBehaviour
     // when shock takes effect, enemy stays in place for 3 sec
     public IEnumerator ShockEnemy(int timeInSec)
     {
+        Debug.Log("Shock effect on: " + gameObject.name);
         agent.isStopped = true;
         yield return new WaitForSeconds(timeInSec);
         agent.isStopped = false;
+        Debug.Log("Shock effect ended on: " + gameObject.name);
     }
 
     // when poision is in effect, slow enemies
