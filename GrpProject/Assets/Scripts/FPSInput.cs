@@ -20,7 +20,7 @@ public class FPSInput : MonoBehaviour
     //private float dashTime = 0f;
 
     // Health variables
-    public int maxHealth = 10;
+    public int maxHealth = 100;
     public int currentHealth;
     public float healthRecoveryAmount = 1.0f;
 
@@ -90,5 +90,13 @@ public class FPSInput : MonoBehaviour
 
         isDashing = false;
     }
+    public void TakeDamage(int dmg)
+    {
+        currentHealth -= dmg;
 
+        if (currentHealth <= 0)
+        {
+            // death animation or game over screen
+        }
+    }
 }

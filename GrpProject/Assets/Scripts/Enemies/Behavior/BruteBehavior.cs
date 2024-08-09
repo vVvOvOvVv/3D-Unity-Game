@@ -3,18 +3,20 @@ using UnityEngine;
 using UnityEngine.AI; // required for NavMesh
 
 [RequireComponent(typeof(NavMeshAgent))]
+[RequireComponent (typeof(CapsuleCollider))]
 public class BruteBehavior : MonoBehaviour
 {
     [SerializeField] private Transform playerTransform; // to allow AI to follow player
     [SerializeField] private Enemy enemyScript;
-    NavMeshAgent agent;
+    NavMeshAgent agent; 
+    private GameObject player; 
 
     private IEnumerator AgentNearPlayer()
     {
         // when the agent is about 10m away from the player, stop for a moment, mark player's position at this time
         // run at the mark, dealing damage to the player on collision
         float distanceToPlayer = Vector3.Distance(agent.transform.position, playerTransform.position);
-        if (distanceToPlayer <= 10.0f)
+        if (distanceToPlayer <= 15.0f)
         {
             agent.isStopped = true;
             Vector3 target = playerTransform.position;
@@ -52,9 +54,19 @@ public class BruteBehavior : MonoBehaviour
         agent.speed /= spdFactor;
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        FPSInput playerFPS = other.GetComponent<FPSInput>();
+        if (playerFPS != null) // check for player
+        {
+            playerFPS.TakeDamage(enemyScript.GetDmgPerHit());
+        }
+    }
+
     private void Start()
     {
         agent = GetComponent<NavMeshAgent>();
+        player = GameObject.FindWithTag("Player");
     }
 
     private void Update()

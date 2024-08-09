@@ -1506,6 +1506,7 @@ GameObject:
   - component: {fileID: 743528008}
   - component: {fileID: 743528007}
   - component: {fileID: 743528011}
+  - component: {fileID: 743528012}
   m_Layer: 0
   m_Name: BruteTest
   m_TagString: Untagged
@@ -1636,6 +1637,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerTransform: {fileID: 1625673873}
+  enemyScript: {fileID: 743528012}
+--- !u!114 &743528012
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 743528005}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db736d646f8c57d4fba450007d72d1ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  smokePrefab: {fileID: 6716933543107358056, guid: 8a334e7c388e77347a1dddd727ef3446, type: 3}
+  hp: 30
+  dmgPerHit: 15
 --- !u!1 &830561091
 GameObject:
   m_ObjectHideFlags: 0
@@ -2178,7 +2195,8 @@ GameObject:
   - component: {fileID: 1057707576}
   - component: {fileID: 1057707575}
   - component: {fileID: 1057707577}
-  - component: {fileID: 1057707578}
+  - component: {fileID: 1057707578} 
+  - component: {fileID: 1057707579} 
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -2288,7 +2306,24 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e016d8a69a173584a842f73a075ce271, type: 3}
   m_Name: 
+  m_EditorClassIdentifier:  
+--- !u!114 &1057707579
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1057707573}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f454f24f9491814ea5eaf23c759eb76, type: 3}
+  m_Name: 
   m_EditorClassIdentifier: 
+  particleSysPrefab: {fileID: 6879897211538299802, guid: 8bf85859139cd6546bbca64b03ef8ccb, type: 3}
+  maxAmmo: 10
+  currentAmmo: 0
+  reloadTime: 1.5
+  impulseStrength: 5 
 --- !u!1 &1078331349
 GameObject:
   m_ObjectHideFlags: 0
@@ -2812,6 +2847,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerTransform: {fileID: 1625673873}
+  enemyScript: {fileID: 0}
 --- !u!195 &1385103603
 NavMeshAgent:
   m_ObjectHideFlags: 0
