@@ -4042,7 +4042,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponPrefabs:
-  - {fileID: 1033412968271869949, guid: f5f0a406c4201e542a871abcb26d0da4, type: 3}
+  - {fileID: 6652363439759158525, guid: 9b8dfdf9842ee4547b50d9d212ed8719, type: 3}
 --- !u!65 &2046677655
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4139,7 +4139,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3206255229711441052, guid: 46ffab2f8a6c43e4ebcd2dca8fb6f22f, type: 3}
       propertyPath: m_Name
-      value: Handgun Test
+      value: Weapon Holder
       objectReference: {fileID: 0}
     - target: {fileID: 6306943163004926942, guid: 46ffab2f8a6c43e4ebcd2dca8fb6f22f, type: 3}
       propertyPath: m_LocalPosition.x
