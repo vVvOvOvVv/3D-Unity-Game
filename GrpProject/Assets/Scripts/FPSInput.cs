@@ -22,7 +22,7 @@ public class FPSInput : MonoBehaviour
     // Health variables
     public int maxHealth = 100;
     public int currentHealth;
-    public float healthRecoveryAmount = 1.0f;
+    public float healthRecoveryAmount = 1.0f; 
 
     // Start is called before the first frame update
     void Start()
@@ -97,6 +97,8 @@ public class FPSInput : MonoBehaviour
         if (currentHealth <= 0)
         {
             // death animation or game over screen
+            Debug.Log("HP depleted, resetting health");
+            currentHealth = maxHealth; // DELETE LATER - for debugging only
         }
     }
 }
