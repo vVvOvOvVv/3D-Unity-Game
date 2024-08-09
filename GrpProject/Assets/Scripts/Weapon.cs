@@ -1,48 +1,86 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using UnityEngine; 
 
-public abstract class Weapon : MonoBehaviour
+public class Weapon : MonoBehaviour
 {
-    protected Camera cam;
-    public GameObject particleSysPrefab;
 
+    // gun stats
     public int maxAmmo = 10; // Maximum ammo capacity    
     [SerializeField] public int currentAmmo;  // Current ammo count
+    public int dmg;
+    public float timeBetweenShots, normalSpread, spread, range, reloadTime = 1.5f, timeBetweenShooting;
+    public int bulletsShot, bulletsPerTap, reserveAmmo;
 
-    protected bool isReloading = false;
-    public float reloadTime = 1.5f;
-    public bool canFire = true; 
+    // booleans
+    public bool readyToShoot, isReloading;
+
+    // references
+    protected Camera cam;
+    public GameObject particleSysPrefab;
+    public RaycastHit hit;
+    public LayerMask whatIsEnemy;
 
     protected virtual void Start()
     {
         cam = Camera.main;
         currentAmmo = maxAmmo;
+        readyToShoot = true;
     }
 
-    public abstract void Shoot();
-
-    public virtual void Reload()
+    public virtual void Shoot()
     {
-        if (isReloading || currentAmmo == maxAmmo) // No need to reload if already full
-            return;
+        readyToShoot = false;
 
-        StartCoroutine(ReloadCoroutine());
+        // if player is moving, increase spread
+        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) ||
+            Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))
+            spread *= 1.5f;
+        else spread = normalSpread;
+        // shot spread
+        float x = Random.Range(-spread, spread);
+        float y = Random.Range(-spread, spread);
+
+        // get direction considering spread
+        Vector3 direction = cam.transform.forward + new Vector3(x, y, 0);
+
+        // raycast shot
+        if (Physics.Raycast(cam.transform.position, direction, out hit, range, whatIsEnemy))
+        {
+            Debug.Log("Hit: " + hit.collider.name); // debug log
+
+            Enemy enemy = hit.collider.GetComponent<Enemy>();
+            if (enemy != null)
+                enemy.TakeDamage(dmg);
+        }
+
+        currentAmmo--;
+        bulletsShot--;
+        // only allow player to fire again after set time - rate of fire
+        Invoke("ResetShot", timeBetweenShooting);
+        // in the case of multiple shots firing at once
+        if (bulletsShot > 0 && currentAmmo > 0)
+            Invoke("Shoot", timeBetweenShots);
     }
 
-    private IEnumerator ReloadCoroutine()
+    public void ResetShot()
+    {
+        readyToShoot = true;
+    }
+
+    public void Reload()
     {
         isReloading = true;
-        Debug.Log("Reloading...");
+        Invoke("ReloadFinished", reloadTime); 
+    }
 
-        // Play reload animation or sound if you have any
-        // e.g., reloadAnimation.Play();
-
-        yield return new WaitForSeconds(reloadTime);
-
-        // Finish reloading
-        currentAmmo = maxAmmo; // Refill ammo
+    public void ReloadFinished()
+    {
+        currentAmmo = maxAmmo;
         isReloading = false;
-        Debug.Log("Reloading complete.");
+    }
+
+    public void AddAmmo(int ammoAdded)
+    {
+        // upon pick up, add additional ammo to reserve
+        reserveAmmo += ammoAdded;
     }
 }
