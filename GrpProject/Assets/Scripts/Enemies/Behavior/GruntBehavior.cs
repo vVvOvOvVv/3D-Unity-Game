@@ -7,7 +7,8 @@ public class GruntBehavior : MonoBehaviour
 {
     [SerializeField] private Transform playerTransform; // to allow AI to follow player
     [SerializeField] private Enemy enemyScript;
-    NavMeshAgent agent; 
+    NavMeshAgent agent;
+    private GameObject player;
 
     private IEnumerator AgentNearPlayer()
     {
@@ -43,6 +44,7 @@ public class GruntBehavior : MonoBehaviour
     private void Start()
     {
         agent = GetComponent<NavMeshAgent>();
+        player = GameObject.FindWithTag("Player");
     }
 
     private void Update()

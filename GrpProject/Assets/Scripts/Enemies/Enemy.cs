@@ -1,11 +1,11 @@
-using Unity.VisualScripting;
-using UnityEngine;
+using System.Collections; 
+using UnityEngine; 
 
-public class Enemy
+public class Enemy : MonoBehaviour
 {
-    [SerializeField] public GameObject enemyPrefab;
+    [SerializeField] public GameObject smokePrefab;
     public int hp,
-        dmgPerHit;
+        dmgPerHit; 
 
     public Enemy()
     {
@@ -22,8 +22,17 @@ public class Enemy
         hp -= dmg;
 
         if (hp <= 0) 
-        {
-            // death animation or destroy object and instantiate a smoke particle
+        { 
+            StartCoroutine(HPDepleted());
         }
+    }
+
+    public IEnumerator HPDepleted()
+    {
+        // create smoke effect to hide enemy disappearing
+        GameObject smoke = Instantiate(smokePrefab, transform);
+        yield return new WaitForSeconds(0.5f);
+        Destroy(smoke);
+        Destroy(gameObject);
     }
 }
