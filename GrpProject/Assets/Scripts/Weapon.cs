@@ -1,3 +1,4 @@
+// for each weapon prefab, assign this script, and adjust values in Inspector
 using System.Collections;
 using UnityEngine; 
 
@@ -7,18 +8,20 @@ public class Weapon : MonoBehaviour
     // gun stats
     public int maxAmmo = 10; // Maximum ammo capacity    
     [SerializeField] public int currentAmmo;  // Current ammo count
-    public int dmg, spread, normalSpread;
-    public float timeBetweenShots, reloadTime, timeBetweenShooting, impulseStrength;
-    public int bulletsShot, bulletsPerTap, reserveAmmo;
+    public int dmg, spread, bulletsShot, bulletsPerTap, reserveAmmo;
+    public float timeBetweenShots, reloadTime, timeBetweenShooting, impulseStrength; 
+    private int normalSpread;
 
-    // booleans
+    // booleans - standard booleans
     public bool readyToShoot, isReloading, allowButtonHold, shooting;
-
+    // booleans - determine if it deals special damage types
+    public bool isFire, isPoison, isShock; // if all false => standard dmg type 
+    
     // references
     protected Camera cam;
     public GameObject particleSysPrefab; 
 
-    protected virtual void Start()
+    private void Start()
     {
         cam = Camera.main;
         currentAmmo = maxAmmo;
@@ -27,7 +30,7 @@ public class Weapon : MonoBehaviour
         normalSpread = spread;
     }
 
-    public virtual void Shoot()
+    public void Shoot()
     {
         readyToShoot = false;
 
@@ -61,7 +64,12 @@ public class Weapon : MonoBehaviour
              
             Enemy enemy = hitObject.GetComponent<Enemy>();
             if (enemy != null)
+            {
                 enemy.TakeDamage(dmg);
+
+                // dmg types
+                // fire
+            }
 
             StartCoroutine(GeneratePS(hit));
         }
@@ -110,7 +118,7 @@ public class Weapon : MonoBehaviour
         reserveAmmo += ammoAdded;
     }
 
-    public IEnumerator GeneratePS(RaycastHit hit)
+    private IEnumerator GeneratePS(RaycastHit hit)
     { 
         GameObject ps = Instantiate(particleSysPrefab, hit.point, Quaternion.LookRotation(hit.normal));
         yield return new WaitForSeconds(1);

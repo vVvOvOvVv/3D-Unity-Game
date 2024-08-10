@@ -3,7 +3,7 @@ using TMPro;
 
 public class Shooter : MonoBehaviour
 { 
-    private Weapon currentWeapon;  
+    [SerializeField] private Weapon currentWeapon;  
 
     // TMPro elements from the HUD
     [SerializeField] private TextMeshProUGUI currentAmmoTxt, reserveAmmoTxt;
@@ -49,7 +49,7 @@ public class Shooter : MonoBehaviour
     void Start()
     { 
         Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        Cursor.visible = false; 
     } 
 
     void Update()
@@ -58,10 +58,10 @@ public class Shooter : MonoBehaviour
         if (currentWeapon != null)
         {
             ShootInput(); 
+            // set text - ammo count
+            currentAmmoTxt.SetText(currentWeapon.currentAmmo.ToString());
+            reserveAmmoTxt.SetText(currentWeapon.reserveAmmo.ToString());
         }
 
-        // set text - ammo count
-        currentAmmoTxt.SetText(currentWeapon.currentAmmo.ToString());
-        reserveAmmoTxt.SetText(currentWeapon.reserveAmmo.ToString());
     }
 }
