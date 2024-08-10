@@ -16,7 +16,14 @@ public class Weapon : MonoBehaviour
     public bool readyToShoot, isReloading, allowButtonHold, shooting;
     // booleans - determine if it deals special damage types
     public bool isFire, isPoison, isShock; // if all false => standard dmg type 
-    
+
+    // constant variables
+    [SerializeField] private static int ShockChance = 5, // inflict shock 1 in X chance
+        ShockTime = 3, // time shock is inflicted
+        PoisonTime = 5,
+        FireDmg = 1;
+    [SerializeField] private static float PoisonSlowFactor = 0.7f;
+
     // references
     protected Camera cam;
     public GameObject particleSysPrefab; 
@@ -69,6 +76,18 @@ public class Weapon : MonoBehaviour
 
                 // dmg types
                 // fire
+
+                // shock
+                if (isShock)
+                {
+                    // 1/5 chance to inflict shock
+                    int rand = Random.Range(0, 5);
+                    if (rand == 0)
+                        hitObject.GetComponent<Behavior>().ShockEnemy(ShockTime);
+                }
+                // poison
+                if (isPoison)
+                    hitObject.GetComponent<Behavior>().PoisonEnemy(PoisonTime, PoisonSlowFactor);
             }
 
             StartCoroutine(GeneratePS(hit));

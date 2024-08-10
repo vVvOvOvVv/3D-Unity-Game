@@ -115,12 +115,25 @@ MonoBehaviour:
   m_GameObject: {fileID: 6652363439759158525}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a31a311df6416c4eb5c8e12cafb1dd7, type: 3}
+  m_Script: {fileID: 11500000, guid: add27808cebf7f84c85beed109970a6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  particleSysPrefab: {fileID: 6879897211538299802, guid: 8bf85859139cd6546bbca64b03ef8ccb, type: 3}
-  maxAmmo: 50
+  maxAmmo: 100
   currentAmmo: 0
-  reloadTime: 1.5
-  fireRate: 0.1
-  impulseStrength: 10
+  dmg: 2
+  spread: 1
+  bulletsShot: 0
+  bulletsPerTap: 0
+  reserveAmmo: 0
+  timeBetweenShots: 0.25
+  reloadTime: 3
+  timeBetweenShooting: 0
+  impulseStrength: 0
+  readyToShoot: 0
+  isReloading: 0
+  allowButtonHold: 1
+  shooting: 0
+  isFire: 0
+  isPoison: 0
+  isShock: 0
+  particleSysPrefab: {fileID: 6879897211538299802, guid: 8bf85859139cd6546bbca64b03ef8ccb, type: 3}

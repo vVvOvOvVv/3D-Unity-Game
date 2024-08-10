@@ -160,8 +160,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   smokePrefab: {fileID: 6716933543107358056, guid: 8a334e7c388e77347a1dddd727ef3446, type: 3}
+  weaponPickupPrefab: {fileID: 2401814541304874731, guid: 42e6feec1ea63aa4497661b57fba32a4, type: 3}
   hp: 30
   dmgPerHit: 15
+  wpnDropRate: 4
 --- !u!54 &4447081092965862696
 Rigidbody:
   m_ObjectHideFlags: 0

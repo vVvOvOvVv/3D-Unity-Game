@@ -39,6 +39,7 @@ public class GruntBehavior : MonoBehaviour
     public IEnumerator PoisonEnemy(int timeInSec, float spdFactor)
     {
         agent.speed *= spdFactor;
+        // dmg enemies over this time period
         yield return new WaitForSeconds(timeInSec);
         agent.speed /= spdFactor; 
     }
