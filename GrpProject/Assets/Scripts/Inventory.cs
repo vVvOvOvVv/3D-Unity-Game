@@ -12,6 +12,12 @@ public class Inventory : MonoBehaviour
     private GameObject lastPickedWeapon; // The last picked-up weapon
     private GameObject secondLastPickedWeapon;
 
+    // HUD
+    [SerializeField]
+    private GameObject pistolCrosshair, shotgunCrosshair, machinegunCrosshair, // crosshairs
+        inventoryPanel; // panel showing what guns are equipped
+    // need variables for the different gun icons to update them
+
     private void Awake()
     {
         if (Instance == null)
@@ -30,6 +36,7 @@ public class Inventory : MonoBehaviour
         SwitchWeapon(pistolPrefab);
         lastPickedWeapon = pistolPrefab; // Initialize with pistol
         secondLastPickedWeapon = null;
+        inventoryPanel = GameObject.FindWithTag("InventoryPanel");
     }
 
     public void SwitchWeapon(GameObject weaponPrefab)
@@ -48,6 +55,14 @@ public class Inventory : MonoBehaviour
             weaponInstance.transform.localPosition = Vector3.zero;  // Adjust as needed
             weaponInstance.transform.localRotation = Quaternion.identity;
             currentWeapon = weaponInstance.GetComponent<Weapon>();
+
+            // update HUD
+            // change crossair
+
+            // show inventory
+            StartCoroutine(ShowInventory());
+
+            // make inventory panel appear for a second and have it fade over time
         }
         else
         {
@@ -69,6 +84,8 @@ public class Inventory : MonoBehaviour
         }
 
         lastPickedWeapon = weaponPrefab;
+
+        // change weapon icons on inventory panel
 
         // Always switch to the last picked weapon
         SwitchWeapon(lastPickedWeapon);
@@ -93,5 +110,13 @@ public class Inventory : MonoBehaviour
     public void SwitchToNextWeapon()
     {
         // This method can be used if needed to cycle between weapons
+    } 
+
+    private IEnumerator ShowInventory()
+    {
+        inventoryPanel.SetActive(true);
+        yield return new WaitForSeconds(1);
+        // ideally create a fade "animation" for this panel
+        inventoryPanel.SetActive(false);
     }
 }

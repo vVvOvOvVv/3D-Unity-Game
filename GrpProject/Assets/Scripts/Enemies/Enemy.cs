@@ -12,15 +12,16 @@ public class Enemy : MonoBehaviour
         wpnDropRate; // weapon drops 1 out of X times
     public bool isDead;
 
-    public void Awake()
+    public void Start()
     {
+        hpBar = GetComponentInChildren<EnemyHPBar>();
         hp = maxHP; 
         hpBar.UpdateHPBar(hp, maxHP);
     }
 
     public Enemy()
     {
-        maxHP = 0;
+        maxHP = 10;
         dmgPerHit = 0;
         wpnDropRate = 4; // standard drop rate
         isDead = false;

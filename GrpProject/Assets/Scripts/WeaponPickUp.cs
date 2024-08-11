@@ -7,6 +7,7 @@ public class WeaponPickUp : MonoBehaviour
     //public GameObject weaponPrefab;
     //public float respawnTime = 5f;
     public GameObject[] weaponPrefabs; // equipped weapon prefabs 
+    [SerializeField] private GameObject inventoryPanel;
 
     private Renderer render;
     private Collider collide;
@@ -16,6 +17,7 @@ public class WeaponPickUp : MonoBehaviour
     {
         render = GetComponent<Renderer>();
         collide = GetComponent<Collider>();
+        inventoryPanel = GameObject.FindWithTag("InventoryPanel");
     }
 
     void OnTriggerEnter(Collider other)
@@ -62,6 +64,8 @@ public class WeaponPickUp : MonoBehaviour
 
         Debug.Log("Picking up weapon: " + randomWeapon.name);
 
+        StartCoroutine(ShowInventory());
+
         // Add the weapon to the inventory
         Inventory.Instance.AddWeapon(randomWeapon);
 
@@ -71,5 +75,13 @@ public class WeaponPickUp : MonoBehaviour
 
         // Optionally destroy the weapon pickup object
         Destroy(gameObject);
+    }
+
+    private IEnumerator ShowInventory()
+    {
+        inventoryPanel.SetActive(true);
+        yield return new WaitForSeconds(1);
+        // ideally create a fade "animation" for this panel
+        inventoryPanel.SetActive(false);
     }
 }
