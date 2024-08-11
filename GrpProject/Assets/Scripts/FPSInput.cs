@@ -32,8 +32,6 @@ public class FPSInput : MonoBehaviour
     [SerializeField] public Slider playerShieldBar;
     [SerializeField] private TextMeshProUGUI shieldTxt;
 
-    private Vector3 movementDirection;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -54,11 +52,10 @@ public class FPSInput : MonoBehaviour
         // changes based on WASD keys
         float deltaX = Input.GetAxis("Horizontal");
         float deltaZ = Input.GetAxis("Vertical");
-        movementDirection = transform.right * deltaX + transform.forward * deltaZ;
-
+        Vector3 movement = transform.right * deltaX + transform.forward * deltaZ;
+        
         // make diagonal movement consistent
-        movementDirection = Vector3.ClampMagnitude(movementDirection, 1.0f) * speed;
-
+        movement = Vector3.ClampMagnitude(movement, 1.0f) * speed;
 
         if (Input.GetButtonDown("Jump") && charController.isGrounded)
         {
@@ -72,9 +69,8 @@ public class FPSInput : MonoBehaviour
                 vertSpeed = terminalVelocity;
             }
         }
-
-        movementDirection.y = vertSpeed;
-        movementDirection *= Time.deltaTime;
+        movement.y = vertSpeed;
+        movement *= Time.deltaTime;
         //charController.Move(movement);
 
         // Check for dash input
@@ -86,7 +82,7 @@ public class FPSInput : MonoBehaviour
         // Apply movement
         if (!isDashing)
         {
-            charController.Move(movementDirection);
+            charController.Move(movement);
         }
     } 
 
@@ -95,7 +91,7 @@ public class FPSInput : MonoBehaviour
         isDashing = true;
 
         // Calculate dash direction
-        Vector3 dashDirection = movementDirection.normalized * dashSpeed;
+        Vector3 dashDirection = transform.forward * dashSpeed;
 
         float startTime = Time.time;
         while (Time.time < startTime + dashDuration)
