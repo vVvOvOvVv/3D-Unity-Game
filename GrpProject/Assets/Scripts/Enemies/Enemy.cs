@@ -4,15 +4,23 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     [SerializeField] public GameObject smokePrefab; // hide enemy disappearing on death
-    [SerializeField] private GameObject weaponPickupPrefab; // can use the same prefab for the pickup
+    [SerializeField] public GameObject weaponPickupPrefab; // can use the same prefab for the pickup
+    [SerializeField] public EnemyHPBar hpBar;
     public int hp, // health
+        maxHP, // max health
         dmgPerHit,// enemy's dmg per hit/shot
         wpnDropRate; // weapon drops 1 out of X times
     public bool isDead;
 
+    public void Awake()
+    {
+        hp = maxHP; 
+        hpBar.UpdateHPBar(hp, maxHP);
+    }
+
     public Enemy()
     {
-        hp = 0;
+        maxHP = 0;
         dmgPerHit = 0;
         wpnDropRate = 4; // standard drop rate
         isDead = false;
@@ -25,6 +33,7 @@ public class Enemy : MonoBehaviour
     public void TakeDamage(int dmg)
     {
         hp -= dmg;
+        hpBar.UpdateHPBar(hp, maxHP);
 
         if (hp <= 0 && !isDead) // prevent repeat death
         { 

@@ -3920,6 +3920,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 253057038}
     m_Modifications:
+    - target: {fileID: 833506645633603183, guid: 67b47cb1d1900a94dad62e4e6d23487b, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 833506645633603183, guid: 67b47cb1d1900a94dad62e4e6d23487b, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4415414831895028658, guid: 67b47cb1d1900a94dad62e4e6d23487b, type: 3}
       propertyPath: m_LocalPosition.x
       value: -5.37
@@ -3963,6 +3971,14 @@ PrefabInstance:
     - target: {fileID: 4606720691503524691, guid: 67b47cb1d1900a94dad62e4e6d23487b, type: 3}
       propertyPath: m_Name
       value: BruteTest
+      objectReference: {fileID: 0}
+    - target: {fileID: 6319842937836839009, guid: 67b47cb1d1900a94dad62e4e6d23487b, type: 3}
+      propertyPath: cam
+      value: 
+      objectReference: {fileID: 1057707576}
+    - target: {fileID: 6319842937836839009, guid: 67b47cb1d1900a94dad62e4e6d23487b, type: 3}
+      propertyPath: offset.y
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6631133415419085644, guid: 67b47cb1d1900a94dad62e4e6d23487b, type: 3}
       propertyPath: playerTransform
