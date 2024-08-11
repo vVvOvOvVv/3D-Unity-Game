@@ -15,13 +15,13 @@ public class Enemy : MonoBehaviour
     public void Start()
     {
         hpBar = GetComponentInChildren<EnemyHPBar>();
-        hp = maxHP; 
         hpBar.UpdateHPBar(hp, maxHP);
     }
 
     public Enemy()
     {
         maxHP = 10;
+        hp = maxHP; 
         dmgPerHit = 0;
         wpnDropRate = 4; // standard drop rate
         isDead = false;

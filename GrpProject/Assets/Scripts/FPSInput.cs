@@ -32,6 +32,8 @@ public class FPSInput : MonoBehaviour
     [SerializeField] public Slider playerShieldBar;
     [SerializeField] private TextMeshProUGUI shieldTxt;
 
+    private Vector3 movementDirection;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -52,10 +54,10 @@ public class FPSInput : MonoBehaviour
         // changes based on WASD keys
         float deltaX = Input.GetAxis("Horizontal");
         float deltaZ = Input.GetAxis("Vertical");
-        Vector3 movement = transform.right * deltaX + transform.forward * deltaZ;
-        
+        movementDirection = transform.right * deltaX + transform.forward * deltaZ;
+
         // make diagonal movement consistent
-        movement = Vector3.ClampMagnitude(movement, 1.0f) * speed;
+        movementDirection = Vector3.ClampMagnitude(movementDirection, 1.0f) * speed;
 
         if (Input.GetButtonDown("Jump") && charController.isGrounded)
         {
@@ -69,8 +71,9 @@ public class FPSInput : MonoBehaviour
                 vertSpeed = terminalVelocity;
             }
         }
-        movement.y = vertSpeed;
-        movement *= Time.deltaTime;
+
+        movementDirection.y = vertSpeed;
+        movementDirection *= Time.deltaTime;
         //charController.Move(movement);
 
         // Check for dash input
@@ -82,7 +85,7 @@ public class FPSInput : MonoBehaviour
         // Apply movement
         if (!isDashing)
         {
-            charController.Move(movement);
+            charController.Move(movementDirection);
         }
     } 
 
@@ -91,7 +94,7 @@ public class FPSInput : MonoBehaviour
         isDashing = true;
 
         // Calculate dash direction
-        Vector3 dashDirection = transform.forward * dashSpeed;
+        Vector3 dashDirection = movementDirection.normalized * dashSpeed;
 
         float startTime = Time.time;
         while (Time.time < startTime + dashDuration)
@@ -102,6 +105,7 @@ public class FPSInput : MonoBehaviour
 
         isDashing = false;
     }
+
     public void TakeDamage(int dmg)
     {
         // if player has shield/armor, consume that first

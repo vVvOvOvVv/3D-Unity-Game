@@ -6,7 +6,7 @@ public class EnemyHPBar : MonoBehaviour
     [SerializeField] private Slider hpSlider;
     [SerializeField] private Camera cam;
     [SerializeField] private Transform target;
-    [SerializeField] private Vector3 offset;
+    [SerializeField] private Vector3 offset; 
 
     public void UpdateHPBar(int hp, int maxHP)
     {
