@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 2772960224715264387}
   - component: {fileID: 3951509426045706036}
   - component: {fileID: 7551238415266827015}
-  - component: {fileID: 2175421005582450541}
+  - component: {fileID: 9115494059351674854}
   m_Layer: 0
-  m_Name: ShockHandgun
+  m_Name: FireHandgun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -63,7 +63,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 0560876f284a22f4ab21d1e628fd61e0, type: 2}
+  - {fileID: 2100000, guid: c8d5d78d8d0ce55458fe3a0f0e4f23e5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -106,7 +106,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &2175421005582450541
+--- !u!114 &9115494059351674854
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -133,7 +133,7 @@ MonoBehaviour:
   isReloading: 0
   allowButtonHold: 0
   shooting: 0
-  isFire: 0
+  isFire: 1
   isPoison: 0
-  isShock: 1
+  isShock: 0
   particleSysPrefab: {fileID: 6879897211538299802, guid: 8bf85859139cd6546bbca64b03ef8ccb, type: 3}

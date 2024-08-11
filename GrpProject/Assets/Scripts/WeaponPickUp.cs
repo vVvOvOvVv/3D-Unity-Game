@@ -6,16 +6,16 @@ public class WeaponPickUp : MonoBehaviour
 {
     //public GameObject weaponPrefab;
     //public float respawnTime = 5f;
-    public GameObject[] weaponPrefabs;
+    public GameObject[] weaponPrefabs; // equipped weapon prefabs 
 
-    private Renderer renderer;
-    private Collider collider;
+    private Renderer render;
+    private Collider collide;
     //private bool isPickedUp = false;
 
     void Start()
     {
-        renderer = GetComponent<Renderer>();
-        collider = GetComponent<Collider>();
+        render = GetComponent<Renderer>();
+        collide = GetComponent<Collider>();
     }
 
     void OnTriggerEnter(Collider other)
@@ -24,7 +24,7 @@ public class WeaponPickUp : MonoBehaviour
         {
             PickUp();
         }
-    }
+    } 
 
     /*void PickUp()
     {
@@ -66,8 +66,8 @@ public class WeaponPickUp : MonoBehaviour
         Inventory.Instance.AddWeapon(randomWeapon);
 
         // Optionally hide the weapon pickup
-        renderer.enabled = false;
-        collider.enabled = false;
+        render.enabled = false;
+        collide.enabled = false;
 
         // Optionally destroy the weapon pickup object
         Destroy(gameObject);
