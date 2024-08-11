@@ -6,8 +6,8 @@ public class WeaponPickUp : MonoBehaviour
 {
     //public GameObject weaponPrefab;
     //public float respawnTime = 5f;
-    public GameObject[] weaponPrefabs; // equipped weapon prefabs 
-    [SerializeField] private GameObject inventoryPanel;
+    public GameObject[] weaponPrefabs; // equipped weapon prefabs  
+    [SerializeField] private GameObject inventoryPanel; 
 
     private Renderer render;
     private Collider collide;

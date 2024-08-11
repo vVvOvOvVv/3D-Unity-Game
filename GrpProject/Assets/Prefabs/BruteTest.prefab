@@ -360,7 +360,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerTransform: {fileID: 0}
-  enemyScript: {fileID: 8196914462741770647}
+  enemyScript: {fileID: 8196914462741770647} 
   agent: {fileID: 0}
   player: {fileID: 0}
   isShocked: 0
