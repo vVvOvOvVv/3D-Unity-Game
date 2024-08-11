@@ -1,5 +1,5 @@
 %YAML 1.1
-%TAG !u! tag:unity3d.com,2011: 
+%TAG !u! tag:unity3d.com,2011:
 --- !u!1 &1124113119036405799
 GameObject:
   m_ObjectHideFlags: 0
@@ -212,7 +212,7 @@ MonoBehaviour:
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
-    m_Bits: 4294967295 
+    m_Bits: 4294967295
 --- !u!1 &4606720691503524691
 GameObject:
   m_ObjectHideFlags: 0
@@ -245,11 +245,11 @@ Transform:
   m_GameObject: {fileID: 4606720691503524691}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.37, y: 0.6, z: 10.56} 
+  m_LocalPosition: {x: -5.37, y: 0.6, z: 10.56}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_ConstrainProportionsScale: 1
   m_Children:
-  - {fileID: 5308405848725092667} 
+  - {fileID: 5308405848725092667}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &169729937847888785
@@ -317,14 +317,14 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.5765648
   m_Height: 2
   m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 0, z: 0.07656479}
 --- !u!195 &1343465703318574101
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -360,12 +360,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerTransform: {fileID: 0}
-  enemyScript: {fileID: 8196914462741770647} 
+  enemyScript: {fileID: 8196914462741770647}
   agent: {fileID: 0}
   player: {fileID: 0}
   isShocked: 0
   isPoisoned: 0
-  isBurn: 0 
+  isBurn: 0
 --- !u!114 &8196914462741770647
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -378,14 +378,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db736d646f8c57d4fba450007d72d1ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  smokePrefab: {fileID: 6716933543107358056, guid: 8a334e7c388e77347a1dddd727ef3446, type: 3} 
+  smokePrefab: {fileID: 6716933543107358056, guid: 8a334e7c388e77347a1dddd727ef3446, type: 3}
   weaponPickupPrefab: {fileID: 2401814541304874731, guid: 42e6feec1ea63aa4497661b57fba32a4, type: 3}
   hpBar: {fileID: 6319842937836839009}
   hp: 0
   maxHP: 30
   dmgPerHit: 15
   wpnDropRate: 4
-  isDead: 0 
+  isDead: 0
 --- !u!54 &4447081092965862696
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -412,7 +412,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0 
+  m_CollisionDetection: 0
 --- !u!1 &5389236798179444724
 GameObject:
   m_ObjectHideFlags: 0
@@ -593,4 +593,4 @@ MonoBehaviour:
   hpSlider: {fileID: 1015265446931701251}
   cam: {fileID: 0}
   target: {fileID: 4415414831895028658}
-  offset: {x: 0, y: 2, z: 0} 
+  offset: {x: 0, y: 2, z: 0}

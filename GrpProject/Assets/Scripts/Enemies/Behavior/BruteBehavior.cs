@@ -37,6 +37,7 @@ public class BruteBehavior : Behavior
         if (playerFPS != null) // check for player
         {
             playerFPS.TakeDamage(enemyScript.GetDmgPerHit());
+            Debug.Log("You took damage!");
         }
-    }
+    } 
 }
