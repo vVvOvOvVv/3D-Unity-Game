@@ -30,7 +30,7 @@ public class BruteBehavior : Behavior
             agent.destination = playerTransform.position;
         } 
     } 
-
+    
     private void OnTriggerEnter(Collider other)
     {
         FPSInput playerFPS = other.GetComponent<FPSInput>();

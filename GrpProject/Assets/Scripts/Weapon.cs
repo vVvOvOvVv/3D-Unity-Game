@@ -95,7 +95,6 @@ public class Weapon : MonoBehaviour
         else Debug.Log("No hit :(");
 
         Debug.DrawRay(ray.origin, ray.direction * 100f, Color.red, 1f); // Visualize the ray
- 
 
         currentAmmo--;
         bulletsShot--;
