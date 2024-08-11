@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 915790907153686392}
   - component: {fileID: 2880235898644832321}
   - component: {fileID: 634758921355580894}
-  - component: {fileID: 6577761580619029454}
-  - component: {fileID: 2332586626035865792}
+  - component: {fileID: 6577761580619029454} 
+  - component: {fileID: 2332586626035865792} 
   m_Layer: 0
   m_Name: Handgun
   m_TagString: Untagged
@@ -105,8 +105,8 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &2332586626035865792
+  m_Center: {x: 0, y: 0, z: 0} 
+--- !u!114 &2332586626035865792 
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -117,7 +117,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: add27808cebf7f84c85beed109970a6f, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier:  
   maxAmmo: 12
   currentAmmo: 0
   dmg: 4
@@ -128,12 +128,12 @@ MonoBehaviour:
   timeBetweenShots: 0.5
   reloadTime: 1.5
   timeBetweenShooting: 0
-  impulseStrength: 0
+  impulseStrength: 0 
   readyToShoot: 0
   isReloading: 0
   allowButtonHold: 0
-  shooting: 0
+  shooting: 0 
   isFire: 0
   isPoison: 0
-  isShock: 0
+  isShock: 0 
   particleSysPrefab: {fileID: 6879897211538299802, guid: 8bf85859139cd6546bbca64b03ef8ccb, type: 3}

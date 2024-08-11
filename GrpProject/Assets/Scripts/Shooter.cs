@@ -2,8 +2,8 @@ using UnityEngine;
 using TMPro;
 
 public class Shooter : MonoBehaviour
-{ 
-    [SerializeField] private Weapon currentWeapon;  
+{  
+    [SerializeField] private Weapon currentWeapon;   
 
     // TMPro elements from the HUD
     [SerializeField] private TextMeshProUGUI currentAmmoTxt, reserveAmmoTxt;
@@ -36,20 +36,20 @@ public class Shooter : MonoBehaviour
         }
 
         // Switch weapons based on key input
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        if (Input.GetKeyDown(KeyCode.Alpha1)) 
         {
             Inventory.Instance.SwitchWeaponByIndex(0);
         }
         else if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
+        { 
             Inventory.Instance.SwitchWeaponByIndex(1);
         }
     }
 
     void Start()
     { 
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false; 
+        Cursor.lockState = CursorLockMode.Locked; 
+        Cursor.visible = false;  
     } 
 
     void Update()
@@ -57,11 +57,10 @@ public class Shooter : MonoBehaviour
         currentWeapon = Inventory.Instance.GetCurrentWeapon();
         if (currentWeapon != null)
         {
-            ShootInput(); 
+            ShootInput();  
             // set text - ammo count
             currentAmmoTxt.SetText(currentWeapon.currentAmmo.ToString());
             reserveAmmoTxt.SetText(currentWeapon.reserveAmmo.ToString());
-        }
-
+        } 
     }
 }

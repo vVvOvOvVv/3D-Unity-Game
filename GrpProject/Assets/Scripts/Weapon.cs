@@ -7,7 +7,7 @@ public class Weapon : MonoBehaviour
 
     // gun stats
     public int maxAmmo = 10; // Maximum ammo capacity    
-    [SerializeField] public int currentAmmo;  // Current ammo count
+    [SerializeField] public int currentAmmo;  // Current ammo count 
     public int dmg, spread, bulletsShot, bulletsPerTap, reserveAmmo;
     public float timeBetweenShots, reloadTime, timeBetweenShooting, impulseStrength; 
     private int normalSpread;
@@ -22,7 +22,7 @@ public class Weapon : MonoBehaviour
         ShockTime = 3, // time shock is inflicted
         PoisonTime = 5,
         FireDmg = 1;
-    [SerializeField] private static float PoisonSlowFactor = 0.7f;
+    [SerializeField] private static float PoisonSlowFactor = 0.7f; 
 
     // references
     protected Camera cam;
@@ -36,8 +36,8 @@ public class Weapon : MonoBehaviour
         reserveAmmo = maxAmmo * 3;
         normalSpread = spread;
     }
-
-    public void Shoot()
+ 
+    public void Shoot() 
     {
         readyToShoot = false;
 
@@ -70,7 +70,7 @@ public class Weapon : MonoBehaviour
             }
              
             Enemy enemy = hitObject.GetComponent<Enemy>();
-            if (enemy != null)
+            if (enemy != null) 
             {
                 enemy.TakeDamage(dmg);
 
@@ -95,7 +95,7 @@ public class Weapon : MonoBehaviour
         else Debug.Log("No hit :(");
 
         Debug.DrawRay(ray.origin, ray.direction * 100f, Color.red, 1f); // Visualize the ray
-
+ 
 
         currentAmmo--;
         bulletsShot--;
@@ -103,14 +103,13 @@ public class Weapon : MonoBehaviour
         Invoke("ResetShot", timeBetweenShooting);
         // in the case of multiple shots firing at once
         if (bulletsShot > 0 && currentAmmo > 0)
-            Invoke("Shoot", timeBetweenShots);
+            Invoke("Shoot", timeBetweenShots); 
     }
 
     public void ResetShot()
     {
         readyToShoot = true;
-    }
-
+    } 
     public void Reload()
     {
         isReloading = true;
@@ -136,8 +135,8 @@ public class Weapon : MonoBehaviour
         // upon pick up, add additional ammo to reserve
         reserveAmmo += ammoAdded;
     }
-
-    private IEnumerator GeneratePS(RaycastHit hit)
+ 
+    private IEnumerator GeneratePS(RaycastHit hit) 
     { 
         GameObject ps = Instantiate(particleSysPrefab, hit.point, Quaternion.LookRotation(hit.normal));
         yield return new WaitForSeconds(1);

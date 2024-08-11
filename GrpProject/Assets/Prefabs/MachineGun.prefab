@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4744888743138030574}
   - component: {fileID: 7614597106367005141}
   - component: {fileID: 8660796695683869406}
-  - component: {fileID: 4388456669553223671}
+  - component: {fileID: 7033091313184202967}
   m_Layer: 0
   m_Name: MachineGun
   m_TagString: Untagged
@@ -106,7 +106,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &4388456669553223671
+--- !u!114 &7033091313184202967
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -117,7 +117,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: add27808cebf7f84c85beed109970a6f, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier:  
   maxAmmo: 100
   currentAmmo: 0
   dmg: 2
@@ -128,12 +128,12 @@ MonoBehaviour:
   timeBetweenShots: 0.25
   reloadTime: 3
   timeBetweenShooting: 0
-  impulseStrength: 0
+  impulseStrength: 0 
   readyToShoot: 0
   isReloading: 0
   allowButtonHold: 1
-  shooting: 0
+  shooting: 0 
   isFire: 0
   isPoison: 0
-  isShock: 0
+  isShock: 0 
   particleSysPrefab: {fileID: 6879897211538299802, guid: 8bf85859139cd6546bbca64b03ef8ccb, type: 3}
