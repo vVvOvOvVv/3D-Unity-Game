@@ -114,7 +114,7 @@ MonoBehaviour:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3916671132237625967}
   m_Enabled: 1
-  m_EditorHideFlags: 0 
+  m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: add27808cebf7f84c85beed109970a6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
@@ -136,4 +136,4 @@ MonoBehaviour:
   isFire: 0
   isPoison: 0
   isShock: 1
-  particleSysPrefab: {fileID: 6879897211538299802, guid: 8bf85859139cd6546bbca64b03ef8ccb, type: 3} 
+  particleSysPrefab: {fileID: 6879897211538299802, guid: 8bf85859139cd6546bbca64b03ef8ccb, type: 3}
