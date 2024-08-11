@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class FPSInput : MonoBehaviour
 {
-    public float speed = 6.0f;
+    public float speed = 10.0f;
     public float jumpSpeed = 15.0f;
     public float gravity = -9.8f;
     public float terminalVelocity = -20.0f;
@@ -15,7 +15,7 @@ public class FPSInput : MonoBehaviour
     private CharacterController charController;
 
     // Dash variables
-    public float dashSpeed = 18.0f;
+    public float dashSpeed = 20.0f;
     public float dashDuration = 0.3f;
     private bool isDashing = false;
     //private float dashTime = 0f;
