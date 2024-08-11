@@ -3,17 +3,19 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    [SerializeField] public GameObject smokePrefab, // hide enemy disappearing on death
-        weaponPickupPrefab; // can use the same prefab for the pickup
+    [SerializeField] public GameObject smokePrefab; // hide enemy disappearing on death
+    [SerializeField] private GameObject weaponPickupPrefab; // can use the same prefab for the pickup
     public int hp, // health
         dmgPerHit,// enemy's dmg per hit/shot
         wpnDropRate; // weapon drops 1 out of X times
+    public bool isDead;
 
     public Enemy()
     {
         hp = 0;
         dmgPerHit = 0;
         wpnDropRate = 4; // standard drop rate
+        isDead = false;
     }
 
     public int GetHP() { return hp; }
@@ -24,7 +26,7 @@ public class Enemy : MonoBehaviour
     {
         hp -= dmg;
 
-        if (hp <= 0) 
+        if (hp <= 0 && !isDead) // prevent repeat death
         { 
             StartCoroutine(HPDepleted());
         }
@@ -32,10 +34,11 @@ public class Enemy : MonoBehaviour
 
     public IEnumerator HPDepleted()
     {
+        isDead = true;
         // chance of weapon drop 
-      /*  int wpnDropChance = Random.Range(1, wpnDropRate + 1);
-        if (wpnDropChance == 1) */
-        Instantiate(weaponPickupPrefab, transform); // randomization handled by WeaponPickup.cs
+        /*  int wpnDropChance = Random.Range(1, wpnDropRate + 1);
+          if (wpnDropChance == 1) */
+        Instantiate(weaponPickupPrefab, transform.position, Quaternion.identity);
 
         // drop ammo - random amount within a range
         // to randomize which ammo type, just set random range as 0 or 1 (Range(0, 2)) to determine which 

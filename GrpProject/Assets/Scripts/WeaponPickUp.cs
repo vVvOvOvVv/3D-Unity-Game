@@ -6,7 +6,7 @@ public class WeaponPickUp : MonoBehaviour
 {
     //public GameObject weaponPrefab;
     //public float respawnTime = 5f;
-    public GameObject[] weaponPrefabs;
+    public GameObject[] weaponPrefabs; // equipped weapon prefabs 
 
     private Renderer render;
     private Collider collide;
@@ -24,7 +24,7 @@ public class WeaponPickUp : MonoBehaviour
         {
             PickUp();
         }
-    }
+    } 
 
     /*void PickUp()
     {

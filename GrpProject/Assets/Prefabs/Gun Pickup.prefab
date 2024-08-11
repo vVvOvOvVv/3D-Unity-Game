@@ -124,3 +124,4 @@ MonoBehaviour:
   - {fileID: 3916671132237625967, guid: 89bb1e0d0f6125549893b4e3ec71c0ae, type: 3}
   - {fileID: 3916671132237625967, guid: cf58c535effa1e64b801e0b5357d66be, type: 3}
   - {fileID: 6652363439759158525, guid: 9b8dfdf9842ee4547b50d9d212ed8719, type: 3}
+  weaponPickupPrefab: {fileID: 2401814541304874731}

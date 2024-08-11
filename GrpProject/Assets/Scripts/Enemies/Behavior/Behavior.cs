@@ -52,6 +52,9 @@ public class Behavior : MonoBehaviour
 
     public void Update()
     {
-        StartCoroutine(AgentNearPlayer());
+        if (agent != null)
+        {
+            StartCoroutine(AgentNearPlayer()); 
+        }
     }
 }
