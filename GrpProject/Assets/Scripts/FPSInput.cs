@@ -1,6 +1,7 @@
 using System.Collections;
-using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI; 
 
 [RequireComponent(typeof(CharacterController))] // enforces dependency on character controller
 
@@ -23,6 +24,13 @@ public class FPSInput : MonoBehaviour
     public int maxHealth = 100;
     public int currentHealth;
     public float healthRecoveryAmount = 1.0f;
+    [SerializeField] private Slider playerHPBar;
+    [SerializeField] private TextMeshProUGUI currentHPTxt, maxHPTxt;
+
+    // shield variables
+    [SerializeField] public int shield = 0, maxShield = 100;
+    [SerializeField] public Slider playerShieldBar;
+    [SerializeField] private TextMeshProUGUI shieldTxt;
 
     private Vector3 movementDirection;
 
@@ -33,7 +41,11 @@ public class FPSInput : MonoBehaviour
         charController = GetComponent<CharacterController>();
 
         // Initialize health
-        currentHealth = maxHealth;
+        currentHealth = maxHealth; 
+        UpdateHPNumbers();
+        // shield
+        playerShieldBar.maxValue = maxShield;
+        playerShieldBar.enabled = false;
     }
 
     // Update is called once per frame
@@ -76,7 +88,7 @@ public class FPSInput : MonoBehaviour
         {
             charController.Move(movementDirection);
         }
-    }
+    } 
 
     private IEnumerator Dash()
     {
@@ -96,7 +108,21 @@ public class FPSInput : MonoBehaviour
     }
     public void TakeDamage(int dmg)
     {
+        // if player has shield/armor, consume that first
+        if (shield < 0)
+        {
+            if (shield < dmg)
+            {
+                currentHealth -= dmg - shield;
+                shield = 0;
+            } else
+            {
+                shield -= dmg;
+            }
+        }
         currentHealth -= dmg;
+        UpdatePlayerHPBar();
+        UpdateHPNumbers();
 
         if (currentHealth <= 0)
         {
@@ -104,5 +130,27 @@ public class FPSInput : MonoBehaviour
             Debug.Log("HP depleted, resetting health");
             currentHealth = maxHealth; // DELETE LATER - for debugging only
         }
+    }
+
+    private void UpdatePlayerHPBar()
+    {
+        playerHPBar.value = currentHealth / maxHealth;
+    }
+
+    private void UpdateHPNumbers()
+    {
+        currentHPTxt.SetText(currentHealth.ToString());
+        maxHPTxt.SetText(maxHealth.ToString());
+    }
+
+    private void UpdateArmorBar()
+    {
+        shieldTxt.SetText(shield.ToString());
+        playerShieldBar.value = shield;
+
+        if (shield <= 0)
+            playerShieldBar.enabled = false;
+        else
+            playerShieldBar.enabled = true;
     }
 }

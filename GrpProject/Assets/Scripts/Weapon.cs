@@ -1,3 +1,4 @@
+// for each weapon prefab, assign this script, and adjust values in Inspector
 using System.Collections;
 using UnityEngine; 
 
@@ -6,19 +7,28 @@ public class Weapon : MonoBehaviour
 
     // gun stats
     public int maxAmmo = 10; // Maximum ammo capacity    
-    [SerializeField] public int currentAmmo;  // Current ammo count
-    public int dmg, spread, normalSpread;
-    public float timeBetweenShots, reloadTime, timeBetweenShooting, impulseStrength;
-    public int bulletsShot, bulletsPerTap, reserveAmmo;
+    [SerializeField] public int currentAmmo;  // Current ammo count 
+    public int dmg, spread, bulletsShot, bulletsPerTap, reserveAmmo;
+    public float timeBetweenShots, reloadTime, timeBetweenShooting, impulseStrength; 
+    private int normalSpread;
 
-    // booleans
+    // booleans - standard booleans
     public bool readyToShoot, isReloading, allowButtonHold, shooting;
+    // booleans - determine if it deals special damage types
+    public bool isFire, isPoison, isShock; // if all false => standard dmg type 
+
+    // constant variables
+    [SerializeField] private static int ShockChance = 5, // inflict shock 1 in X chance
+        ShockTime = 3, // time shock is inflicted
+        PoisonTime = 5,
+        FireDmg = 1;
+    [SerializeField] private static float PoisonSlowFactor = 0.7f; 
 
     // references
     protected Camera cam;
     public GameObject particleSysPrefab; 
 
-    protected virtual void Start()
+    private void Start()
     {
         cam = Camera.main;
         currentAmmo = maxAmmo;
@@ -26,8 +36,8 @@ public class Weapon : MonoBehaviour
         reserveAmmo = maxAmmo * 3;
         normalSpread = spread;
     }
-
-    public virtual void Shoot()
+ 
+    public void Shoot() 
     {
         readyToShoot = false;
 
@@ -60,8 +70,25 @@ public class Weapon : MonoBehaviour
             }
              
             Enemy enemy = hitObject.GetComponent<Enemy>();
-            if (enemy != null)
+            if (enemy != null) 
+            {
                 enemy.TakeDamage(dmg);
+
+                // dmg types
+                // fire
+
+                // shock
+                if (isShock)
+                {
+                    // 1/5 chance to inflict shock
+                    int rand = Random.Range(0, 5);
+                    if (rand == 0)
+                        hitObject.GetComponent<Behavior>().ShockEnemy(ShockTime);
+                }
+                // poison
+                if (isPoison)
+                    hitObject.GetComponent<Behavior>().PoisonEnemy(PoisonTime, PoisonSlowFactor);
+            }
 
             StartCoroutine(GeneratePS(hit));
         }
@@ -69,21 +96,19 @@ public class Weapon : MonoBehaviour
 
         Debug.DrawRay(ray.origin, ray.direction * 100f, Color.red, 1f); // Visualize the ray
 
-
         currentAmmo--;
         bulletsShot--;
         // only allow player to fire again after set time - rate of fire
         Invoke("ResetShot", timeBetweenShooting);
         // in the case of multiple shots firing at once
         if (bulletsShot > 0 && currentAmmo > 0)
-            Invoke("Shoot", timeBetweenShots);
+            Invoke("Shoot", timeBetweenShots); 
     }
 
     public void ResetShot()
     {
         readyToShoot = true;
-    }
-
+    } 
     public void Reload()
     {
         isReloading = true;
@@ -109,8 +134,8 @@ public class Weapon : MonoBehaviour
         // upon pick up, add additional ammo to reserve
         reserveAmmo += ammoAdded;
     }
-
-    public IEnumerator GeneratePS(RaycastHit hit)
+ 
+    private IEnumerator GeneratePS(RaycastHit hit) 
     { 
         GameObject ps = Instantiate(particleSysPrefab, hit.point, Quaternion.LookRotation(hit.normal));
         yield return new WaitForSeconds(1);
