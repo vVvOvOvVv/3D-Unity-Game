@@ -54,11 +54,10 @@ public class FPSInput : MonoBehaviour
         // changes based on WASD keys
         float deltaX = Input.GetAxis("Horizontal");
         float deltaZ = Input.GetAxis("Vertical");
-        movementDirection = transform.right * deltaX + transform.forward * deltaZ;
-
+        Vector3 inputDirection = transform.right * deltaX + transform.forward * deltaZ;
+        
         // make diagonal movement consistent
-        movementDirection = Vector3.ClampMagnitude(movementDirection, 1.0f) * speed;
-
+        movementDirection = Vector3.ClampMagnitude(inputDirection, 1.0f) * speed;
         if (Input.GetButtonDown("Jump") && charController.isGrounded)
         {
             vertSpeed = jumpSpeed;
@@ -73,36 +72,57 @@ public class FPSInput : MonoBehaviour
         }
 
         movementDirection.y = vertSpeed;
-        movementDirection *= Time.deltaTime;
-        //charController.Move(movement);
-
+   
         // Check for dash input
-        if (Input.GetKeyDown(KeyCode.LeftShift) && !isDashing)
+        if (Input.GetKeyDown(KeyCode.LeftShift))
         {
-            StartCoroutine(Dash());
+            if (!isDashing)
+            {
+                if (!charController.isGrounded && Input.GetButton("Jump"))
+                {
+                    StartCoroutine(AirDash());
+                }
+                else
+                {
+                    StartCoroutine(Dash());
+                }
+            }
         }
 
         // Apply movement
         if (!isDashing)
         {
-            charController.Move(movementDirection);
+            charController.Move(movementDirection * Time.deltaTime);
         }
-    } 
+    }
+
+    private IEnumerator AirDash()
+    {
+        isDashing = true;
+        Vector3 dashDirection = new Vector3(movementDirection.x, 0, movementDirection.z).normalized * dashSpeed;
+        Vector3 dashVertical = new Vector3(0, vertSpeed, 0); // maintain current vertical velocity
+        float startTime = Time.time;
+        while (Time.time < startTime + dashDuration)
+        {
+            // Combine dashDirection with current vertical speed
+            charController.Move((dashDirection + dashVertical) * Time.deltaTime);
+            yield return null;
+        }
+        isDashing = false;
+    }
 
     private IEnumerator Dash()
     {
         isDashing = true;
 
         // Calculate dash direction
-        Vector3 dashDirection = movementDirection.normalized * dashSpeed;
-
+        Vector3 dashDirection = new Vector3(movementDirection.x, 0, movementDirection.z).normalized * dashSpeed;
         float startTime = Time.time;
         while (Time.time < startTime + dashDuration)
         {
             charController.Move(dashDirection * Time.deltaTime);
             yield return null;
-        }
-
+        }  
         isDashing = false;
     }
 
