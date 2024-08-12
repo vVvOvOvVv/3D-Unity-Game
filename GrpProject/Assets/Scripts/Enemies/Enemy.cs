@@ -14,16 +14,12 @@ public class Enemy : MonoBehaviour
 
     public void Awake()
     {
-        hpBar = GetComponentInChildren<EnemyHPBar>();
-    }
-
-    public Enemy()
-    { 
         wpnDropRate = 4; // standard drop rate
         isDead = false;
         if (hpBar != null)
             hpBar.UpdateHPBar(hp, maxHP);
-        else Debug.LogError("HP DONDE ESTA");
+        else
+            Debug.LogError("HP DONDE ESTA");
     }
 
     public int GetHP() { return hp; }

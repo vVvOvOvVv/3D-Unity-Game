@@ -1,9 +1,10 @@
 public class Sniper : Enemy
-{ 
-    public Sniper() : base()
+{
+    private new void Awake()
     {
         maxHP = 20;
         hp = maxHP;
         dmgPerHit = 25;
+        base.Awake();
     }
 }

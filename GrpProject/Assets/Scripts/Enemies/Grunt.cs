@@ -1,9 +1,10 @@
 public class Grunt : Enemy
-{ 
-    public Grunt() : base()
+{
+    private new void Awake()
     {
         maxHP = 10;
         hp = maxHP;
         dmgPerHit = 2;
-    }
+        base.Awake();
+    } 
 }
