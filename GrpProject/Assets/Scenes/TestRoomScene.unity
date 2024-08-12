@@ -8780,6 +8780,14 @@ PrefabInstance:
       propertyPath: playerTransform
       value: 
       objectReference: {fileID: 1625673873}
+    - target: {fileID: 637519660648324777, guid: 42efa36f95f03924da43606614121563, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 637519660648324777, guid: 42efa36f95f03924da43606614121563, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 769180596988677789, guid: 42efa36f95f03924da43606614121563, type: 3}
       propertyPath: m_Name
       value: GruntTest
@@ -9035,6 +9043,14 @@ PrefabInstance:
       propertyPath: waypoints.Array.data[2]
       value: 
       objectReference: {fileID: 1885453132}
+    - target: {fileID: 4428567760696521136, guid: 55be4d5dff4b3224695edcf98e78ef83, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4428567760696521136, guid: 55be4d5dff4b3224695edcf98e78ef83, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4516418631235794328, guid: 55be4d5dff4b3224695edcf98e78ef83, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

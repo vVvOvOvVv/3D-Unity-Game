@@ -15,7 +15,6 @@ public class Enemy : MonoBehaviour
     public void Start()
     {
         hpBar = GetComponentInChildren<EnemyHPBar>();
-        hpBar.UpdateHPBar(hp, maxHP);
     }
 
     public Enemy()
@@ -25,6 +24,7 @@ public class Enemy : MonoBehaviour
         dmgPerHit = 0;
         wpnDropRate = 4; // standard drop rate
         isDead = false;
+        hpBar.UpdateHPBar(hp, maxHP);
     }
 
     public int GetHP() { return hp; }
