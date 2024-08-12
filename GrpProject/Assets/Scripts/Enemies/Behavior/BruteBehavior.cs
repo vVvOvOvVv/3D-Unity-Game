@@ -10,18 +10,23 @@ public class BruteBehavior : Behavior
     {
         // when the agent is about 10m away from the player, stop for a moment, mark player's position at this time
         // run at the mark, dealing damage to the player on collision
-        float distanceToPlayer = Vector3.Distance(agent.transform.position, playerTransform.position);
+        float distanceToPlayer = Vector3.Distance(agent.transform.position, playerTransform.position); 
         if (distanceToPlayer <= 15.0f)
         {
-            agent.isStopped = true;
+            agent.speed = 0;
+            enemyAnim.SetTrigger("Move to Idle");
             Vector3 target = playerTransform.position;
             agent.destination = target;
-            yield return new WaitForSeconds(1); // charge animation
-            agent.speed *= 1.5f;
+
+            yield return new WaitForSeconds(1); // charge 
+            
+            agent.speed = spd * 1.5f;
             agent.isStopped = false;
+            enemyAnim.SetTrigger("Idle to Attack");
             if (agent.transform.position == target)
             {
-                agent.speed /= 1.5f;
+                enemyAnim.SetTrigger("Attack to Move");
+                agent.speed = spd;
             }
         }
         else

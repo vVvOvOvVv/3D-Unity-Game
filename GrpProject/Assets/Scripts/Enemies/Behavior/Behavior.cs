@@ -7,6 +7,12 @@ public class Behavior : MonoBehaviour
 
     [SerializeField] public Transform playerTransform; // to allow AI to follow player
     [SerializeField] public Enemy enemyScript;
+    [SerializeField] public GameObject enemyModel; 
+    public enum EnemyState { Move, Idle, Attack};
+    public EnemyState enemyState = EnemyState.Move;
+    public Animator enemyAnim;
+    public float spd;
+
     public NavMeshAgent agent;
     public GameObject player;
     public bool isShocked, isPoisoned, isBurn;
@@ -46,15 +52,16 @@ public class Behavior : MonoBehaviour
 
     protected void Start()
     {
-        agent = GetComponent<NavMeshAgent>();
+        agent = GetComponent<NavMeshAgent>(); 
         player = GameObject.FindWithTag("Player");
+        spd = agent.speed;
     }
 
     public void Update()
     {
         if (agent != null)
         {
-            StartCoroutine(AgentNearPlayer()); 
+            StartCoroutine(AgentNearPlayer());
         }
     }
 }
