@@ -977,6 +977,17 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &157520532 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3695138305564154464, guid: a965c1999bcc4f544bfcbe2ca3db9c04, type: 3}
+  m_PrefabInstance: {fileID: 325098986}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!65 &184988484
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1538,6 +1549,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5516912431249943746, guid: a965c1999bcc4f544bfcbe2ca3db9c04, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5716749132574474395, guid: a965c1999bcc4f544bfcbe2ca3db9c04, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -1592,6 +1607,28 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &325098990 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7142559415046122433, guid: a965c1999bcc4f544bfcbe2ca3db9c04, type: 3}
+  m_PrefabInstance: {fileID: 325098986}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &325098991 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5516912431249943746, guid: a965c1999bcc4f544bfcbe2ca3db9c04, type: 3}
+  m_PrefabInstance: {fileID: 325098986}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &335118208
@@ -3813,6 +3850,18 @@ MonoBehaviour:
   shotgunCrosshair: {fileID: 1388220656}
   machinegunCrosshair: {fileID: 662596617}
   inventoryPanel: {fileID: 1650813486}
+  pistolIcon: {fileID: 21300022, guid: 6674e8c43c63e4f4184cbd009379498d, type: 3}
+  shotgunIcon: {fileID: 21300012, guid: 6674e8c43c63e4f4184cbd009379498d, type: 3}
+  machinegunIcon: {fileID: 21300042, guid: 6674e8c43c63e4f4184cbd009379498d, type: 3}
+  fireIcon: {fileID: 21300000, guid: 3d470df9a9c7dba4396105716b8737ff, type: 3}
+  poisonIcon: {fileID: 21300000, guid: e600b90ad40b15f4386bf18e9dcee3bc, type: 3}
+  shockIcon: {fileID: 21300000, guid: 7943a1685af23ec4eb061e51048722c4, type: 3}
+  gunIcons:
+  - {fileID: 1272917611}
+  - {fileID: 157520532}
+  elementIcons:
+  - {fileID: 325098991}
+  - {fileID: 325098990}
 --- !u!1 &884565107
 GameObject:
   m_ObjectHideFlags: 0
@@ -5896,6 +5945,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 510248444000824863, guid: 9d3c6113164fd3b488040a35893b058c, type: 3}
   m_PrefabInstance: {fileID: 1225854066}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1272917611 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3263569423063325798, guid: a965c1999bcc4f544bfcbe2ca3db9c04, type: 3}
+  m_PrefabInstance: {fileID: 325098986}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1295929285 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 936655011711060175, guid: 5e10be2f5a748844dbd0b2b7e6fafd4a, type: 3}
@@ -8832,6 +8892,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6124137427849767079, guid: 42efa36f95f03924da43606614121563, type: 3}
+      propertyPath: cam
+      value: 
+      objectReference: {fileID: 1057707576}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -9091,6 +9155,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7012329615855028158, guid: 55be4d5dff4b3224695edcf98e78ef83, type: 3}
+      propertyPath: cam
+      value: 
+      objectReference: {fileID: 1057707576}
     - target: {fileID: 7693298577716713787, guid: 55be4d5dff4b3224695edcf98e78ef83, type: 3}
       propertyPath: m_Name
       value: Sniper

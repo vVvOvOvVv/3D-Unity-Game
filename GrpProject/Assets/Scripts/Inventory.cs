@@ -1,6 +1,6 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Inventory : MonoBehaviour
 {
@@ -16,7 +16,12 @@ public class Inventory : MonoBehaviour
     [SerializeField]
     private GameObject pistolCrosshair, shotgunCrosshair, machinegunCrosshair, // crosshairs
         inventoryPanel; // panel showing what guns are equipped
-    // need variables for the different gun icons to update them
+    // icons for the HUD
+    [SerializeField]
+    private Sprite
+        pistolIcon, shotgunIcon, machinegunIcon, // guns
+        fireIcon, poisonIcon, shockIcon; // element - no icon => normal/standard
+    [SerializeField] private Image[] gunIcons, elementIcons; // HUD
 
     private void Awake()
     {
@@ -37,6 +42,10 @@ public class Inventory : MonoBehaviour
         lastPickedWeapon = pistolPrefab; // Initialize with pistol
         secondLastPickedWeapon = null;
         inventoryPanel = GameObject.FindWithTag("InventoryPanel");
+
+        // no starting elements
+        elementIcons[0].GetComponent<Image>().enabled = false;
+        elementIcons[1].GetComponent<Image>().enabled = false;
     }
 
     public void SwitchWeapon(GameObject weaponPrefab)
@@ -58,7 +67,6 @@ public class Inventory : MonoBehaviour
 
             // update HUD
             // change crossair
-
             // show inventory
             StartCoroutine(ShowInventory());
 
@@ -85,7 +93,17 @@ public class Inventory : MonoBehaviour
 
         lastPickedWeapon = weaponPrefab;
 
-        // change weapon icons on inventory panel
+        // change inventory icons
+        gunIcons[1].sprite = gunIcons[0].sprite;
+        if (currentWeapon.allowButtonHold) // machinegun
+            gunIcons[0].sprite = machinegunIcon;
+        else
+        {
+            if (currentWeapon.bulletsPerTap == 1) // pistol/handgun
+                gunIcons[0].sprite = pistolIcon;
+            else // shotgun (more than 1 bullet per tap)
+                gunIcons[0].sprite = shotgunIcon;
+        }
 
         // Always switch to the last picked weapon
         SwitchWeapon(lastPickedWeapon);

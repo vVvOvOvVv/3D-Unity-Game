@@ -1,6 +1,6 @@
 public class Sniper : Enemy
 { 
-    public Sniper()
+    public Sniper() : base()
     {
         maxHP = 20;
         hp = maxHP;

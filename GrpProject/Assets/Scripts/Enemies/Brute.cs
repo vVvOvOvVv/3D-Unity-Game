@@ -1,9 +1,9 @@
 public class Brute : Enemy
 { 
-    public Brute()
+    public Brute() : base()
     {
         maxHP = 30;
         hp = maxHP;
-        dmgPerHit = 15;
+        dmgPerHit = 15;  
     }
 }

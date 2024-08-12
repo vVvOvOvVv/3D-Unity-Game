@@ -1,6 +1,6 @@
 public class Grunt : Enemy
 { 
-    public Grunt()
+    public Grunt() : base()
     {
         maxHP = 10;
         hp = maxHP;
