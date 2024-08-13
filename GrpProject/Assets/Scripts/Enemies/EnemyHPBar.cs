@@ -10,10 +10,8 @@ public class EnemyHPBar : MonoBehaviour
 
     public void UpdateHPBar(int hp, int maxHP)
     {
-        hpSlider.value = hp / maxHP;
+        hpSlider.value = (float)hp / maxHP;
         Debug.Log("Slider value: " + hpSlider.value);
-        Debug.Log("HP: " + hp);
-        Debug.Log("Max HP: " + maxHP);
     }
 
     private void Update()

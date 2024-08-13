@@ -1,9 +1,10 @@
 public class Brute : Enemy
-{ 
-    public Brute() : base()
+{   
+    private new void Awake()
     {
         maxHP = 30;
         hp = maxHP;
-        dmgPerHit = 15;  
+        dmgPerHit = 15;
+        base.Awake();
     }
 }

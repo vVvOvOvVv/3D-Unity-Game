@@ -125,6 +125,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerTransform: {fileID: 0}
   enemyScript: {fileID: 8296782888063128743}
+  enemyModel: {fileID: 5168687363979159230, guid: 94e8f4c516694ed408e07891c96ee7e6, type: 3}
+  enemyState: 0
+  enemyAnim: {fileID: 0}
+  spd: 0
   agent: {fileID: 0}
   player: {fileID: 0}
   isShocked: 0
