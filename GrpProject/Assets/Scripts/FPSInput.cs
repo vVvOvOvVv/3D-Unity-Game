@@ -29,7 +29,8 @@ public class FPSInput : MonoBehaviour
 
     // shield variables
     [SerializeField] public int shield = 0, maxShield = 100;
-    [SerializeField] public Slider playerShieldBar;
+    [SerializeField] public GameObject playerShieldBarObj;
+    private Slider playerShieldBarSlider;
     [SerializeField] private TextMeshProUGUI shieldTxt;
 
     private Vector3 movementDirection;
@@ -44,8 +45,9 @@ public class FPSInput : MonoBehaviour
         currentHealth = maxHealth; 
         UpdateHPNumbers();
         // shield
-        playerShieldBar.maxValue = maxShield;
-        playerShieldBar.enabled = false;
+        playerShieldBarSlider = playerShieldBarObj.GetComponent<Slider>();
+        playerShieldBarSlider.maxValue = maxShield;
+        playerShieldBarObj.SetActive(false);
     }
 
     // Update is called once per frame
@@ -129,7 +131,7 @@ public class FPSInput : MonoBehaviour
     public void TakeDamage(int dmg)
     {
         // if player has shield/armor, consume that first
-        if (shield < 0)
+        if (shield > 0)
         {
             if (shield < dmg)
             {
@@ -139,6 +141,7 @@ public class FPSInput : MonoBehaviour
             {
                 shield -= dmg;
             }
+            UpdateArmorBar();
         }
         currentHealth -= dmg;
         UpdatePlayerHPBar();
@@ -163,14 +166,15 @@ public class FPSInput : MonoBehaviour
         maxHPTxt.SetText(maxHealth.ToString());
     }
 
-    private void UpdateArmorBar()
-    {
-        shieldTxt.SetText(shield.ToString());
-        playerShieldBar.value = shield;
-
+    public void UpdateArmorBar()
+    { 
         if (shield <= 0)
-            playerShieldBar.enabled = false;
+            playerShieldBarObj.SetActive(false);
         else
-            playerShieldBar.enabled = true;
+        {
+            playerShieldBarObj.SetActive(true);
+            shieldTxt.SetText(shield.ToString());
+            playerShieldBarSlider.value = shield;
+        }
     }
 }
