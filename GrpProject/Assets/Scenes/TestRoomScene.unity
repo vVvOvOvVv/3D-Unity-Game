@@ -3823,9 +3823,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponHolder: {fileID: 5117624531351364970}
   pistolPrefab: {fileID: 1499070045634072845, guid: d0c71b5d4c6a13a41a19a9c38e0c376e, type: 3}
-  pistolCrosshair: {fileID: 1968387025}
-  shotgunCrosshair: {fileID: 1388220656}
-  machinegunCrosshair: {fileID: 662596617}
   inventoryPanel: {fileID: 1650813486}
   gunIcons:
   - {fileID: 666436456}
@@ -3834,6 +3831,10 @@ MonoBehaviour:
   - {fileID: 1000158592}
   - {fileID: 1801351075}
   - {fileID: 1721981002}
+  crosshairs:
+  - {fileID: 1968387025}
+  - {fileID: 1388220656}
+  - {fileID: 662596617}
   elementIcons:
   - {fileID: 1977223526}
   - {fileID: 489410341}

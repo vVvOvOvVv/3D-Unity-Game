@@ -14,12 +14,12 @@ public class Inventory : MonoBehaviour
 
     // HUD
     [SerializeField]
-    private GameObject pistolCrosshair, shotgunCrosshair, machinegunCrosshair, // crosshairs
-        inventoryPanel; // panel showing what guns are equipped
+    private GameObject inventoryPanel; // panel showing what guns are equipped
     // icons for the HUD
     [SerializeField]
     private GameObject[] gunIcons, // guns - idx 0-2 slot 1, idx 3-5 slot 2 
             // ensure order is handgun > shotgun > machinegun
+        crosshairs, // ensure same order as gunIcons
         elementIcons; // element - no icon => normal/standard  - idx 0-2 slot 1, idx 3-5 slot 2 
             // ensure order is fire > shock > poison
     private static int IdxOffset = 3;
@@ -64,6 +64,7 @@ public class Inventory : MonoBehaviour
 
             // update HUD
             // change crossair
+            ChangeCrosshair();
             // show inventory
             StartCoroutine(ShowInventory());
 
@@ -157,5 +158,24 @@ public class Inventory : MonoBehaviour
                 elementIcons[2 + idxOffset].SetActive(true);
             // if all false, not need for element icons
         } else Debug.LogError("Weapon.cs not found on " + weapon.name);
+    }
+
+    private void ChangeCrosshair( )
+    {
+        // deactivate all crosshairs
+        for (int i = 0; i < crosshairs.Length; i++)
+            crosshairs[i].SetActive(false);
+         
+        if (currentWeapon != null)
+        {
+            if (currentWeapon.allowButtonHold) // machinegun
+                crosshairs[2].SetActive(true);
+            else
+            {
+                if (currentWeapon.bulletsPerTap == 1) // pistol/handgun
+                    crosshairs[0].SetActive(true);
+                else crosshairs[1].SetActive(true); // shotgun
+            }
+        } else crosshairs[0].SetActive(true); // pistol crosshair as default
     }
 }
