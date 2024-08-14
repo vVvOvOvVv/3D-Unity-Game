@@ -141,14 +141,11 @@ public class Inventory : MonoBehaviour
         if (wpnScript != null)
         {
             // gun icons
-            if (wpnScript.allowButtonHold) // machinegun
-                gunIcons[2 + idxOffset].SetActive(true);
-            else
-            {
-                if (wpnScript.bulletsPerTap == 1) // one bullet per click => pistol/handgun
+            if (wpnScript.gunType == Weapon.GunType.Machinegun)
+                gunIcons[2 + idxOffset].SetActive(true); 
+            else if (wpnScript.gunType == Weapon.GunType.Handgun)  
                     gunIcons[0 + idxOffset].SetActive(true);
-                else gunIcons[1 + idxOffset].SetActive(true); // shotgun (2 bullets per tap)
-            }
+            else gunIcons[1 + idxOffset].SetActive(true); // shotgun (2 bullets per tap) 
             // element icons
             if (wpnScript.isFire)
                 elementIcons[0 + idxOffset].SetActive(true);
@@ -168,14 +165,11 @@ public class Inventory : MonoBehaviour
          
         if (currentWeapon != null)
         {
-            if (currentWeapon.allowButtonHold) // machinegun
+            if (currentWeapon.gunType == Weapon.GunType.Machinegun)
                 crosshairs[2].SetActive(true);
-            else
-            {
-                if (currentWeapon.bulletsPerTap == 1) // pistol/handgun
-                    crosshairs[0].SetActive(true);
-                else crosshairs[1].SetActive(true); // shotgun
-            }
+            else if (currentWeapon.gunType == Weapon.GunType.Handgun)
+                crosshairs[0].SetActive(true);
+            else crosshairs[1].SetActive(true); // shotgun 
         } else crosshairs[0].SetActive(true); // pistol crosshair as default
     }
 }

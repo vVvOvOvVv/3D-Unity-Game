@@ -1,9 +1,14 @@
 // for each weapon prefab, assign this script, and adjust values in Inspector
 using System.Collections;
-using UnityEngine; 
+using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
+    // enum
+    public enum GunType { Handgun, Shotgun, Machinegun };
+    public enum DamageType { Normal, Fire, Shock, Poison };
+    [SerializeField] public GunType gunType;
+    [SerializeField] public DamageType dmgType;
 
     // gun stats
     public int maxAmmo = 10; // Maximum ammo capacity    

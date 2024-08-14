@@ -117,7 +117,9 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: add27808cebf7f84c85beed109970a6f, type: 3}
   m_Name: 
-  m_EditorClassIdentifier:  
+  m_EditorClassIdentifier: 
+  gunType: 2
+  dmgType: 0
   maxAmmo: 100
   currentAmmo: 0
   dmg: 2
@@ -128,12 +130,12 @@ MonoBehaviour:
   timeBetweenShots: 0.25
   reloadTime: 3
   timeBetweenShooting: 0
-  impulseStrength: 0 
+  impulseStrength: 0
   readyToShoot: 0
   isReloading: 0
   allowButtonHold: 1
-  shooting: 0 
+  shooting: 0
   isFire: 0
   isPoison: 0
-  isShock: 0 
+  isShock: 0
   particleSysPrefab: {fileID: 6879897211538299802, guid: 8bf85859139cd6546bbca64b03ef8ccb, type: 3}

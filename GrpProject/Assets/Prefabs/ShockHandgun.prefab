@@ -118,6 +118,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: add27808cebf7f84c85beed109970a6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gunType: 0
+  dmgType: 2
   maxAmmo: 12
   currentAmmo: 0
   dmg: 5
