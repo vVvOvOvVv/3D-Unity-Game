@@ -25,10 +25,10 @@ public class UIController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //display the cursor when ESC key is pressed
+        //display the cursor and pause menu when ESC key is pressed
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            // unlock and display the cursor
+            //unlock and display the cursor
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
             OnOpenSettings();
@@ -62,5 +62,15 @@ public class UIController : MonoBehaviour
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         Time.timeScale = 1;
+    }
+
+    public void QuitGame()
+    {
+        #if UNITY_STANDALONE
+            Application.Quit();
+        #endif
+        #if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+        #endif
     }
 }
