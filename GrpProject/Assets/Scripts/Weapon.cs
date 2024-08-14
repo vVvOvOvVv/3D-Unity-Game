@@ -17,9 +17,14 @@ public class Weapon : MonoBehaviour
     // booleans - determine if it deals special damage types
     public bool isFire, isPoison, isShock; // if all false => standard dmg type 
 
+    // SHOCK LOGIC PROPERTIES
+    private int shockChance = 5; // Initial chance (5%)
+    private const int shockTime = 3; // Freeze time in seconds
+    private const int maxShockChance = 25; // Max chance before reset
+    private const int shockChanceIncrease = 2; // Chance increment per shot
+
     // constant variables
-    [SerializeField] private static int ShockChance = 5, // inflict shock 1 in X chance
-        ShockTime = 3, // time shock is inflicted
+    [SerializeField] private static int 
         PoisonTime = 5,
         FireDmg = 1;
     [SerializeField] private static float PoisonSlowFactor = 0.7f; 
@@ -77,13 +82,10 @@ public class Weapon : MonoBehaviour
                 // dmg types
                 // fire
 
-                // shock
+                // SHOCK LOGIC
                 if (isShock)
                 {
-                    // 1/5 chance to inflict shock
-                    int rand = Random.Range(0, 5);
-                    if (rand == 0)
-                        hitObject.GetComponent<Behavior>().ShockEnemy(ShockTime);
+                    ApplyShockEffect(hitObject);
                 }
                 // poison
                 if (isPoison)
@@ -105,6 +107,31 @@ public class Weapon : MonoBehaviour
         if (bulletsShot > 0 && currentAmmo > 0)
             Invoke("Shoot", timeBetweenShots); 
     }
+
+    // SHOCK LOGIC
+    private void ApplyShockEffect(GameObject hitObject)
+    {
+        shockChance = 100; // temporary 100% chance for debugging purp
+        int rand = Random.Range(0, 100); // random number between 0 and 99
+
+        if (rand < shockChance)
+        {
+            // Shock effect is applied
+            Behavior behaviorScript = hitObject.GetComponent<Behavior>();
+            if (behaviorScript != null)
+            {
+                StartCoroutine(behaviorScript.ShockEnemy(shockTime));
+            }
+            shockChance = 5; // reset shock chance after successful shock
+        }
+        else
+        {
+            // increase shock chance for next shot
+            shockChance += shockChanceIncrease;
+            shockChance = Mathf.Min(shockChance, maxShockChance); // cap the chance at a maximum value
+        }
+    }
+
 
     public void ResetShot()
     {

@@ -18,6 +18,14 @@ public class BruteBehavior : Behavior
     {
         while (true)
         {
+            // SHOCK LOGIC CHECK FOR SHOCKED STATUS BEFORE MOVING AGAIN (AgentNearPlayer)
+            if (isShocked)
+            {
+                agent.isStopped = true;
+                agent.speed = 0;
+                yield return null;
+                continue;
+            }
             // Calculate the distance to the player
             float distanceToPlayer = Vector3.Distance(agent.transform.position, playerTransform.position);
 
