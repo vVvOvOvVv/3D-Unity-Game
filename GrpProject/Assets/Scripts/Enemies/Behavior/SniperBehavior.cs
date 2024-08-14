@@ -2,12 +2,10 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class SniperBehavior : MonoBehaviour
-{
-    public Transform playerTransform;
+public class SniperBehavior : Behavior
+{ 
     public int health = 10;
-
-    private NavMeshAgent agent;
+     
     private Animator animator;
     private float shootInterval = 5.0f; // Time between shots
     private bool isShooting = false;
@@ -17,7 +15,7 @@ public class SniperBehavior : MonoBehaviour
     [SerializeField] private Transform[] waypoints;
     private LineRenderer lineRenderer;
 
-    private void Start()
+    private new void Start()
     {
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
@@ -36,7 +34,7 @@ public class SniperBehavior : MonoBehaviour
         }
     }
 
-    private void Update()
+    private new void Update()
     {
         if (waypoints.Length == 0 || playerTransform == null)
             return;
@@ -89,14 +87,5 @@ public class SniperBehavior : MonoBehaviour
         {
             currentWaypoint = 0; // Loop back to the first waypoint
         }
-    }
-
-    public void TakeDamage(int damage)
-    {
-        health -= damage;
-        if (health <= 0)
-        {
-            Destroy(gameObject);
-        }
-    }
+    } 
 }
