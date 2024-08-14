@@ -32,14 +32,7 @@ public class Shootable : MonoBehaviour
     }
 
     public void TakeDamage(int damage)
-    {
-        Armor armor = FindAnyObjectByType<Armor>();
-        if (armor != null && armor.IsArmorActive())
-        {
-            Debug.Log("No damage taken due to player armor.");
-            return;
-        }
-
+    { 
         health -= damage;
         hitCount++;
 

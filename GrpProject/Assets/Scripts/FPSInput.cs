@@ -27,7 +27,8 @@ public class FPSInput : MonoBehaviour
 
     // Shield variables
     [SerializeField] public int shield = 0, maxShield = 100;
-    [SerializeField] public Slider playerShieldBar;
+    [SerializeField] private Slider playerShieldBar;
+    [SerializeField] private GameObject playerShieldBarObj;
     [SerializeField] private TextMeshProUGUI shieldTxt;
 
     // Game Over
@@ -47,7 +48,7 @@ public class FPSInput : MonoBehaviour
 
         // Initialize shield
         playerShieldBar.maxValue = maxShield;
-        playerShieldBar.enabled = false;
+        playerShieldBarObj.SetActive(false);
 
         // Hide Game Over Canvas initially
         GameOverCanvas.SetActive(false);
@@ -149,20 +150,14 @@ public class FPSInput : MonoBehaviour
         }
 
         // Apply remaining damage to health
-        currentHealth -= dmg;
-
-        // Ensure health doesn't drop below 0
-        if (currentHealth < 0)
-        {
-            currentHealth = 0;
-        }
+        currentHealth -= dmg; 
 
         UpdatePlayerHPBar();
         UpdateHPNumbers();
         UpdateArmorBar();
 
         // Trigger Game Over Screen if health is 0
-        if (currentHealth == 0)
+        if (currentHealth <= 0)
         {
             GameOverCanvas.SetActive(true);
             Time.timeScale = 0; // Pause the game
@@ -191,8 +186,8 @@ public class FPSInput : MonoBehaviour
         playerShieldBar.value = shield;
 
         if (shield <= 0)
-            playerShieldBar.enabled = false;
+            playerShieldBarObj.SetActive(false);
         else
-            playerShieldBar.enabled = true;
+            playerShieldBarObj.SetActive(true);
     }
 }

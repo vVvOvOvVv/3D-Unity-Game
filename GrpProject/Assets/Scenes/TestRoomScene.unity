@@ -2394,6 +2394,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameOverCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 5020714683444903510, guid: 714e89cd7e12ab6419af00036edaa834, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3547,7 +3551,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 9064007399202195400, guid: a965c1999bcc4f544bfcbe2ca3db9c04, type: 3}
   m_PrefabInstance: {fileID: 325098986}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1870007616}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
@@ -7350,6 +7354,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbb5b5ad4c47d9d49b47b384d5304c79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  armorActive: 0
 --- !u!114 &1625673876
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7394,6 +7399,7 @@ MonoBehaviour:
   shield: 0
   maxShield: 100
   playerShieldBar: {fileID: 830407155}
+  playerShieldBarObj: {fileID: 1870007616}
   shieldTxt: {fileID: 277966294}
   GameOverCanvas: {fileID: 1036266464}
 --- !u!143 &1625673878
@@ -8028,6 +8034,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1870007616 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7927985440407920024, guid: a965c1999bcc4f544bfcbe2ca3db9c04, type: 3}
+  m_PrefabInstance: {fileID: 325098986}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1872568145
 GameObject:
   m_ObjectHideFlags: 0
