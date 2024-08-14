@@ -11,7 +11,7 @@ public class EnemyHPBar : MonoBehaviour
     public void UpdateHPBar(int hp, int maxHP)
     {
         hpSlider.value = (float)hp / maxHP;
-        Debug.Log("Slider value: " + hpSlider.value);
+        // Debug.Log("Slider value: " + hpSlider.value);
     }
 
     private void Update()
