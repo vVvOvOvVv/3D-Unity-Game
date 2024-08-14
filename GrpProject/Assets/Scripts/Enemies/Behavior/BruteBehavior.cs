@@ -5,36 +5,81 @@ using UnityEngine.AI; // required for NavMesh
 [RequireComponent(typeof(NavMeshAgent))]
 [RequireComponent (typeof(CapsuleCollider))]
 public class BruteBehavior : Behavior
-{ 
+{
+    private bool canAttack;
+
+    private new void Start()
+    {
+        base.Start(); 
+        canAttack = true;
+    }
+
     public override IEnumerator AgentNearPlayer()
     {
-        // when the agent is about 10m away from the player, stop for a moment, mark player's position at this time
-        // run at the mark, dealing damage to the player on collision
-        float distanceToPlayer = Vector3.Distance(agent.transform.position, playerTransform.position); 
-        if (distanceToPlayer <= 15.0f)
+        while (true)
         {
-            agent.speed = 0;
-            enemyAnim.SetTrigger("Move to Idle");
-            Vector3 target = playerTransform.position;
-            agent.destination = target;
+            // Calculate the distance to the player
+            float distanceToPlayer = Vector3.Distance(agent.transform.position, playerTransform.position);
 
-            yield return new WaitForSeconds(1); // charge 
-            
-            agent.speed = spd * 1.5f;
-            agent.isStopped = false;
-            enemyAnim.SetTrigger("Idle to Attack");
-            if (agent.transform.position == target)
+            if (distanceToPlayer <= 15.0f && agent != null && canAttack)
             {
-                enemyAnim.SetTrigger("Attack to Move");
+                // Pause and mark the player's position
+                canAttack = false;
+                agent.speed = 0;
+                agent.isStopped = true; // Stop the agent
+                enemyAnim.SetTrigger("Move to Idle");
+
+                Vector3 target = playerTransform.position; // Mark the player's current position
+
+                yield return new WaitForSeconds(1); // Wait for 1 second
+
+                // Charge towards the marked position at triple speed
+                agent.speed = spd * 3f;
+                agent.isStopped = false; // Resume agent movement
+                agent.destination = target;
+                enemyAnim.SetTrigger("Idle to Attack");
+
+                // Wait until the agent reaches the target or the player moves too far away
+                while (Vector3.Distance(agent.transform.position, target) > agent.stoppingDistance)
+                {
+                    distanceToPlayer = Vector3.Distance(agent.transform.position, playerTransform.position);
+
+                    // If the player moves more than 15 units away from the target, break and chase the player
+                    if (distanceToPlayer > 15.0f) 
+                        break; 
+
+                    yield return null;
+                }
+
+                // Pause for 2 seconds at the target position if the player is still close
+                if (Vector3.Distance(agent.transform.position, target) <= agent.stoppingDistance)
+                {
+                    agent.speed = 0;
+                    agent.isStopped = true; // Stop the agent
+                    enemyAnim.SetTrigger("Attack to Idle"); 
+
+                    yield return new WaitForSeconds(2);
+                }
+
+                // Resume walking towards the player
                 agent.speed = spd;
+                canAttack = true;
+                enemyAnim.SetTrigger("Idle to Move");
+                canAttack = true;
             }
+            else
+            {
+                // Continue following the player if they are too far away
+                agent.isStopped = false;
+                agent.speed = spd;
+                agent.destination = playerTransform.position;
+                canAttack = true;
+            }
+
+            yield return null; // Wait until the next frame before continuing the loop
         }
-        else
-        {
-            yield return null;
-            agent.destination = playerTransform.position;
-        } 
-    } 
+    }
+
 
     private void OnTriggerEnter(Collider other)
     {
