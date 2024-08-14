@@ -63,7 +63,7 @@ public class BruteBehavior : Behavior
 
                 // Resume walking towards the player
                 agent.speed = spd;
-                canAttack = true;
+                agent.isStopped = false; 
                 enemyAnim.SetTrigger("Idle to Move");
                 canAttack = true;
             }

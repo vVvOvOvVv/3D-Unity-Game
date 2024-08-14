@@ -7,7 +7,7 @@ public class WeaponPickUp : MonoBehaviour
     //public GameObject weaponPrefab;
     //public float respawnTime = 5f;
     public GameObject[] weaponPrefabs; // equipped weapon prefabs  
-    private GameObject inventoryPanel; 
+    private GameObject inventoryPanel, wpnPickupCanvas; 
 
     private Renderer render;
     private Collider collide;
@@ -18,6 +18,7 @@ public class WeaponPickUp : MonoBehaviour
         render = GetComponent<Renderer>();
         collide = GetComponent<Collider>();
         inventoryPanel = GameObject.FindWithTag("InventoryPanel");
+        wpnPickupCanvas = GameObject.Find("Weapon Pickup Canvas");
     }
 
     void OnTriggerEnter(Collider other)
@@ -53,14 +54,51 @@ public class WeaponPickUp : MonoBehaviour
 
     void PickUp()
     {
+        if (wpnPickupCanvas != null)
+        {
+            wpnPickupCanvas.SetActive(true);
+            Debug.Log("Weapon canvas activated");
+            Time.timeScale = 0; // pause game 
+
+            // Unlock the cursor and make it visible
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        } else Debug.LogError("Weapon canvas not found :(");
+
+        // Optionally hide the weapon pickup
+        render.enabled = false;
+        collide.enabled = false; 
+
+        // Optionally destroy the weapon pickup object
+        Destroy(gameObject, 0.1f); // delay destroy slightly
+    }
+
+    public IEnumerator ShowInventory()
+    {
+        inventoryPanel.SetActive(true);
+        yield return new WaitForSeconds(1);
+        // ideally create a fade "animation" for this panel
+        inventoryPanel.SetActive(false);
+    }
+
+    public void RandomWeapon()
+    { 
         if (weaponPrefabs.Length == 0)
         {
             Debug.LogError("No weapon prefabs assigned.");
             return;
         }
 
-        // Choose a random weapon from the array
-        GameObject randomWeapon = weaponPrefabs[Random.Range(0, weaponPrefabs.Length)];
+        GameObject randomWeapon;
+
+        while (true)
+        {
+            // Choose a random weapon from the array
+            randomWeapon = weaponPrefabs[Random.Range(0, weaponPrefabs.Length)];
+
+            if (!Inventory.Instance.IsDuplicate(randomWeapon.GetComponent<Weapon>()))
+                break; // ensure the random weapon is new (not equipped)
+        }
 
         Debug.Log("Picking up weapon: " + randomWeapon.name);
 
@@ -68,20 +106,5 @@ public class WeaponPickUp : MonoBehaviour
 
         // Add the weapon to the inventory
         Inventory.Instance.AddWeapon(randomWeapon);
-
-        // Optionally hide the weapon pickup
-        render.enabled = false;
-        collide.enabled = false;
-
-        // Optionally destroy the weapon pickup object
-        Destroy(gameObject);
-    }
-
-    private IEnumerator ShowInventory()
-    {
-        inventoryPanel.SetActive(true);
-        yield return new WaitForSeconds(1);
-        // ideally create a fade "animation" for this panel
-        inventoryPanel.SetActive(false);
     }
 }

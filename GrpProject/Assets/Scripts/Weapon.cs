@@ -16,6 +16,7 @@ public class Weapon : MonoBehaviour
     public int dmg, spread, bulletsShot, bulletsPerTap, reserveAmmo;
     public float timeBetweenShots, reloadTime, timeBetweenShooting, impulseStrength; 
     private int normalSpread;
+    public float wpnLevel;
 
     // booleans - standard booleans
     public bool readyToShoot, isReloading, allowButtonHold, shooting;
@@ -40,6 +41,7 @@ public class Weapon : MonoBehaviour
         readyToShoot = true;
         reserveAmmo = maxAmmo * 3;
         normalSpread = spread;
+        wpnLevel = 1f;
     }
  
     public void Shoot() 

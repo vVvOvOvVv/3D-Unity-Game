@@ -172,4 +172,38 @@ public class Inventory : MonoBehaviour
             else crosshairs[1].SetActive(true); // shotgun 
         } else crosshairs[0].SetActive(true); // pistol crosshair as default
     }
+
+    public bool IsDuplicate(Weapon newWpn)
+    {
+        if (newWpn != null)
+        {
+            if ((newWpn.gunType == lastPickedWeapon.GetComponent<Weapon>().gunType && newWpn.dmgType == lastPickedWeapon.GetComponent<Weapon>().dmgType) ||
+                (newWpn.gunType == secondLastPickedWeapon.GetComponent<Weapon>().gunType && newWpn.dmgType == secondLastPickedWeapon.GetComponent<Weapon>().dmgType))
+            {
+                Debug.Log("Weapon already obtained!");
+                return true;
+            }
+            else return false;
+        }
+        else
+        {
+            Debug.LogError(newWpn.name + " not found");
+            return false;
+        }
+    }
+
+    public void UpgradeRandomWeapon()
+    {
+        int rand = Random.Range(0, 2);
+
+        switch (rand)
+        {
+            case 0:
+                lastPickedWeapon.GetComponent<Weapon>().wpnLevel += 0.5f;
+                break;
+            default: // 1
+                secondLastPickedWeapon.GetComponent<Weapon>().wpnLevel += 0.5f;
+                break;
+        }
+    }
 }

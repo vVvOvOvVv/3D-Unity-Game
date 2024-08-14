@@ -125,3 +125,4 @@ MonoBehaviour:
   - {fileID: 3916671132237625967, guid: cf58c535effa1e64b801e0b5357d66be, type: 3}
   - {fileID: 6652363439759158525, guid: 9b8dfdf9842ee4547b50d9d212ed8719, type: 3}
   inventoryPanel: {fileID: 8890886872802444773, guid: 59a5c1e781803c34fb8888533526ce27, type: 3}
+  wpnPickupCanvas: {fileID: 2674403772925286451, guid: 389d7e122a5226347ac017a5c2ca4040, type: 3}
