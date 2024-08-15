@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using EZCameraShake;
 
 public class Shooter : MonoBehaviour
 {  
@@ -26,6 +27,7 @@ public class Shooter : MonoBehaviour
             !currentWeapon.isReloading && currentWeapon.currentAmmo > 0)
         {
             currentWeapon.bulletsShot = currentWeapon.bulletsPerTap;
+            CameraShaker.Instance.ShakeOnce(1f, 1f, 0.1f, 0.1f);
             currentWeapon.Shoot();
         }
 

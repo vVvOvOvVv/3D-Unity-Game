@@ -1,6 +1,7 @@
 // for each weapon prefab, assign this script, and adjust values in Inspector
 using System.Collections;
 using UnityEngine;
+using EZCameraShake;
 
 public class Weapon : MonoBehaviour
 {
@@ -64,7 +65,7 @@ public class Weapon : MonoBehaviour
         else spread = normalSpread;
         // shot spread
         int x = Random.Range(-spread, spread);
-        int y = Random.Range(-spread, spread);
+        int y = Random.Range(-spread, spread); 
 
         // get direction considering spread
         Vector3 direction = new Vector3((cam.pixelWidth / 2) + x, (cam.pixelHeight / 2) + y, 0); 
@@ -77,6 +78,9 @@ public class Weapon : MonoBehaviour
             // get the GameObject that was hit
             GameObject hitObject = hit.transform.gameObject;
             Debug.Log("Hit: " + hitObject.name); // debug log
+
+            // shake the camera
+            CameraShaker.Instance.ShakeOnce(0.1f, 1f, 0.1f, 0.1f);
 
             Rigidbody rBody = hitObject.GetComponent<Rigidbody>();
             if (rBody != null)
