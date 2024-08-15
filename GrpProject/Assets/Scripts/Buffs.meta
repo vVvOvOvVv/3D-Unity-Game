@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:GrpProject/Assets/Scripts/Buffs.meta
 guid: 613c97e34366bf145872f0f7c1b9124c
+========
+guid: 8b81afb9d3eff904eb274ea0cc2c705d
+>>>>>>>> main:GrpProject/Assets/BrokenVector.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

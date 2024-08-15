@@ -32,11 +32,11 @@ public class FPSInput : MonoBehaviour
     [SerializeField] private TextMeshProUGUI shieldTxt;
 
     // Game Over
-    [SerializeField] private GameObject GameOverCanvas;  // Reference to the Game Over Canvas
+    [SerializeField] private GameObject GameOverCanvas;  // Reference to the Game Over Canvas 
     private Shooter shooterScript;
 
     // inventory and weapon pickup canvases
-    [SerializeField] public GameObject inventoryPanel, wpnPickupCanvas;
+    [SerializeField] public GameObject inventoryPanel, wpnPickupCanvas; 
 
     private Vector3 movementDirection;
 
@@ -53,13 +53,13 @@ public class FPSInput : MonoBehaviour
         // Initialize shield
         playerShieldBar.maxValue = maxShield;
         playerShieldBarObj.SetActive(false);
-
+ 
         // Hide canvases initially
         GameOverCanvas.SetActive(false);
         inventoryPanel.SetActive(false);
         wpnPickupCanvas.SetActive(false);
 
-        shooterScript = GetComponent<Shooter>();
+        shooterScript = GetComponent<Shooter>(); 
     }
 
     // Update is called once per frame
@@ -157,8 +157,8 @@ public class FPSInput : MonoBehaviour
             }
         }
 
-        // Apply remaining damage to health
-        currentHealth -= dmg; 
+        // Apply remaining damage to health 
+        currentHealth -= dmg;  
 
         UpdatePlayerHPBar();
         UpdateHPNumbers();
@@ -166,14 +166,14 @@ public class FPSInput : MonoBehaviour
 
         // Trigger Game Over Screen if health is 0
         if (currentHealth <= 0)
-        {
+        { 
             // Unlock the cursor and make it visible
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
 
             GameOverCanvas.SetActive(true);
             Time.timeScale = 0; // Pause the game
-            shooterScript.gamePaused = true;
+            shooterScript.gamePaused = true; 
         }
     }
 
