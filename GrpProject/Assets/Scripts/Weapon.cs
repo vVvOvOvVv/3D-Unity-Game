@@ -23,11 +23,15 @@ public class Weapon : MonoBehaviour
     private const int maxShockChance = 25; // Max chance before reset
     private const int shockChanceIncrease = 2; // Chance increment per shot
 
+    // POISON LOGIC PROPERTIES
+    private const int poisonChance = 100; // 25% chance for poison effect
+    [SerializeField] private static float PoisonSlowFactor = 0.7f; // slows enemy movement speed by 70%
+
     // constant variables
     [SerializeField] private static int 
         PoisonTime = 5,
         FireDmg = 1;
-    [SerializeField] private static float PoisonSlowFactor = 0.7f; 
+  
 
     // references
     protected Camera cam;
@@ -81,15 +85,22 @@ public class Weapon : MonoBehaviour
 
                 // dmg types
                 // fire
+                if (isFire)
+                {
+
+                }
 
                 // SHOCK LOGIC
                 if (isShock)
                 {
                     ApplyShockEffect(hitObject);
                 }
-                // poison
+                // POISON LOGIC
                 if (isPoison)
-                    hitObject.GetComponent<Behavior>().PoisonEnemy(PoisonTime, PoisonSlowFactor);
+                {
+                    // hitObject.GetComponent<Behavior>().PoisonEnemy(PoisonTime, PoisonSlowFactor);
+                    ApplyPoisonEffect(hitObject);
+                }
             }
 
             StartCoroutine(GeneratePS(hit));
@@ -132,8 +143,23 @@ public class Weapon : MonoBehaviour
         }
     }
 
+    // POISON LOGIC
+    private void ApplyPoisonEffect(GameObject hitObject)
+    {
+        int rand = Random.Range(0, 100); // Generate a random number between 0 and 99
 
-    public void ResetShot()
+        if (rand < poisonChance)
+        {
+            // Poison effect is applied
+            Behavior behaviorScript = hitObject.GetComponent<Behavior>();
+            if (behaviorScript != null)
+            {
+                StartCoroutine(behaviorScript.PoisonEnemy(PoisonTime, PoisonSlowFactor));
+            }
+        }
+    }
+
+        public void ResetShot()
     {
         readyToShoot = true;
     } 

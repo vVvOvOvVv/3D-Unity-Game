@@ -7,11 +7,13 @@ using UnityEngine.AI; // required for NavMesh
 public class BruteBehavior : Behavior
 {
     private bool canAttack;
+    private float originalSpeed; // FOR STORING ORIGINAL SPEED TO RESET TO AFTER POISON EFFECT ENDS
 
     private new void Start()
     {
         base.Start(); 
         canAttack = true;
+        originalSpeed = spd; // initialize original speed
     }
 
     public override IEnumerator AgentNearPlayer()
@@ -26,6 +28,19 @@ public class BruteBehavior : Behavior
                 yield return null;
                 continue;
             }
+
+            // POISON LOGIC CHECK FOR POISONED STATUS (AgentNearPlayer)
+            if (isPoisoned)
+            {
+                agent.speed = originalSpeed * 0.5f; // reduce speed to half when poisoned
+                //Debug.Log("AI Entity is poisoned. Speed reduced to: " + agent.speed); // DEBUG LOG FOR POISON STATUS
+            }
+            else
+            {
+                agent.speed = originalSpeed; // reset speed to normal if not poisoned
+                //Debug.Log("AI Entity is no longer poisoned. Speed back to: " + agent.speed); // DEBUG LOG FOR POISON STATUS
+            }
+
             // Calculate the distance to the player
             float distanceToPlayer = Vector3.Distance(agent.transform.position, playerTransform.position);
 

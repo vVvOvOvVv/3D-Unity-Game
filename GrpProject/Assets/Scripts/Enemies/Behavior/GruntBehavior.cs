@@ -42,29 +42,29 @@ public class GruntBehavior : MonoBehaviour
 
     private IEnumerator AgentNearPlayer()
     {
-        isShooting = true;
-        float distanceToPlayer = Vector3.Distance(agent.transform.position, playerTransform.position);
-        if (distanceToPlayer <= 5.0f)
-        {
-            agent.isStopped = true;
-
-            for (int i = 0; i < 3; i++) // Shoot 3 times
+            isShooting = true;
+            float distanceToPlayer = Vector3.Distance(agent.transform.position, playerTransform.position);
+            if (distanceToPlayer <= 5.0f)
             {
-                Shoot();
-                yield return new WaitForSeconds(0.5f); // Wait between shots
-            }
+                agent.isStopped = true;
 
-            yield return new WaitForSeconds(1); // Pause before moving again
-            agent.isStopped = false;
+                for (int i = 0; i < 3; i++) // Shoot 3 times
+                {
+                    Shoot();
+                    yield return new WaitForSeconds(0.5f); // Wait between shots
+                }
+
+                yield return new WaitForSeconds(1); // Pause before moving again
+                agent.isStopped = false;
+            }
+            else
+            {
+                // Continue following the player
+                agent.isStopped = false;
+                agent.destination = playerTransform.position;
+                yield return null;
+            }
         }
-        else
-        {
-            // Continue following the player
-            agent.isStopped = false;
-            agent.destination = playerTransform.position;
-            yield return null;
-        }
-    }
 
     private void Shoot()
     {
