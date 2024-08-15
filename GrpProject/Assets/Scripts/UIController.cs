@@ -16,9 +16,6 @@ public class UIController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //don't display the pause menu on start
-        pauseMenu.gameObject.SetActive(false);
-
         //get references to the player and camera
         player = GameObject.FindGameObjectWithTag("Player");
         mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
@@ -30,11 +27,11 @@ public class UIController : MonoBehaviour
         //display the cursor and pause menu when ESC key is pressed
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            OnOpenSettings();
+            OnOpenPauseMenu();
         }
     }
 
-    public void OnCloseSettings()
+    public void OnClosePauseMenu()
     {
         //don't display pause menu
         pauseMenu.gameObject.SetActive(false);
@@ -47,7 +44,7 @@ public class UIController : MonoBehaviour
         Time.timeScale = 1;
     }
 
-    public void OnOpenSettings()
+    public void OnOpenPauseMenu()
     {
         //display pause menu
         pauseMenu.gameObject.SetActive(true);
