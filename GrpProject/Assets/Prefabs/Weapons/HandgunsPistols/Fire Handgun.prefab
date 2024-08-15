@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 1499070045634072845}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.884305, y: 0.46, z: 1.41}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -140,6 +140,8 @@ MonoBehaviour:
   isFire: 1
   isPoison: 0
   isShock: 0
+  fireDamage: 5
+  fireDuration: 5
   particleSysPrefab: {fileID: 6879897211538299802, guid: 8bf85859139cd6546bbca64b03ef8ccb, type: 3}
 --- !u!1001 &2446521305028544279
 PrefabInstance:
