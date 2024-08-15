@@ -177,22 +177,19 @@ public class Inventory : MonoBehaviour
     {
         if (newWpn != null)
         {
-            /* if (lastPickedWeapon.GetComponent<Weapon>() == null)
-            {
-                Debug.LogWarning("lastPickedWeapon is null, skipping comparison");
-                if (secondLastPickedWeapon.GetComponent<Weapon>() == null)
-                {
-                    Debug.LogWarning("secondLastPickedWeapon is null, skipping comparison");
-                }
-                return false;
-            } */
-            if ((newWpn.gunType.Equals(lastPickedWeapon.GetComponent<Weapon>().gunType) && newWpn.dmgType.Equals(lastPickedWeapon.GetComponent<Weapon>().dmgType)) ||
-                (newWpn.gunType.Equals(secondLastPickedWeapon.GetComponent<Weapon>().gunType) && newWpn.dmgType.Equals(secondLastPickedWeapon.GetComponent<Weapon>().dmgType)))
-            {
-                Debug.Log("Weapon already obtained!");
+            if (secondLastPickedWeapon.GetComponent<Weapon>() == null && // only one weapon - no additional weapon picked up yet
+                newWpn.gunType.Equals(lastPickedWeapon.GetComponent<Weapon>().gunType) && newWpn.dmgType.Equals(lastPickedWeapon.GetComponent<Weapon>().dmgType))
                 return true;
-            }
-            else return false;
+            else // 2 weapons equipped
+            {
+                if ((newWpn.gunType.Equals(lastPickedWeapon.GetComponent<Weapon>().gunType) && newWpn.dmgType.Equals(lastPickedWeapon.GetComponent<Weapon>().dmgType)) ||
+                    (newWpn.gunType.Equals(secondLastPickedWeapon.GetComponent<Weapon>().gunType) && newWpn.dmgType.Equals(secondLastPickedWeapon.GetComponent<Weapon>().dmgType)))
+                {
+                    Debug.Log("Weapon already obtained!");
+                    return true;
+                }
+                else return false;
+            }  
         }
         else
         {
@@ -202,17 +199,22 @@ public class Inventory : MonoBehaviour
     }
 
     public void UpgradeRandomWeapon()
-    {
-        int rand = Random.Range(0, 2);
-
-        switch (rand)
+    { 
+        if (secondLastPickedWeapon == null) // no weapon picked up yet
+            lastPickedWeapon.GetComponent<Weapon>().wpnLevel += 0.5f;
+        else
         {
-            case 0:
-                lastPickedWeapon.GetComponent<Weapon>().wpnLevel += 0.5f;
-                break;
-            default: // 1
-                secondLastPickedWeapon.GetComponent<Weapon>().wpnLevel += 0.5f;
-                break;
+            int rand = Random.Range(0, 2);
+
+            switch (rand)
+            {
+                case 0:
+                    lastPickedWeapon.GetComponent<Weapon>().wpnLevel += 0.5f;
+                    break;
+                default: // 1
+                    secondLastPickedWeapon.GetComponent<Weapon>().wpnLevel += 0.5f;
+                    break;
+            }
         }
     }
 }

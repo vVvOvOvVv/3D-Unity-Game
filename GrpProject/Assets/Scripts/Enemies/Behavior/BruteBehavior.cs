@@ -116,11 +116,12 @@ public class BruteBehavior : Behavior
 
     private void OnCollisionEnter(Collision collision)
     {
-        FPSInput playerFPS = collision.gameObject.GetComponent<FPSInput>();
-        if (playerFPS != null) // check for player
+        if (collision.gameObject.CompareTag("Player")) // check for player
         {
+            FPSInput playerFPS = collision.gameObject.GetComponent<FPSInput>();
+
             playerFPS.TakeDamage(enemyScript.GetDmgPerHit());
             Debug.Log("You took damage!");
-        }
+        } 
     }
 }

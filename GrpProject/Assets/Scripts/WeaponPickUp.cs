@@ -7,32 +7,29 @@ public class WeaponPickUp : MonoBehaviour
     //public GameObject weaponPrefab;
     //public float respawnTime = 5f;
     public GameObject[] weaponPrefabs; // equipped weapon prefabs  
-    private GameObject inventoryPanel, wpnPickupCanvas; 
 
     private Renderer render;
     private Collider collide;
     //private bool isPickedUp = false;
+    [SerializeField] private Shooter shooterScript;
+    private GameObject inventoryPanel, wpnPickupCanvas;
 
     void Awake()
     {
-        render = GetComponent<Renderer>();
-        collide = GetComponent<Collider>();
-
-        // HUD and menus - ensure these are active in the hierarchy before running the game
-        inventoryPanel = GameObject.FindWithTag("InventoryPanel");
-        wpnPickupCanvas = GameObject.FindWithTag("WeaponPickupCanvas");
     }
     private void Start()
     {
-        // hide from player
-        inventoryPanel.SetActive(false);
-        wpnPickupCanvas.SetActive(false);
+        render = GetComponent<Renderer>();
+        collide = GetComponent<Collider>();  
     }
 
     void OnTriggerEnter(Collider other)
-    {
+    {  
         if (other.CompareTag("Player"))
         {
+            inventoryPanel = other.gameObject.GetComponent<FPSInput>().inventoryPanel;
+            wpnPickupCanvas = other.gameObject.GetComponent<FPSInput>().wpnPickupCanvas;
+            shooterScript = other.gameObject.GetComponentInChildren<Shooter>();
             PickUp();
         }
     } 
@@ -64,6 +61,7 @@ public class WeaponPickUp : MonoBehaviour
     {
         if (wpnPickupCanvas != null)
         {
+            shooterScript.gamePaused = true;
             wpnPickupCanvas.SetActive(true);
             Debug.Log("Weapon canvas activated");
             Time.timeScale = 0; // pause game 

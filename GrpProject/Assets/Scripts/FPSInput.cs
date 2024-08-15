@@ -33,6 +33,10 @@ public class FPSInput : MonoBehaviour
 
     // Game Over
     [SerializeField] private GameObject GameOverCanvas;  // Reference to the Game Over Canvas
+    private Shooter shooterScript;
+
+    // inventory and weapon pickup canvases
+    [SerializeField] public GameObject inventoryPanel, wpnPickupCanvas;
 
     private Vector3 movementDirection;
 
@@ -50,8 +54,12 @@ public class FPSInput : MonoBehaviour
         playerShieldBar.maxValue = maxShield;
         playerShieldBarObj.SetActive(false);
 
-        // Hide Game Over Canvas initially
+        // Hide canvases initially
         GameOverCanvas.SetActive(false);
+        inventoryPanel.SetActive(false);
+        wpnPickupCanvas.SetActive(false);
+
+        shooterScript = GetComponent<Shooter>();
     }
 
     // Update is called once per frame
@@ -159,12 +167,13 @@ public class FPSInput : MonoBehaviour
         // Trigger Game Over Screen if health is 0
         if (currentHealth <= 0)
         {
-            GameOverCanvas.SetActive(true);
-            Time.timeScale = 0; // Pause the game
-
             // Unlock the cursor and make it visible
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
+
+            GameOverCanvas.SetActive(true);
+            Time.timeScale = 0; // Pause the game
+            shooterScript.gamePaused = true;
         }
     }
 

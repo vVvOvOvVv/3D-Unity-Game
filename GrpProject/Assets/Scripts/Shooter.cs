@@ -8,6 +8,8 @@ public class Shooter : MonoBehaviour
     // TMPro elements from the HUD
     [SerializeField] private TextMeshProUGUI currentAmmoTxt, reserveAmmoTxt;
 
+    public bool gamePaused;
+
     // determine method of fire - hold down or click LMB
     private void ShootInput()
     {
@@ -49,13 +51,14 @@ public class Shooter : MonoBehaviour
     void Start()
     { 
         Cursor.lockState = CursorLockMode.Locked; 
-        Cursor.visible = false;  
+        Cursor.visible = false;
+        gamePaused = false;
     } 
 
     void Update()
     {
         currentWeapon = Inventory.Instance.GetCurrentWeapon();
-        if (currentWeapon != null)
+        if (currentWeapon != null && !gamePaused)
         {
             ShootInput();  
             // set text - ammo count

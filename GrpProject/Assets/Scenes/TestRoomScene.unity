@@ -2395,7 +2395,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5020714683444903510, guid: 714e89cd7e12ab6419af00036edaa834, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2810,6 +2810,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7519426611317881651, guid: 42e6feec1ea63aa4497661b57fba32a4, type: 3}
+      propertyPath: shooterScript
+      value: 
+      objectReference: {fileID: 1057707578}
     - target: {fileID: 7519426611317881651, guid: 42e6feec1ea63aa4497661b57fba32a4, type: 3}
       propertyPath: weaponPrefabs.Array.size
       value: 1
@@ -3992,6 +3996,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7519426611317881651, guid: 42e6feec1ea63aa4497661b57fba32a4, type: 3}
+      propertyPath: shooterScript
+      value: 
+      objectReference: {fileID: 1057707578}
+    - target: {fileID: 7519426611317881651, guid: 42e6feec1ea63aa4497661b57fba32a4, type: 3}
       propertyPath: weaponPrefabs.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -5134,6 +5142,7 @@ MonoBehaviour:
   currentWeapon: {fileID: 0}
   currentAmmoTxt: {fileID: 890395399}
   reserveAmmoTxt: {fileID: 874263960}
+  gamePaused: 0
 --- !u!1 &1078331349
 GameObject:
   m_ObjectHideFlags: 0
@@ -6040,6 +6049,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 510248444000824863, guid: 9d3c6113164fd3b488040a35893b058c, type: 3}
   m_PrefabInstance: {fileID: 491737135}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1199461944 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2674403772925286451, guid: 389d7e122a5226347ac017a5c2ca4040, type: 3}
+  m_PrefabInstance: {fileID: 2441783753571690046}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1205078985
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6346,6 +6360,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7519426611317881651, guid: 42e6feec1ea63aa4497661b57fba32a4, type: 3}
+      propertyPath: shooterScript
+      value: 
+      objectReference: {fileID: 1057707578}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -7509,6 +7527,8 @@ MonoBehaviour:
   playerShieldBarObj: {fileID: 1870007616}
   shieldTxt: {fileID: 277966294}
   GameOverCanvas: {fileID: 1036266464}
+  inventoryPanel: {fileID: 1650813486}
+  wpnPickupCanvas: {fileID: 1199461944}
 --- !u!143 &1625673878
 CharacterController:
   m_ObjectHideFlags: 0
@@ -9157,7 +9177,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2674403772925286451, guid: 389d7e122a5226347ac017a5c2ca4040, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2674403772925286451, guid: 389d7e122a5226347ac017a5c2ca4040, type: 3}
       propertyPath: m_TagString
@@ -9243,6 +9263,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8820534166207445683, guid: 389d7e122a5226347ac017a5c2ca4040, type: 3}
+      propertyPath: shooterScript
+      value: 
+      objectReference: {fileID: 1057707578}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -9419,7 +9443,7 @@ PrefabInstance:
       objectReference: {fileID: 1625673873}
     - target: {fileID: 8162889462984258988, guid: 67b47cb1d1900a94dad62e4e6d23487b, type: 3}
       propertyPath: m_IsTrigger
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8196914462741770647, guid: 67b47cb1d1900a94dad62e4e6d23487b, type: 3}
       propertyPath: hp
