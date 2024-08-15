@@ -39,6 +39,20 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    // FIRE DAMAGE OVER TIME
+    public IEnumerator BurnEnemy(int fireDmg, int duration)
+    {
+        Debug.Log("Burn effect on: " + gameObject.name);
+
+        for (int i = 0; i < duration; i++)
+        {
+            TakeDamage(fireDmg);
+            yield return new WaitForSeconds(1);
+        }
+
+        Debug.Log("Burn effect ended on: " + gameObject.name);
+    }
+
     public IEnumerator HPDepleted()
     {
         isDead = true;

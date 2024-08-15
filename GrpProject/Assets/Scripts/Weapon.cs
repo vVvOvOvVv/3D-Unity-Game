@@ -17,6 +17,7 @@ public class Weapon : MonoBehaviour
     // booleans - determine if it deals special damage types
     public bool isFire, isPoison, isShock; // if all false => standard dmg type 
 
+    // CONSTANT VARIABLES CHANGE THE CHANCE VALUES TO 25% IF IT'S STILL 100 TY
     // SHOCK LOGIC PROPERTIES
     private int shockChance = 5; // Initial chance (5%)
     private const int shockTime = 3; // Freeze time in seconds
@@ -26,12 +27,13 @@ public class Weapon : MonoBehaviour
     // POISON LOGIC PROPERTIES
     private const int poisonChance = 100; // 25% chance for poison effect
     [SerializeField] private static float PoisonSlowFactor = 0.7f; // slows enemy movement speed by 70%
+    [SerializeField] private static int PoisonTime = 5;
 
-    // constant variables
-    [SerializeField] private static int 
-        PoisonTime = 5,
-        FireDmg = 1;
-  
+    // FIRE LOGIC PROPERTIES
+    public int fireDamage = 5; // damage over time per second
+    public int fireDuration = 5; // duration of fire effect in seconds
+    private const int fireChance = 100; // 25% chance for fire effect
+
 
     // references
     protected Camera cam;
@@ -83,11 +85,11 @@ public class Weapon : MonoBehaviour
             {
                 enemy.TakeDamage(dmg);
 
-                // dmg types
-                // fire
+                // DAMAGE TYPES
+                // FIRE LOGIC
                 if (isFire)
                 {
-
+                    ApplyFireEffect(hitObject);
                 }
 
                 // SHOCK LOGIC
@@ -159,7 +161,23 @@ public class Weapon : MonoBehaviour
         }
     }
 
-        public void ResetShot()
+    // FIRE LOGIC (This one is on Enemy.cs because I had to use TakeDamage method for the DOT)
+    private void ApplyFireEffect(GameObject hitObject)
+    {
+        int rand = Random.Range(0, 100); // Generate a random number between 0 and 99
+
+        if (rand < fireChance)
+        {
+            // Fire effect is applied
+            Enemy enemyScript = hitObject.GetComponent<Enemy>();
+            if (enemyScript != null)
+            {
+                StartCoroutine(enemyScript.BurnEnemy(fireDamage, fireDuration));
+            }
+        }
+    }
+
+    public void ResetShot()
     {
         readyToShoot = true;
     } 

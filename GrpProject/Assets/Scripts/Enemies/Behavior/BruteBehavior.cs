@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.AI; // required for NavMesh
 
 [RequireComponent(typeof(NavMeshAgent))]
-[RequireComponent (typeof(CapsuleCollider))]
+[RequireComponent(typeof(CapsuleCollider))]
 public class BruteBehavior : Behavior
 {
     private bool canAttack;
@@ -11,7 +11,7 @@ public class BruteBehavior : Behavior
 
     private new void Start()
     {
-        base.Start(); 
+        base.Start();
         canAttack = true;
         originalSpeed = spd; // initialize original speed
     }
@@ -68,8 +68,8 @@ public class BruteBehavior : Behavior
                     distanceToPlayer = Vector3.Distance(agent.transform.position, playerTransform.position);
 
                     // If the player moves more than 15 units away from the target, break and chase the player
-                    if (distanceToPlayer > 15.0f) 
-                        break; 
+                    if (distanceToPlayer > 15.0f)
+                        break;
 
                     yield return null;
                 }
@@ -79,14 +79,14 @@ public class BruteBehavior : Behavior
                 {
                     agent.speed = 0;
                     agent.isStopped = true; // Stop the agent
-                    enemyAnim.SetTrigger("Attack to Idle"); 
+                    enemyAnim.SetTrigger("Attack to Idle");
 
                     yield return new WaitForSeconds(2);
                 }
 
                 // Resume walking towards the player
                 agent.speed = spd;
-                canAttack = true;
+                agent.isStopped = false;
                 enemyAnim.SetTrigger("Idle to Move");
                 canAttack = true;
             }
@@ -104,7 +104,7 @@ public class BruteBehavior : Behavior
     }
 
 
-    private void OnTriggerEnter(Collider other)
+    /* private void OnTriggerEnter(Collider other)
     {
         FPSInput playerFPS = other.GetComponent<FPSInput>();
         if (playerFPS != null) // check for player
@@ -112,5 +112,15 @@ public class BruteBehavior : Behavior
             playerFPS.TakeDamage(enemyScript.GetDmgPerHit());
             Debug.Log("You took damage!");
         }
-    } 
+    } */
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        FPSInput playerFPS = collision.gameObject.GetComponent<FPSInput>();
+        if (playerFPS != null) // check for player
+        {
+            playerFPS.TakeDamage(enemyScript.GetDmgPerHit());
+            Debug.Log("You took damage!");
+        }
+    }
 }
