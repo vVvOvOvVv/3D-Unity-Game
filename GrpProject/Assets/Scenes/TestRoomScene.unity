@@ -36,9 +36,9 @@ RenderSettings:
   m_DefaultReflectionResolution: 128
   m_ReflectionBounces: 1
   m_ReflectionIntensity: 1
-  m_CustomReflection: {fileID: 0} 
-  m_Sun: {fileID: 0}  
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}  
+  m_CustomReflection: {fileID: 0}
+  m_Sun: {fileID: 0}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -9358,22 +9358,22 @@ PrefabInstance:
     - target: {fileID: 74499100945474712, guid: 42efa36f95f03924da43606614121563, type: 3}
       propertyPath: projectilePrefab
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 6879897211538299802, guid: 8bf85859139cd6546bbca64b03ef8ccb, type: 3}
     - target: {fileID: 637519660648324777, guid: 42efa36f95f03924da43606614121563, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 637519660648324777, guid: 42efa36f95f03924da43606614121563, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 769180596988677789, guid: 42efa36f95f03924da43606614121563, type: 3}
       propertyPath: m_Name
-      value: GruntTest
+      value: Grunt
       objectReference: {fileID: 0}
     - target: {fileID: 769180596988677789, guid: 42efa36f95f03924da43606614121563, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3922707928712697728, guid: 42efa36f95f03924da43606614121563, type: 3}
       propertyPath: m_LocalPosition.x
@@ -9427,6 +9427,10 @@ PrefabInstance:
       propertyPath: m_ApplyRootMotion
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9068281279603801083, guid: 42efa36f95f03924da43606614121563, type: 3}
+      propertyPath: dmgPerHit
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -9458,11 +9462,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 833506645633603183, guid: 67b47cb1d1900a94dad62e4e6d23487b, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 833506645633603183, guid: 67b47cb1d1900a94dad62e4e6d23487b, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2684505801565599076, guid: 67b47cb1d1900a94dad62e4e6d23487b, type: 3}
       propertyPath: m_Enabled
@@ -9474,7 +9478,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4415414831895028658, guid: 67b47cb1d1900a94dad62e4e6d23487b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.6
+      value: 1.18
       objectReference: {fileID: 0}
     - target: {fileID: 4415414831895028658, guid: 67b47cb1d1900a94dad62e4e6d23487b, type: 3}
       propertyPath: m_LocalPosition.z
@@ -9510,11 +9514,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4606720691503524691, guid: 67b47cb1d1900a94dad62e4e6d23487b, type: 3}
       propertyPath: m_Name
-      value: BruteTest
+      value: Brute
       objectReference: {fileID: 0}
     - target: {fileID: 4606720691503524691, guid: 67b47cb1d1900a94dad62e4e6d23487b, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5704142847484003277, guid: 67b47cb1d1900a94dad62e4e6d23487b, type: 3}
       propertyPath: m_PresetInfoIsWorld
@@ -9721,6 +9725,10 @@ PrefabInstance:
     - target: {fileID: 7693298577716713787, guid: 55be4d5dff4b3224695edcf98e78ef83, type: 3}
       propertyPath: m_Name
       value: Sniper
+      objectReference: {fileID: 0}
+    - target: {fileID: 7693298577716713787, guid: 55be4d5dff4b3224695edcf98e78ef83, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

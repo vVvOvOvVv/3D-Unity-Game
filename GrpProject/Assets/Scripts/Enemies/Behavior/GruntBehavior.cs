@@ -7,8 +7,7 @@ public class GruntBehavior : Behavior
 { 
     [SerializeField] private GameObject projectilePrefab; // Prefab for the projectile
     [SerializeField] private Transform firePoint; // The point from where the projectile will be fired 
-
-    //private bool isShooting = false;
+     
     private bool canAttack = true;
   
     private new void Start()
@@ -39,15 +38,12 @@ public class GruntBehavior : Behavior
  
     public override IEnumerator AgentNearPlayer()
     { 
-        //isShooting = true; 
-        while (true) 
-
-        if (distanceToPlayer <= 8.0f) 
-        {
-            float distanceToPlayer = Vector3.Distance(agent.transform.position, playerTransform.position); 
+        while (true)
+        { 
+            float distanceToPlayer = Vector3.Distance(agent.transform.position, playerTransform.position);
             if (distanceToPlayer > 5.0f)
             {
-                
+
                 // Move towards the player if further than the attack distance
                 agent.isStopped = false;
                 agent.speed = spd;
@@ -62,7 +58,7 @@ public class GruntBehavior : Behavior
                 //enemyAnim.SetTrigger("aim to walk");
             }
             else if (distanceToPlayer <= 5.0f && canAttack)
-            {  
+            {
                 for (int i = 0; i < 3; i++)
                 {
                     Shoot();
@@ -79,11 +75,11 @@ public class GruntBehavior : Behavior
                 //enemyAnim.SetTrigger("aim to walk");
                 // Wait before the next attack phase
                 yield return new WaitForSeconds(1.0f);
-                canAttack = true; 
-                agent.isStopped = false; 
+                canAttack = true;
+                agent.isStopped = false;
 
                 // Smoothly stop the agent if too close to the player
-                if (distanceToPlayer <= 5.0f) 
+                if (distanceToPlayer <= 5.0f)
                 {
                     if (!agent.isStopped)
                     {
@@ -93,15 +89,10 @@ public class GruntBehavior : Behavior
                     }
                 }
             }
-        }
-        else
-        {
-            agent.isStopped = false;
-            yield return null;
-        }
-
-        isShooting = false;
-        yield return null; // Wait until the next frame
+            else 
+                agent.isStopped = false; 
+            yield return null; // Wait until the next frame
+        } 
     } 
 
     private void Shoot()
@@ -130,6 +121,11 @@ public class GruntBehavior : Behavior
                     projScript.SetDirection(directionToPlayer);
                     // Set the projectile's movement direction if the script is attached.
                 }
+
+                // make player take damage
+                FPSInput fps = hit.collider.GetComponent<FPSInput>();
+                fps.TakeDamage(enemyScript.dmgPerHit);
+                Debug.Log(gameObject.name + " dealt " + enemyScript.dmgPerHit + " dmg!");
             }
         }
     }
