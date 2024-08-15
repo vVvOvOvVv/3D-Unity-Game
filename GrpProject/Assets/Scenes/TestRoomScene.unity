@@ -7805,6 +7805,16 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 8208999424598236906, guid: a965c1999bcc4f544bfcbe2ca3db9c04, type: 3}
   m_PrefabInstance: {fileID: 325098986}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1811967843 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3605372439502061324, guid: 42efa36f95f03924da43606614121563, type: 3}
+  m_PrefabInstance: {fileID: 4251094746475922023}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &1811967845 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 8044316625510170572, guid: 42efa36f95f03924da43606614121563, type: 3}
+  m_PrefabInstance: {fileID: 4251094746475922023}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1836154780 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6404306957149010780, guid: 1e5e6584f4b365c49a0edc23ccafc87b, type: 3}
@@ -8969,9 +8979,21 @@ PrefabInstance:
     m_TransformParent: {fileID: 253057038}
     m_Modifications:
     - target: {fileID: 74499100945474712, guid: 42efa36f95f03924da43606614121563, type: 3}
+      propertyPath: enemyAnim
+      value: 
+      objectReference: {fileID: 1811967845}
+    - target: {fileID: 74499100945474712, guid: 42efa36f95f03924da43606614121563, type: 3}
+      propertyPath: enemyModel
+      value: 
+      objectReference: {fileID: 1811967843}
+    - target: {fileID: 74499100945474712, guid: 42efa36f95f03924da43606614121563, type: 3}
       propertyPath: playerTransform
       value: 
       objectReference: {fileID: 1625673873}
+    - target: {fileID: 74499100945474712, guid: 42efa36f95f03924da43606614121563, type: 3}
+      propertyPath: projectilePrefab
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 637519660648324777, guid: 42efa36f95f03924da43606614121563, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -8983,6 +9005,10 @@ PrefabInstance:
     - target: {fileID: 769180596988677789, guid: 42efa36f95f03924da43606614121563, type: 3}
       propertyPath: m_Name
       value: GruntTest
+      objectReference: {fileID: 0}
+    - target: {fileID: 769180596988677789, guid: 42efa36f95f03924da43606614121563, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3922707928712697728, guid: 42efa36f95f03924da43606614121563, type: 3}
       propertyPath: m_LocalPosition.x
@@ -9028,6 +9054,14 @@ PrefabInstance:
       propertyPath: cam
       value: 
       objectReference: {fileID: 1057707576}
+    - target: {fileID: 6395332734866800370, guid: 42efa36f95f03924da43606614121563, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8044316625510170572, guid: 42efa36f95f03924da43606614121563, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

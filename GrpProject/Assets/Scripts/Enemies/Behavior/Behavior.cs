@@ -20,7 +20,7 @@ public class Behavior : MonoBehaviour
     public virtual IEnumerator AgentNearPlayer() { yield return null; }
 
     // when shock takes effect, enemy stays in place for 3 sec (just added debuglogs to test shock effect)
-    public IEnumerator ShockEnemy(int timeInSec)
+    public virtual IEnumerator ShockEnemy(int timeInSec)
     {
         if (!isShocked)
         {
@@ -36,7 +36,7 @@ public class Behavior : MonoBehaviour
     }
 
     // when poision is in effect, slow enemies
-    public IEnumerator PoisonEnemy(int timeInSec, float spdFactor)
+    public virtual IEnumerator PoisonEnemy(int timeInSec, float spdFactor)
     { 
         if (!isPoisoned)
         {

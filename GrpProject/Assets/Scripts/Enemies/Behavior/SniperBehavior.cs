@@ -17,7 +17,7 @@ public class SniperBehavior : Behavior
     private new void Start()
     {
         base.Start();  
-        agent = GetComponent<NavMeshAgent>();
+        //agent = GetComponent<NavMeshAgent>();
 
         // Create and configure the LineRenderer for the laser beam
         lineRenderer = gameObject.AddComponent<LineRenderer>();
