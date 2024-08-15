@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class WeaponPickUp : MonoBehaviour
@@ -63,7 +61,7 @@ public class WeaponPickUp : MonoBehaviour
         {
             shooterScript.gamePaused = true;
             wpnPickupCanvas.SetActive(true);
-            Debug.Log("Weapon canvas activated");
+            // Debug.Log("Weapon canvas activated");
             Time.timeScale = 0; // pause game 
 
             // Unlock the cursor and make it visible
@@ -77,14 +75,6 @@ public class WeaponPickUp : MonoBehaviour
 
         // Optionally destroy the weapon pickup object
         Destroy(gameObject, 0.1f); // delay destroy slightly
-    }
-
-    public IEnumerator ShowInventory()
-    {
-        inventoryPanel.SetActive(true);
-        yield return new WaitForSeconds(1);
-        // ideally create a fade "animation" for this panel
-        inventoryPanel.SetActive(false);
     }
 
     public void RandomWeapon()
@@ -114,9 +104,7 @@ public class WeaponPickUp : MonoBehaviour
             }
         }
 
-        Debug.Log("Picking up weapon: " + randomWeapon.name);
-
-        StartCoroutine(ShowInventory());
+        Debug.Log("Picking up weapon: " + randomWeapon.name); 
 
         // Add the weapon to the inventory
         Inventory.Instance.AddWeapon(randomWeapon);

@@ -66,9 +66,7 @@ public class Inventory : MonoBehaviour
             // change crossair
             ChangeCrosshair();
             // show inventory
-            StartCoroutine(ShowInventory());
-
-            // make inventory panel appear for a second and have it fade over time
+            StartCoroutine(ShowInventory()); 
         }
         else
         {
@@ -177,19 +175,22 @@ public class Inventory : MonoBehaviour
     {
         if (newWpn != null)
         {
-            if (secondLastPickedWeapon == null && // only one weapon - no additional weapon picked up yet
-                newWpn.gunType.Equals(lastPickedWeapon.GetComponent<Weapon>().gunType) && newWpn.dmgType.Equals(lastPickedWeapon.GetComponent<Weapon>().dmgType))
-                return true;
-            else // 2 weapons equipped
+            // at least 1 weapon is always equipped
+            Weapon lastPicked = lastPickedWeapon.GetComponent<Weapon>();
+            if (secondLastPickedWeapon != null) // additional weapon obtained
             {
-                if ((newWpn.gunType.Equals(lastPickedWeapon.GetComponent<Weapon>().gunType) && newWpn.dmgType.Equals(lastPickedWeapon.GetComponent<Weapon>().dmgType)) ||
-                    (newWpn.gunType.Equals(secondLastPickedWeapon.GetComponent<Weapon>().gunType) && newWpn.dmgType.Equals(secondLastPickedWeapon.GetComponent<Weapon>().dmgType)))
-                {
-                    Debug.Log("Weapon already obtained!");
+                Weapon secondPicked = secondLastPickedWeapon.GetComponent<Weapon>();
+                if ((newWpn.gunType.Equals(lastPicked.gunType) && newWpn.dmgType.Equals(lastPicked.dmgType)) ||
+                    (newWpn.gunType.Equals(secondPicked.gunType) && newWpn.dmgType.Equals(secondPicked.dmgType)))
                     return true;
-                }
                 else return false;
-            }  
+            }
+            else // only 1 weapon in inventory
+            {
+                if (newWpn.gunType.Equals(lastPicked.gunType) && newWpn.dmgType.Equals(lastPicked.dmgType))
+                    return true;
+                else return false;
+            }
         }
         else
         {
