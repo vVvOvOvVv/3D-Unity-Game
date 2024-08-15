@@ -117,21 +117,21 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: add27808cebf7f84c85beed109970a6f, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier:  
   gunType: 2
-  dmgType: 0
-  maxAmmo: 100
-  currentAmmo: 0
+  dmgType: 0 
+  maxAmmo: 50
+  currentAmmo: 200 
   dmg: 2
-  spread: 1
-  bulletsShot: 0
-  bulletsPerTap: 0
-  reserveAmmo: 0
-  timeBetweenShots: 0.25
-  reloadTime: 3
-  timeBetweenShooting: 0
-  impulseStrength: 0
-  readyToShoot: 0
+  spread: 15
+  bulletsShot: 1
+  bulletsPerTap: 1
+  reserveAmmo: 150
+  timeBetweenShots: 0.15
+  reloadTime: 3 
+  timeBetweenShooting: 0.1
+  impulseStrength: 5
+  readyToShoot: 1 
   isReloading: 0
   allowButtonHold: 1
   shooting: 0

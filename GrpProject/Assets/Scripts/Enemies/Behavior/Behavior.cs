@@ -59,7 +59,8 @@ public class Behavior : MonoBehaviour
 
     public void Update()
     {
-        if (agent != null)
+        // ensures ai status is NOT shocked then starts AgentNearPlayer back up
+        if (agent != null && !isShocked)
         {
             StartCoroutine(AgentNearPlayer());
         }
