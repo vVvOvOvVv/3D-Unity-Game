@@ -30,7 +30,7 @@ public class Weapon : MonoBehaviour
     private const int shockChanceIncrease = 2; // Chance increment per shot
 
     // POISON LOGIC PROPERTIES
-    private const int poisonChance = 100; // 25% chance for poison effect
+    private const int poisonChance = 25; // 25% chance for poison effect
     [SerializeField] private static float PoisonSlowFactor = 0.7f; // slows enemy movement speed by 70%
 
     // constant variables
