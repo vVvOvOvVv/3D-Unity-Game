@@ -120,9 +120,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponPrefabs:
   - {fileID: 1499070045634072845, guid: d0c71b5d4c6a13a41a19a9c38e0c376e, type: 3}
-  - {fileID: 3560725602858499423, guid: 991f3cecdd3beed46bcaffe5ed204ac1, type: 3}
-  - {fileID: 3916671132237625967, guid: 89bb1e0d0f6125549893b4e3ec71c0ae, type: 3}
-  - {fileID: 3916671132237625967, guid: cf58c535effa1e64b801e0b5357d66be, type: 3}
-  - {fileID: 6652363439759158525, guid: 9b8dfdf9842ee4547b50d9d212ed8719, type: 3}
-  inventoryPanel: {fileID: 8890886872802444773, guid: 59a5c1e781803c34fb8888533526ce27, type: 3}
-  wpnPickupCanvas: {fileID: 2674403772925286451, guid: 389d7e122a5226347ac017a5c2ca4040, type: 3}
+  - {fileID: 1499070045634072845, guid: e8d5b93f5065630409712f7e27d0b580, type: 3}
+  - {fileID: 1499070045634072845, guid: 50fcacbf69551cc44958351a03baece5, type: 3}
+  - {fileID: 1499070045634072845, guid: 2a3adba88c5c84641bc87f308afb82f8, type: 3}
+  - {fileID: 1499070045634072845, guid: 39bcf58934879da4bbf9cf8c237679ce, type: 3}
+  - {fileID: 1499070045634072845, guid: 831fc0005f6439846a8e2819a9ff391b, type: 3}
+  - {fileID: 1499070045634072845, guid: 77d7dd2477c395a4d8bc1f3d824419e2, type: 3}
+  - {fileID: 1499070045634072845, guid: ef722ba4f4be0344e8db3837db8f57e0, type: 3}
+  - {fileID: 1499070045634072845, guid: 89f114f153d8a1349ade87a5c92ef361, type: 3}
+  - {fileID: 1499070045634072845, guid: be4348781adfef945ab655328ff73dc5, type: 3}
+  - {fileID: 1499070045634072845, guid: 06d25080781075c459b601b14b473277, type: 3}
+  - {fileID: 1499070045634072845, guid: 69abf86fa4e647c4d8a6eb1a62a03761, type: 3}
+  shooterScript: {fileID: 0}

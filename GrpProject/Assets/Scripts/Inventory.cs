@@ -177,7 +177,7 @@ public class Inventory : MonoBehaviour
     {
         if (newWpn != null)
         {
-            if (secondLastPickedWeapon.GetComponent<Weapon>() == null && // only one weapon - no additional weapon picked up yet
+            if (secondLastPickedWeapon == null && // only one weapon - no additional weapon picked up yet
                 newWpn.gunType.Equals(lastPickedWeapon.GetComponent<Weapon>().gunType) && newWpn.dmgType.Equals(lastPickedWeapon.GetComponent<Weapon>().dmgType))
                 return true;
             else // 2 weapons equipped
