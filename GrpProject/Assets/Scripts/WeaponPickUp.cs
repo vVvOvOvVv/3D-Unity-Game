@@ -13,12 +13,20 @@ public class WeaponPickUp : MonoBehaviour
     private Collider collide;
     //private bool isPickedUp = false;
 
-    void Start()
+    void Awake()
     {
         render = GetComponent<Renderer>();
         collide = GetComponent<Collider>();
+
+        // HUD and menus - ensure these are active in the hierarchy before running the game
         inventoryPanel = GameObject.FindWithTag("InventoryPanel");
-        wpnPickupCanvas = GameObject.Find("Weapon Pickup Canvas");
+        wpnPickupCanvas = GameObject.FindWithTag("WeaponPickupCanvas");
+    }
+    private void Start()
+    {
+        // hide from player
+        inventoryPanel.SetActive(false);
+        wpnPickupCanvas.SetActive(false);
     }
 
     void OnTriggerEnter(Collider other)
@@ -95,9 +103,17 @@ public class WeaponPickUp : MonoBehaviour
         {
             // Choose a random weapon from the array
             randomWeapon = weaponPrefabs[Random.Range(0, weaponPrefabs.Length)];
-
-            if (!Inventory.Instance.IsDuplicate(randomWeapon.GetComponent<Weapon>()))
-                break; // ensure the random weapon is new (not equipped)
+            Weapon randWpn = randomWeapon.GetComponent<Weapon>();
+            if (randWpn != null)
+            {
+                if (!Inventory.Instance.IsDuplicate(randWpn))
+                    break; // ensure the random weapon is new (not equipped) 
+            }
+            else 
+            {
+                Debug.LogError(randomWeapon.name + " does not have Weapon script attached");
+                break;
+            }
         }
 
         Debug.Log("Picking up weapon: " + randomWeapon.name);

@@ -177,8 +177,17 @@ public class Inventory : MonoBehaviour
     {
         if (newWpn != null)
         {
-            if ((newWpn.gunType == lastPickedWeapon.GetComponent<Weapon>().gunType && newWpn.dmgType == lastPickedWeapon.GetComponent<Weapon>().dmgType) ||
-                (newWpn.gunType == secondLastPickedWeapon.GetComponent<Weapon>().gunType && newWpn.dmgType == secondLastPickedWeapon.GetComponent<Weapon>().dmgType))
+            /* if (lastPickedWeapon.GetComponent<Weapon>() == null)
+            {
+                Debug.LogWarning("lastPickedWeapon is null, skipping comparison");
+                if (secondLastPickedWeapon.GetComponent<Weapon>() == null)
+                {
+                    Debug.LogWarning("secondLastPickedWeapon is null, skipping comparison");
+                }
+                return false;
+            } */
+            if ((newWpn.gunType.Equals(lastPickedWeapon.GetComponent<Weapon>().gunType) && newWpn.dmgType.Equals(lastPickedWeapon.GetComponent<Weapon>().dmgType)) ||
+                (newWpn.gunType.Equals(secondLastPickedWeapon.GetComponent<Weapon>().gunType) && newWpn.dmgType.Equals(secondLastPickedWeapon.GetComponent<Weapon>().dmgType)))
             {
                 Debug.Log("Weapon already obtained!");
                 return true;

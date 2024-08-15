@@ -24,10 +24,10 @@ public class WeaponPickupMenu : MonoBehaviour
 
     public void CloseMenu()
     {
-        Time.timeScale = 1; // resume game 
         // Unlock the cursor and make it visible
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-        StartCoroutine(wpnPickupScript.ShowInventory());
+        Time.timeScale = 1.0f; // resume game  
+        gameObject.SetActive(false);
     }
 }

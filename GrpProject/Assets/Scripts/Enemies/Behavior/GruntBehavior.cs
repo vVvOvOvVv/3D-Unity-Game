@@ -3,20 +3,15 @@ using UnityEngine;
 using UnityEngine.AI; // required for NavMesh
 
 [RequireComponent(typeof(NavMeshAgent))]
-public class GruntBehavior : MonoBehaviour
-{
-    [SerializeField] private Transform playerTransform; // to allow AI to follow player
-    [SerializeField] private Enemy enemyScript;
+public class GruntBehavior : Behavior
+{ 
     [SerializeField] private GameObject projectilePrefab; // Prefab for the projectile
-    [SerializeField] private Transform firePoint; // The point from where the projectile will be fired
-    NavMeshAgent agent;
-    private GameObject player;
+    [SerializeField] private Transform firePoint; // The point from where the projectile will be fired 
     private bool isShooting = false;
 
-    private void Start()
+    private new void Start()
     {
-        agent = GetComponent<NavMeshAgent>();
-        player = GameObject.FindWithTag("Player");
+        base.Start();
 
         if (player != null)
         {
@@ -30,7 +25,7 @@ public class GruntBehavior : MonoBehaviour
         }
     }
 
-    private void Update()
+    private new void Update()
     {
         agent.destination = playerTransform.position; // agent walks towards player
 
@@ -40,7 +35,7 @@ public class GruntBehavior : MonoBehaviour
         }
     }
 
-    private IEnumerator AgentNearPlayer()
+    private new IEnumerator AgentNearPlayer()
     {
             isShooting = true;
             float distanceToPlayer = Vector3.Distance(agent.transform.position, playerTransform.position);
@@ -95,7 +90,7 @@ public class GruntBehavior : MonoBehaviour
     }
 
     // when shock takes effect, enemy stays in place for 3 sec
-    public IEnumerator ShockEnemy(int timeInSec)
+    public new IEnumerator ShockEnemy(int timeInSec)
     {
         Debug.Log("Shock effect on: " + gameObject.name);
         agent.isStopped = true;
@@ -105,7 +100,7 @@ public class GruntBehavior : MonoBehaviour
     }
 
     // when poison is in effect, slow enemies
-    public IEnumerator PoisonEnemy(int timeInSec, float spdFactor)
+    public new IEnumerator PoisonEnemy(int timeInSec, float spdFactor)
     {
         agent.speed *= spdFactor;
         // dmg enemies over this time period
