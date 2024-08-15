@@ -8,6 +8,8 @@ using UnityEngine.SceneManagement;
 public class UIController : MonoBehaviour
 {
     [SerializeField] Image pauseMenu;
+    [SerializeField] Image restartPrompt;
+    [SerializeField] Image quitPrompt;
     GameObject player;
     GameObject mainCamera;
 
@@ -28,9 +30,6 @@ public class UIController : MonoBehaviour
         //display the cursor and pause menu when ESC key is pressed
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            //unlock and display the cursor
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
             OnOpenSettings();
         }
     }
@@ -55,7 +54,31 @@ public class UIController : MonoBehaviour
         player.GetComponent<FPSInput>().enabled = false;
         player.GetComponent<MouseLook>().enabled = false;
         mainCamera.GetComponent<MouseLook>().enabled = false;
+
+        //unlock and display cursor
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
         Time.timeScale = 0;
+    }
+
+    public void OnOpenRestartPrompt()
+    {
+        restartPrompt.gameObject.SetActive(true);
+    }
+
+    public void OnCloseRestartPrompt()
+    {
+        restartPrompt.gameObject.SetActive(false);
+    }
+
+    public void OnOpenQuitPrompt()
+    {
+        quitPrompt.gameObject.SetActive(true);
+    }
+
+    public void OnCloseQuitPrompt()
+    {
+        quitPrompt.gameObject.SetActive(false);
     }
 
     public void RestartGame()
