@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.AI; // required for NavMesh
 
 [RequireComponent(typeof(NavMeshAgent))]
-public class GruntBehavior : Behavior
+public class GruntBehavior : Behavior 
 {
     [SerializeField] private GameObject projectilePrefab; // Prefab for the projectile
     [SerializeField] private Transform firePoint; // The point from where the projectile will be fired
@@ -14,7 +14,7 @@ public class GruntBehavior : Behavior
     private new void Start()
     {
         base.Start();
-        StartCoroutine(AgentNearPlayer());
+        StartCoroutine(AgentNearPlayer()); 
 
         if (player != null)
         {
@@ -27,8 +27,8 @@ public class GruntBehavior : Behavior
             firePoint = transform.Find("FirePoint"); // Assuming there's a child object named FirePoint
         }
     }
-
-    /*private new void Update()
+ 
+    /*private new void Update() 
     {
         agent.destination = playerTransform.position; // agent walks towards player
 
@@ -37,7 +37,7 @@ public class GruntBehavior : Behavior
             StartCoroutine(AgentNearPlayer());
         }
     }*/
-
+ 
     public override IEnumerator AgentNearPlayer()
     {
         //isShooting = true; 
@@ -107,7 +107,7 @@ public class GruntBehavior : Behavior
 
             yield return null; // Wait until the next frame
         }
-    }
+    } 
 
     private void Shoot()
     {
@@ -137,8 +137,9 @@ public class GruntBehavior : Behavior
         }
     }
 
-    // when shock takes effect, enemy stays in place for 3 sec
-    public override IEnumerator ShockEnemy(int timeInSec)
+    // when shock takes effect, enemy stays in place for 3 sec 
+    public override IEnumerator ShockEnemy(int timeInSec) 
+    public new IEnumerator ShockEnemy(int timeInSec) 
     {
         Debug.Log("Shock effect on: " + gameObject.name);
         agent.isStopped = true;
@@ -147,8 +148,9 @@ public class GruntBehavior : Behavior
         Debug.Log("Shock effect ended on: " + gameObject.name);
     }
 
-    // when poison is in effect, slow enemies
-    public override IEnumerator PoisonEnemy(int timeInSec, float spdFactor)
+    // when poison is in effect, slow enemies 
+    public override IEnumerator PoisonEnemy(int timeInSec, float spdFactor) 
+    public new IEnumerator PoisonEnemy(int timeInSec, float spdFactor) 
     {
         agent.speed *= spdFactor;
         // dmg enemies over this time period

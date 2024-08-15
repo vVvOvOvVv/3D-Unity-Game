@@ -1,9 +1,15 @@
 // for each weapon prefab, assign this script, and adjust values in Inspector
 using System.Collections;
-using UnityEngine; 
+using UnityEngine;
+using EZCameraShake;
 
 public class Weapon : MonoBehaviour
 {
+    // enum
+    public enum GunType { Handgun, Shotgun, Machinegun };
+    public enum DamageType { Normal, Fire, Shock, Poison };
+    [SerializeField] public GunType gunType;
+    [SerializeField] public DamageType dmgType;
 
     // gun stats
     public int maxAmmo = 10; // Maximum ammo capacity    
@@ -11,18 +17,28 @@ public class Weapon : MonoBehaviour
     public int dmg, spread, bulletsShot, bulletsPerTap, reserveAmmo;
     public float timeBetweenShots, reloadTime, timeBetweenShooting, impulseStrength; 
     private int normalSpread;
+    public float wpnLevel;
 
     // booleans - standard booleans
     public bool readyToShoot, isReloading, allowButtonHold, shooting;
     // booleans - determine if it deals special damage types
     public bool isFire, isPoison, isShock; // if all false => standard dmg type 
 
+    // SHOCK LOGIC PROPERTIES
+    private int shockChance = 5; // Initial chance (5%)
+    private const int shockTime = 3; // Freeze time in seconds
+    private const int maxShockChance = 25; // Max chance before reset
+    private const int shockChanceIncrease = 2; // Chance increment per shot
+
+    // POISON LOGIC PROPERTIES
+    private const int poisonChance = 25; // 25% chance for poison effect
+    [SerializeField] private static float PoisonSlowFactor = 0.7f; // slows enemy movement speed by 70%
+
     // constant variables
-    [SerializeField] private static int ShockChance = 5, // inflict shock 1 in X chance
-        ShockTime = 3, // time shock is inflicted
+    [SerializeField] private static int 
         PoisonTime = 5,
         FireDmg = 1;
-    [SerializeField] private static float PoisonSlowFactor = 0.7f; 
+  
 
     // references
     protected Camera cam;
@@ -35,6 +51,7 @@ public class Weapon : MonoBehaviour
         readyToShoot = true;
         reserveAmmo = maxAmmo * 3;
         normalSpread = spread;
+        wpnLevel = 1f;
     }
  
     public void Shoot() 
@@ -48,7 +65,7 @@ public class Weapon : MonoBehaviour
         else spread = normalSpread;
         // shot spread
         int x = Random.Range(-spread, spread);
-        int y = Random.Range(-spread, spread);
+        int y = Random.Range(-spread, spread); 
 
         // get direction considering spread
         Vector3 direction = new Vector3((cam.pixelWidth / 2) + x, (cam.pixelHeight / 2) + y, 0); 
@@ -61,6 +78,9 @@ public class Weapon : MonoBehaviour
             // get the GameObject that was hit
             GameObject hitObject = hit.transform.gameObject;
             Debug.Log("Hit: " + hitObject.name); // debug log
+
+            // shake the camera
+            CameraShaker.Instance.ShakeOnce(0.1f, 1f, 0.1f, 0.1f);
 
             Rigidbody rBody = hitObject.GetComponent<Rigidbody>();
             if (rBody != null)
@@ -76,18 +96,22 @@ public class Weapon : MonoBehaviour
 
                 // dmg types
                 // fire
+                if (isFire)
+                {
 
-                // shock
+                }
+
+                // SHOCK LOGIC
                 if (isShock)
                 {
-                    // 1/5 chance to inflict shock
-                    int rand = Random.Range(0, 5);
-                    if (rand == 0)
-                        hitObject.GetComponent<Behavior>().ShockEnemy(ShockTime);
+                    ApplyShockEffect(hitObject);
                 }
-                // poison
+                // POISON LOGIC
                 if (isPoison)
-                    hitObject.GetComponent<Behavior>().PoisonEnemy(PoisonTime, PoisonSlowFactor);
+                {
+                    // hitObject.GetComponent<Behavior>().PoisonEnemy(PoisonTime, PoisonSlowFactor);
+                    ApplyPoisonEffect(hitObject);
+                }
             }
 
             StartCoroutine(GeneratePS(hit));
@@ -106,7 +130,47 @@ public class Weapon : MonoBehaviour
             Invoke("Shoot", timeBetweenShots); 
     }
 
-    public void ResetShot()
+    // SHOCK LOGIC
+    private void ApplyShockEffect(GameObject hitObject)
+    {
+        shockChance = 100; // temporary 100% chance for debugging purp
+        int rand = Random.Range(0, 100); // random number between 0 and 99
+
+        if (rand < shockChance)
+        {
+            // Shock effect is applied
+            Behavior behaviorScript = hitObject.GetComponent<Behavior>();
+            if (behaviorScript != null)
+            {
+                StartCoroutine(behaviorScript.ShockEnemy(shockTime));
+            }
+            shockChance = 5; // reset shock chance after successful shock
+        }
+        else
+        {
+            // increase shock chance for next shot
+            shockChance += shockChanceIncrease;
+            shockChance = Mathf.Min(shockChance, maxShockChance); // cap the chance at a maximum value
+        }
+    }
+
+    // POISON LOGIC
+    private void ApplyPoisonEffect(GameObject hitObject)
+    {
+        int rand = Random.Range(0, 100); // Generate a random number between 0 and 99
+
+        if (rand < poisonChance)
+        {
+            // Poison effect is applied
+            Behavior behaviorScript = hitObject.GetComponent<Behavior>();
+            if (behaviorScript != null)
+            {
+                StartCoroutine(behaviorScript.PoisonEnemy(PoisonTime, PoisonSlowFactor));
+            }
+        }
+    }
+
+        public void ResetShot()
     {
         readyToShoot = true;
     } 

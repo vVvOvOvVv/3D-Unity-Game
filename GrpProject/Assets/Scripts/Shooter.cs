@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using EZCameraShake;
 
 public class Shooter : MonoBehaviour
 {  
@@ -7,6 +8,8 @@ public class Shooter : MonoBehaviour
 
     // TMPro elements from the HUD
     [SerializeField] private TextMeshProUGUI currentAmmoTxt, reserveAmmoTxt;
+
+    public bool gamePaused;
 
     // determine method of fire - hold down or click LMB
     private void ShootInput()
@@ -24,6 +27,7 @@ public class Shooter : MonoBehaviour
             !currentWeapon.isReloading && currentWeapon.currentAmmo > 0)
         {
             currentWeapon.bulletsShot = currentWeapon.bulletsPerTap;
+            CameraShaker.Instance.ShakeOnce(1f, 1f, 0.1f, 0.1f);
             currentWeapon.Shoot();
         }
 
@@ -49,13 +53,14 @@ public class Shooter : MonoBehaviour
     void Start()
     { 
         Cursor.lockState = CursorLockMode.Locked; 
-        Cursor.visible = false;  
+        Cursor.visible = false;
+        gamePaused = false;
     } 
 
     void Update()
     {
         currentWeapon = Inventory.Instance.GetCurrentWeapon();
-        if (currentWeapon != null)
+        if (currentWeapon != null && !gamePaused)
         {
             ShootInput();  
             // set text - ammo count

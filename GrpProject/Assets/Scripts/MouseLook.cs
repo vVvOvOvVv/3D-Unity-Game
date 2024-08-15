@@ -5,6 +5,8 @@ using UnityEngine;
 [AddComponentMenu("Control Script/Mouse Look")] // add to the Unity editor's component menu
 public class MouseLook : MonoBehaviour
 {
+    private Shooter shooterScript;
+
     // enum to choose rotation axis in the Unity editor
     public enum RotationAxes
     {
@@ -35,43 +37,48 @@ public class MouseLook : MonoBehaviour
         {
             body.freezeRotation = true;
         }
+        shooterScript = GetComponentInChildren<Shooter>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        // yaw only
-        if (axes == RotationAxes.MouseX)
+        if (!shooterScript.gamePaused)
         {
-            // rotate about y-axis
-            transform.Rotate(0, Input.GetAxis("Mouse X") * sensitivityHor, 0);
+            // yaw only
+            if (axes == RotationAxes.MouseX)
+            {
+                // rotate about y-axis
+                transform.Rotate(0, Input.GetAxis("Mouse X") * sensitivityHor, 0);
+            }
+            // pitch only
+            else if (axes == RotationAxes.MouseY)
+            {
+                // change in pitch
+                verticalRot -= Input.GetAxis("Mouse Y") * sensitivityVert;
+                verticalRot = Mathf.Clamp(verticalRot, minimumVert, maximumVert);
+
+                // get current yaw
+                float horizontalRot = transform.localEulerAngles.y;
+
+                // set the pitch, yaw remains the same
+                transform.localEulerAngles = new Vector3(verticalRot, horizontalRot, 0);
+            }
+            // yaw and pitch
+            else
+            {
+                // change in pitch
+                verticalRot -= Input.GetAxis("Mouse Y") * sensitivityVert;
+                verticalRot = Mathf.Clamp(verticalRot, minimumVert, maximumVert);
+
+                // change in yaw
+                float delta = Input.GetAxis("Mouse X") * sensitivityHor;
+                float horizontalRot = transform.localEulerAngles.y + delta;
+
+                // set pitch and yaw
+                transform.localEulerAngles = new Vector3(verticalRot, horizontalRot, 0);
+            }
         }
-        // pitch only
-        else if (axes == RotationAxes.MouseY)
-        {
-            // change in pitch
-            verticalRot -= Input.GetAxis("Mouse Y") * sensitivityVert;
-            verticalRot = Mathf.Clamp(verticalRot, minimumVert, maximumVert);
-
-            // get current yaw
-            float horizontalRot = transform.localEulerAngles.y;
-
-            // set the pitch, yaw remains the same
-            transform.localEulerAngles = new Vector3(verticalRot, horizontalRot, 0);
-        }
-        // yaw and pitch
-        else
-        {
-            // change in pitch
-            verticalRot -= Input.GetAxis("Mouse Y") * sensitivityVert;
-            verticalRot = Mathf.Clamp(verticalRot, minimumVert, maximumVert);
-
-            // change in yaw
-            float delta = Input.GetAxis("Mouse X") * sensitivityHor;
-            float horizontalRot = transform.localEulerAngles.y + delta;
-
-            // set pitch and yaw
-            transform.localEulerAngles = new Vector3(verticalRot, horizontalRot, 0);
-        }
+        
     }
 }

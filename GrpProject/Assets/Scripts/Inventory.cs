@@ -66,9 +66,7 @@ public class Inventory : MonoBehaviour
             // change crossair
             ChangeCrosshair();
             // show inventory
-            StartCoroutine(ShowInventory());
-
-            // make inventory panel appear for a second and have it fade over time
+            StartCoroutine(ShowInventory()); 
         }
         else
         {
@@ -141,14 +139,11 @@ public class Inventory : MonoBehaviour
         if (wpnScript != null)
         {
             // gun icons
-            if (wpnScript.allowButtonHold) // machinegun
-                gunIcons[2 + idxOffset].SetActive(true);
-            else
-            {
-                if (wpnScript.bulletsPerTap == 1) // one bullet per click => pistol/handgun
+            if (wpnScript.gunType == Weapon.GunType.Machinegun)
+                gunIcons[2 + idxOffset].SetActive(true); 
+            else if (wpnScript.gunType == Weapon.GunType.Handgun)  
                     gunIcons[0 + idxOffset].SetActive(true);
-                else gunIcons[1 + idxOffset].SetActive(true); // shotgun (2 bullets per tap)
-            }
+            else gunIcons[1 + idxOffset].SetActive(true); // shotgun (2 bullets per tap) 
             // element icons
             if (wpnScript.isFire)
                 elementIcons[0 + idxOffset].SetActive(true);
@@ -168,14 +163,59 @@ public class Inventory : MonoBehaviour
          
         if (currentWeapon != null)
         {
-            if (currentWeapon.allowButtonHold) // machinegun
+            if (currentWeapon.gunType == Weapon.GunType.Machinegun)
                 crosshairs[2].SetActive(true);
-            else
-            {
-                if (currentWeapon.bulletsPerTap == 1) // pistol/handgun
-                    crosshairs[0].SetActive(true);
-                else crosshairs[1].SetActive(true); // shotgun
-            }
+            else if (currentWeapon.gunType == Weapon.GunType.Handgun)
+                crosshairs[0].SetActive(true);
+            else crosshairs[1].SetActive(true); // shotgun 
         } else crosshairs[0].SetActive(true); // pistol crosshair as default
+    }
+
+    public bool IsDuplicate(Weapon newWpn)
+    {
+        if (newWpn != null)
+        {
+            // at least 1 weapon is always equipped
+            Weapon lastPicked = lastPickedWeapon.GetComponent<Weapon>();
+            if (secondLastPickedWeapon != null) // additional weapon obtained
+            {
+                Weapon secondPicked = secondLastPickedWeapon.GetComponent<Weapon>();
+                if ((newWpn.gunType.Equals(lastPicked.gunType) && newWpn.dmgType.Equals(lastPicked.dmgType)) ||
+                    (newWpn.gunType.Equals(secondPicked.gunType) && newWpn.dmgType.Equals(secondPicked.dmgType)))
+                    return true;
+                else return false;
+            }
+            else // only 1 weapon in inventory
+            {
+                if (newWpn.gunType.Equals(lastPicked.gunType) && newWpn.dmgType.Equals(lastPicked.dmgType))
+                    return true;
+                else return false;
+            }
+        }
+        else
+        {
+            Debug.LogError(newWpn.name + " not found");
+            return false;
+        }
+    }
+
+    public void UpgradeRandomWeapon()
+    { 
+        if (secondLastPickedWeapon == null) // no weapon picked up yet
+            lastPickedWeapon.GetComponent<Weapon>().wpnLevel += 0.5f;
+        else
+        {
+            int rand = Random.Range(0, 2);
+
+            switch (rand)
+            {
+                case 0:
+                    lastPickedWeapon.GetComponent<Weapon>().wpnLevel += 0.5f;
+                    break;
+                default: // 1
+                    secondLastPickedWeapon.GetComponent<Weapon>().wpnLevel += 0.5f;
+                    break;
+            }
+        }
     }
 }

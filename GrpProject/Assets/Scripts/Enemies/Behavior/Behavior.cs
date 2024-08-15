@@ -41,11 +41,11 @@ public class Behavior : MonoBehaviour
         if (!isPoisoned)
         {
             isPoisoned = true;
-            Debug.Log("Posion effect on: " + gameObject.name);
+            Debug.Log("Poison effect on: " + gameObject.name);
             agent.speed *= spdFactor;
             yield return new WaitForSeconds(timeInSec);
             agent.speed /= spdFactor;
-            Debug.Log("Posion effect ended on: " + gameObject.name);
+            Debug.Log("Poison effect ended on: " + gameObject.name);
             isPoisoned = false;
         } 
     }
@@ -59,7 +59,8 @@ public class Behavior : MonoBehaviour
 
     public void Update()
     {
-        if (agent != null)
+        // ensures ai status is NOT shocked then starts AgentNearPlayer back up
+        if (agent != null && !isShocked)
         {
             StartCoroutine(AgentNearPlayer());
         }
