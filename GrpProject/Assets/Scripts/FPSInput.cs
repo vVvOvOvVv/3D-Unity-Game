@@ -1,10 +1,9 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI; 
+using UnityEngine.UI;
 
 [RequireComponent(typeof(CharacterController))] // enforces dependency on character controller
-
 public class FPSInput : MonoBehaviour
 {
     public float speed = 10.0f;
@@ -18,7 +17,6 @@ public class FPSInput : MonoBehaviour
     public float dashSpeed = 20.0f;
     public float dashDuration = 0.3f;
     private bool isDashing = false;
-    //private float dashTime = 0f;
 
     // Health variables
     public int maxHealth = 100;
@@ -27,11 +25,14 @@ public class FPSInput : MonoBehaviour
     [SerializeField] private Slider playerHPBar;
     [SerializeField] private TextMeshProUGUI currentHPTxt, maxHPTxt;
 
-    // shield variables
+    // Shield variables
     [SerializeField] public int shield = 0, maxShield = 100;
-    [SerializeField] public GameObject playerShieldBarObj;
-    private Slider playerShieldBarSlider;
+    [SerializeField] private Slider playerShieldBar;
+    [SerializeField] private GameObject playerShieldBarObj;
     [SerializeField] private TextMeshProUGUI shieldTxt;
+
+    // Game Over
+    [SerializeField] private GameObject GameOverCanvas;  // Reference to the Game Over Canvas
 
     private Vector3 movementDirection;
 
@@ -42,12 +43,15 @@ public class FPSInput : MonoBehaviour
         charController = GetComponent<CharacterController>();
 
         // Initialize health
-        currentHealth = maxHealth; 
+        currentHealth = maxHealth;
         UpdateHPNumbers();
-        // shield
-        playerShieldBarSlider = playerShieldBarObj.GetComponent<Slider>();
-        playerShieldBarSlider.maxValue = maxShield;
+
+        // Initialize shield
+        playerShieldBar.maxValue = maxShield;
         playerShieldBarObj.SetActive(false);
+
+        // Hide Game Over Canvas initially
+        GameOverCanvas.SetActive(false);
     }
 
     // Update is called once per frame
@@ -57,7 +61,7 @@ public class FPSInput : MonoBehaviour
         float deltaX = Input.GetAxis("Horizontal");
         float deltaZ = Input.GetAxis("Vertical");
         Vector3 inputDirection = transform.right * deltaX + transform.forward * deltaZ;
-        
+
         // make diagonal movement consistent
         movementDirection = Vector3.ClampMagnitude(inputDirection, 1.0f) * speed;
         if (Input.GetButtonDown("Jump") && charController.isGrounded)
@@ -74,7 +78,7 @@ public class FPSInput : MonoBehaviour
         }
 
         movementDirection.y = vertSpeed;
-   
+
         // Check for dash input
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
@@ -124,7 +128,7 @@ public class FPSInput : MonoBehaviour
         {
             charController.Move(dashDirection * Time.deltaTime);
             yield return null;
-        }  
+        }
         isDashing = false;
     }
 
@@ -135,29 +139,39 @@ public class FPSInput : MonoBehaviour
         {
             if (shield < dmg)
             {
-                currentHealth -= dmg - shield;
+                dmg -= shield;
                 shield = 0;
-            } else
+            }
+            else
             {
                 shield -= dmg;
+                dmg = 0;
             }
-            UpdateArmorBar();
         }
+
+        // Apply remaining damage to health
         currentHealth -= dmg;
+
         UpdatePlayerHPBar();
         UpdateHPNumbers();
+        UpdateArmorBar();
 
+        // Trigger Game Over Screen if health is 0
         if (currentHealth <= 0)
         {
-            // death animation or game over screen
-            Debug.Log("HP depleted, resetting health");
-            currentHealth = maxHealth; // DELETE LATER - for debugging only
+            GameOverCanvas.SetActive(true);
+            Time.timeScale = 0; // Pause the game
+
+            // Unlock the cursor and make it visible
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
         }
     }
 
+
     private void UpdatePlayerHPBar()
     {
-        playerHPBar.value = currentHealth / maxHealth;
+        playerHPBar.value = (float)currentHealth / maxHealth;
     }
 
     private void UpdateHPNumbers()
@@ -167,14 +181,13 @@ public class FPSInput : MonoBehaviour
     }
 
     public void UpdateArmorBar()
-    { 
+    {
+        shieldTxt.SetText(shield.ToString());
+        playerShieldBar.value = shield;
+
         if (shield <= 0)
             playerShieldBarObj.SetActive(false);
         else
-        {
             playerShieldBarObj.SetActive(true);
-            shieldTxt.SetText(shield.ToString());
-            playerShieldBarSlider.value = shield;
-        }
     }
 }

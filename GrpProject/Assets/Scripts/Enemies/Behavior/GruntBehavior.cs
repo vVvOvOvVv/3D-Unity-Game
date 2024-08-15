@@ -1,14 +1,13 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.AI; // required for NavMesh
+using UnityEngine.AI;
 
 [RequireComponent(typeof(NavMeshAgent))]
 public class GruntBehavior : MonoBehaviour
 {
-    [SerializeField] private Transform playerTransform; // to allow AI to follow player
-    [SerializeField] private Enemy enemyScript;
-    [SerializeField] private GameObject projectilePrefab; // Prefab for the projectile
-    [SerializeField] private Transform firePoint; // The point from where the projectile will be fired
+    [SerializeField] private Transform playerTransform;
+    [SerializeField] private GameObject projectilePrefab;
+    [SerializeField] private Transform firePoint;
     NavMeshAgent agent;
     private GameObject player;
     private bool isShooting = false;
@@ -23,16 +22,15 @@ public class GruntBehavior : MonoBehaviour
             playerTransform = player.transform;
         }
 
-        // Ensure firePoint is set; alternatively, you can manually set it in the Unity editor
         if (firePoint == null)
         {
-            firePoint = transform.Find("FirePoint"); // Assuming there's a child object named FirePoint
+            firePoint = transform.Find("FirePoint");
         }
     }
 
     private void Update()
     {
-        agent.destination = playerTransform.position; // agent walks towards player
+        agent.destination = playerTransform.position;
 
         if (!isShooting)
         {
@@ -44,53 +42,56 @@ public class GruntBehavior : MonoBehaviour
     {
         isShooting = true;
         float distanceToPlayer = Vector3.Distance(agent.transform.position, playerTransform.position);
-        if (distanceToPlayer <= 5.0f)
+
+        if (distanceToPlayer <= 8.0f)
         {
             agent.isStopped = true;
 
-            for (int i = 0; i < 3; i++) // Shoot 3 times
+            for (int i = 0; i < 3; i++)
             {
                 Shoot();
-                yield return new WaitForSeconds(0.5f); // Wait between shots
+                yield return new WaitForSeconds(0.5f);
             }
 
-            yield return new WaitForSeconds(1); // Pause before moving again
+            yield return new WaitForSeconds(1);
             agent.isStopped = false;
         }
         else
         {
-            // Continue following the player
             agent.isStopped = false;
-            agent.destination = playerTransform.position;
             yield return null;
         }
+
+        isShooting = false;
     }
 
     private void Shoot()
     {
-        if (projectilePrefab != null && firePoint != null)
+        RaycastHit hit;  // Variable to store information about what the raycast hits.
+        Vector3 directionToPlayer = (playerTransform.position - firePoint.position).normalized;
+        // Calculate the direction from the fire point to the player's position and normalize it.
+
+        if (Physics.Raycast(firePoint.position, directionToPlayer, out hit))
         {
-            // Instantiate the projectile at the firePoint position
-            GameObject projectile = Instantiate(projectilePrefab, firePoint.position, firePoint.rotation);
+            // Perform a raycast from the fire point in the direction of the player.
 
-            // Calculate the direction towards the player
-            Vector3 directionToPlayer = (playerTransform.position - firePoint.position).normalized;
-
-            // Rotate the projectile to face the player
-            projectile.transform.forward = directionToPlayer;
-
-            // Get the projectile script and set its direction
-            Projectile projScript = projectile.GetComponent<Projectile>();
-            if (projScript != null)
+            if (hit.collider.CompareTag("Player"))
             {
-                projScript.SetDirection(directionToPlayer);
-            }
+                // Check if the raycast hit the player.
 
-            Debug.Log("Grunt fired a projectile.");
-        }
-        else
-        {
-            Debug.LogError("Projectile prefab or FirePoint is not assigned.");
+                GameObject projectile = Instantiate(projectilePrefab, firePoint.position, firePoint.rotation);
+                // Instantiate a projectile at the fire point's position with its rotation.
+
+                projectile.transform.forward = directionToPlayer;
+                // Set the projectile's forward direction towards the player.
+
+                Projectile projScript = projectile.GetComponent<Projectile>();
+                if (projScript != null)
+                {
+                    projScript.SetDirection(directionToPlayer);
+                    // Set the projectile's movement direction if the script is attached.
+                }
+            }
         }
     }
 

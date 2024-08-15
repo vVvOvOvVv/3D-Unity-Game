@@ -11,7 +11,7 @@ public class Projectile : MonoBehaviour
     public void SetDirection(Vector3 dir)
     {
         direction = dir.normalized;
-        Destroy(gameObject, 3f); // Destroy the projectile after 5 seconds to prevent infinite travel
+        Destroy(gameObject, 5f); // Destroy the projectile after 5 seconds to prevent infinite travel
     }
 
     private void Update()
