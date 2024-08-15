@@ -6,7 +6,6 @@ public class SniperBehavior : Behavior
 { 
     public int health = 10;
      
-    private Animator animator;
     private float shootInterval = 5.0f; // Time between shots
     private bool isShooting = false;
     private int currentWaypoint = 0;
@@ -17,8 +16,8 @@ public class SniperBehavior : Behavior
 
     private new void Start()
     {
-        agent = GetComponent<NavMeshAgent>();
-        animator = GetComponent<Animator>();
+        base.Start();  
+        //agent = GetComponent<NavMeshAgent>();
 
         // Create and configure the LineRenderer for the laser beam
         lineRenderer = gameObject.AddComponent<LineRenderer>();
@@ -40,9 +39,24 @@ public class SniperBehavior : Behavior
             return;
 
         // Always face the player
-        Vector3 direction = (playerTransform.position - transform.position).normalized;
+        /*Vector3 direction = (playerTransform.position - transform.position).normalized;
         Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
+*/
+        if (!isAiming && !isShooting)
+        {
+            // Face the waypoint while walking
+            Vector3 direction = (waypoints[currentWaypoint].position - transform.position).normalized;
+            Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
+            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
+        }
+        else if (isAiming || isShooting)
+        {
+            // Face the player while aiming or shooting
+            Vector3 direction = (playerTransform.position - transform.position).normalized;
+            Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
+            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
+        }
 
         // Update the laser beam's positions to follow the player
         if (lineRenderer != null)
@@ -67,8 +81,14 @@ public class SniperBehavior : Behavior
         isAiming = true;
         agent.isStopped = true;
 
+        // Transition to aim state
+        enemyAnim.SetTrigger("walk to aim");
+
         // Wait for a moment to simulate aiming
         yield return new WaitForSeconds(2.0f);
+
+        // Simulate shooting at the player
+        enemyAnim.SetTrigger("aim to shoot");
 
         // Simulate shooting at the player
         Debug.Log("Sniper fires!");
@@ -81,11 +101,16 @@ public class SniperBehavior : Behavior
         isAiming = false;
         agent.isStopped = false;
 
+        // Transition back to aim state
+        enemyAnim.SetTrigger("shoot to aim");
+
         // Move to the next waypoint
         currentWaypoint++;
         if (currentWaypoint >= waypoints.Length)
         {
             currentWaypoint = 0; // Loop back to the first waypoint
         }
+ 
+        enemyAnim.SetTrigger("aim to walk");
     } 
 }

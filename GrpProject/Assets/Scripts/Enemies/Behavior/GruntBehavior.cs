@@ -3,20 +3,18 @@ using UnityEngine;
 using UnityEngine.AI; // required for NavMesh
 
 [RequireComponent(typeof(NavMeshAgent))]
-public class GruntBehavior : MonoBehaviour
+public class GruntBehavior : Behavior
 {
-    [SerializeField] private Transform playerTransform; // to allow AI to follow player
-    [SerializeField] private Enemy enemyScript;
     [SerializeField] private GameObject projectilePrefab; // Prefab for the projectile
     [SerializeField] private Transform firePoint; // The point from where the projectile will be fired
-    NavMeshAgent agent;
-    private GameObject player;
-    private bool isShooting = false;
 
-    private void Start()
+    //private bool isShooting = false;
+    private bool canAttack = true;
+  
+    private new void Start()
     {
-        agent = GetComponent<NavMeshAgent>();
-        player = GameObject.FindWithTag("Player");
+        base.Start();
+        StartCoroutine(AgentNearPlayer());
 
         if (player != null)
         {
@@ -30,7 +28,7 @@ public class GruntBehavior : MonoBehaviour
         }
     }
 
-    private void Update()
+    /*private new void Update()
     {
         agent.destination = playerTransform.position; // agent walks towards player
 
@@ -38,31 +36,76 @@ public class GruntBehavior : MonoBehaviour
         {
             StartCoroutine(AgentNearPlayer());
         }
-    }
+    }*/
 
-    private IEnumerator AgentNearPlayer()
+    public override IEnumerator AgentNearPlayer()
     {
-        isShooting = true;
-        float distanceToPlayer = Vector3.Distance(agent.transform.position, playerTransform.position);
-        if (distanceToPlayer <= 5.0f)
+        //isShooting = true; 
+        while (true)
         {
-            agent.isStopped = true;
+            float distanceToPlayer = Vector3.Distance(agent.transform.position, playerTransform.position);
 
-            for (int i = 0; i < 3; i++) // Shoot 3 times
+            if (distanceToPlayer > 5.0f)
             {
-                Shoot();
-                yield return new WaitForSeconds(0.5f); // Wait between shots
+                
+                // Move towards the player if further than the attack distance
+                agent.isStopped = false;
+                agent.speed = spd;
+                agent.destination = playerTransform.position;
+                // Move towards the player if further than the attack distance
+                if (!agent.isStopped && agent.velocity.magnitude > 0.1f)
+                {
+                    enemyAnim.SetTrigger("aim to walk"); // Play walk animation
+                }
+
+                // Set the animation to walk
+                //enemyAnim.SetTrigger("aim to walk");
+            }
+            else if (distanceToPlayer <= 5.0f && canAttack)
+            {
+                // Stop moving and start aiming
+                agent.isStopped = true;
+                agent.speed = 0;
+                enemyAnim.SetTrigger("walk to aim");
+
+                yield return new WaitForSeconds(1.0f); // Simulate aiming
+
+                // Start attacking
+                canAttack = false;
+                enemyAnim.SetTrigger("aim to shoot");
+
+                // Shoot projectiles
+                for (int i = 0; i < 3; i++) // Shoot 3 times
+                {
+                    Shoot();
+                    yield return new WaitForSeconds(0.5f); // Wait between shots
+                }
+
+                // Resume movement after attacking
+                enemyAnim.SetTrigger("shoot to aim");
+                /*agent.isStopped = false;
+                agent.speed = spd;
+                enemyAnim.SetTrigger("shoot to aim");*/
+                
+                //agent.destination = playerTransform.position;
+                //enemyAnim.SetTrigger("aim to walk");
+                // Wait before the next attack phase
+                yield return new WaitForSeconds(2.0f);
+                canAttack = true;
             }
 
-            yield return new WaitForSeconds(1); // Pause before moving again
-            agent.isStopped = false;
-        }
-        else
-        {
-            // Continue following the player
-            agent.isStopped = false;
-            agent.destination = playerTransform.position;
-            yield return null;
+            // Smoothly stop the agent if too close to the player
+            if (distanceToPlayer <= 5.0f) 
+            {
+                if (!agent.isStopped)
+                {
+                    agent.isStopped = true;
+                    agent.velocity = Vector3.zero;
+                    enemyAnim.SetTrigger("aim to walk"); // Keep animation consistent
+                }
+            }
+
+            yield return null; // Wait until the next frame
         }
     }
 
@@ -95,7 +138,7 @@ public class GruntBehavior : MonoBehaviour
     }
 
     // when shock takes effect, enemy stays in place for 3 sec
-    public IEnumerator ShockEnemy(int timeInSec)
+    public override IEnumerator ShockEnemy(int timeInSec)
     {
         Debug.Log("Shock effect on: " + gameObject.name);
         agent.isStopped = true;
@@ -105,7 +148,7 @@ public class GruntBehavior : MonoBehaviour
     }
 
     // when poison is in effect, slow enemies
-    public IEnumerator PoisonEnemy(int timeInSec, float spdFactor)
+    public override IEnumerator PoisonEnemy(int timeInSec, float spdFactor)
     {
         agent.speed *= spdFactor;
         // dmg enemies over this time period
