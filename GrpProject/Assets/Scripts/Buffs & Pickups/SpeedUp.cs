@@ -6,17 +6,15 @@ public class SpeedUp : MonoBehaviour
 {
     public float speedUp = 3.0f;
     public float dashPowerUp = 1.0f;
-    private GameObject player;
+    public int timer = 5;
 
-    private void Start()
-    {
-        player = GameObject.FindWithTag("Player");
-    }
     private void OnTriggerEnter(Collider other)
     {
-        FPSInput fps = player.GetComponent<FPSInput>();
-        fps.speed += speedUp;
-        fps.dashSpeed += dashPowerUp;
-        Destroy(this.gameObject);
+        if (other.CompareTag("Player"))
+        {
+            FPSInput fps = other.GetComponent<FPSInput>();
+            fps.TempSpdUp(speedUp, dashPowerUp, timer);
+            Destroy(gameObject); 
+        }
     }
 }

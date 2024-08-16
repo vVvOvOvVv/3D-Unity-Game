@@ -118,4 +118,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5baaa8d033ba73469c10202928e683a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  increaseHP: 1
+  increaseHP: 10

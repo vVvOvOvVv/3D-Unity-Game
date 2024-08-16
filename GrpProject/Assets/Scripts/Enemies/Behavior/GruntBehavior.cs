@@ -13,7 +13,6 @@ public class GruntBehavior : Behavior
     private new void Start()
     {
         base.Start();
-        StartCoroutine(AgentNearPlayer()); 
 
         if (player != null)
         {
@@ -22,10 +21,10 @@ public class GruntBehavior : Behavior
 
         if (firePoint == null)
         {
-            firePoint = transform.Find("FirePoint");
+            firePoint = transform.Find("Fire Point");
         }
     }
- 
+
     /*private new void Update() 
     {
         agent.destination = playerTransform.position;
@@ -35,30 +34,32 @@ public class GruntBehavior : Behavior
             StartCoroutine(AgentNearPlayer());
         }
     }*/
- 
-    public override IEnumerator AgentNearPlayer()
-    { 
-        while (true)
-        { 
-            float distanceToPlayer = Vector3.Distance(agent.transform.position, playerTransform.position);
-            if (distanceToPlayer > 5.0f)
-            {
 
+    public override IEnumerator AgentNearPlayer()
+    {
+        while (true)
+        {
+            float distanceToPlayer = Vector3.Distance(agent.transform.position, playerTransform.position);
+
+            if (distanceToPlayer > 8.0f)
+            {
                 // Move towards the player if further than the attack distance
                 agent.isStopped = false;
                 agent.speed = spd;
+                canAttack = true;
                 agent.destination = playerTransform.position;
-                // Move towards the player if further than the attack distance
+
                 if (!agent.isStopped && agent.velocity.magnitude > 0.1f)
                 {
                     enemyAnim.SetTrigger("aim to walk"); // Play walk animation
                 }
-
-                // Set the animation to walk
-                //enemyAnim.SetTrigger("aim to walk");
             }
-            else if (distanceToPlayer <= 5.0f && canAttack)
+            else if (distanceToPlayer <= 8.0f && canAttack)
             {
+                canAttack = false;
+                agent.isStopped = true; // stop in place
+
+                // Perform the shooting action three times
                 for (int i = 0; i < 3; i++)
                 {
                     Shoot();
@@ -67,33 +68,28 @@ public class GruntBehavior : Behavior
 
                 // Resume movement after attacking
                 enemyAnim.SetTrigger("shoot to aim");
-                /*agent.isStopped = false;
-                agent.speed = spd;
-                enemyAnim.SetTrigger("shoot to aim");*/
+                yield return new WaitForSeconds(1.0f); // Wait before the next attack phase
 
-                //agent.destination = playerTransform.position;
-                //enemyAnim.SetTrigger("aim to walk");
-                // Wait before the next attack phase
-                yield return new WaitForSeconds(1.0f);
-                canAttack = true;
-                agent.isStopped = false;
+                // Recalculate distance to player to decide further action
+                distanceToPlayer = Vector3.Distance(agent.transform.position, playerTransform.position);
 
-                // Smoothly stop the agent if too close to the player
-                if (distanceToPlayer <= 5.0f)
+                if (distanceToPlayer <= 8.0f)
                 {
-                    if (!agent.isStopped)
-                    {
-                        agent.isStopped = true;
-                        agent.velocity = Vector3.zero;
-                        enemyAnim.SetTrigger("aim to walk"); // Keep animation consistent
-                    }
+                    agent.isStopped = true;
+                    agent.velocity = Vector3.zero;
+                    enemyAnim.SetTrigger("aim to walk"); // Keep animation consistent
                 }
-            }
-            else 
-                agent.isStopped = false; 
+                else
+                {
+                    agent.isStopped = false;
+                    yield return new WaitForSeconds(0.5f); // Optional: small delay to prevent immediate r
+                    canAttack = true; // Allow further attacks if player moves away
+                }
+            } 
             yield return null; // Wait until the next frame
-        } 
-    } 
+        }
+    }
+
 
     private void Shoot()
     {

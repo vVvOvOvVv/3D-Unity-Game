@@ -36,7 +36,10 @@ public class FPSInput : MonoBehaviour
     private Shooter shooterScript;
 
     // inventory and weapon pickup canvases
-    [SerializeField] public GameObject inventoryPanel, wpnPickupCanvas; 
+    [SerializeField] public GameObject inventoryPanel, wpnPickupCanvas;
+
+    // speed up indicator
+    [SerializeField] private GameObject spdUpIndicator;
 
     private Vector3 movementDirection;
 
@@ -58,6 +61,7 @@ public class FPSInput : MonoBehaviour
         GameOverCanvas.SetActive(false);
         inventoryPanel.SetActive(false);
         wpnPickupCanvas.SetActive(false);
+        spdUpIndicator.SetActive(false);
 
         shooterScript = GetComponent<Shooter>(); 
     }
@@ -177,6 +181,15 @@ public class FPSInput : MonoBehaviour
         }
     }
 
+    public void Heal(int healAmt)
+    {
+        // Debug.Log("HP: " + currentHealth);
+        currentHealth += healAmt;
+        // Debug.Log("HP after healing: " + currentHealth);
+        UpdateHPNumbers();
+        UpdatePlayerHPBar();
+    }
+
 
     private void UpdatePlayerHPBar()
     {
@@ -198,5 +211,29 @@ public class FPSInput : MonoBehaviour
             playerShieldBarObj.SetActive(false);
         else
             playerShieldBarObj.SetActive(true);
+    } 
+
+    public void TempSpdUp(float speedUp, float dashPowerUp, int timer)
+    {
+        StartCoroutine(SpdUpCoroutine(speedUp, dashPowerUp, timer));
+    }
+
+    private IEnumerator SpdUpCoroutine(float speedUp, float dashPowerUp, int timer)
+    {
+        speed += speedUp;
+        dashSpeed += dashPowerUp;
+        // Debug.Log("Sanic speed!");
+
+        // show visual indicating speed up
+        spdUpIndicator.SetActive(true);
+
+        yield return new WaitForSeconds(timer); // speed up for 5 seconds
+
+        // hide speed up indicator
+        spdUpIndicator.SetActive(false);
+
+        speed -= speedUp;
+        dashSpeed -= dashPowerUp;
+        // Debug.Log("Slow :(");
     }
 }

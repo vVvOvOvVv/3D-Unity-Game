@@ -1,7 +1,7 @@
 // for each weapon prefab, assign this script, and adjust values in Inspector
 using System.Collections;
 using UnityEngine;
-using EZCameraShake;
+using EZCameraShake; 
 
 public class Weapon : MonoBehaviour
 {
@@ -94,7 +94,7 @@ public class Weapon : MonoBehaviour
             Enemy enemy = hitObject.GetComponent<Enemy>();
             if (enemy != null) 
             {
-                enemy.TakeDamage(dmg);
+                enemy.TakeDamage(System.Convert.ToInt32(System.Math.Floor(dmg * wpnLevel))); // weapon lvl will increase dmg
 
                 // DAMAGE TYPES
                 // FIRE LOGIC
