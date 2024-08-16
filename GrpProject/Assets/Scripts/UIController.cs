@@ -8,15 +8,14 @@ using UnityEngine.SceneManagement;
 public class UIController : MonoBehaviour
 {
     [SerializeField] Image pauseMenu;
+    [SerializeField] Image restartPrompt;
+    [SerializeField] Image quitPrompt;
     GameObject player;
     GameObject mainCamera;
 
     // Start is called before the first frame update
     void Start()
     {
-        //don't display the pause menu on start
-        pauseMenu.gameObject.SetActive(false);
-
         //get references to the player and camera
         player = GameObject.FindGameObjectWithTag("Player");
         mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
@@ -28,14 +27,11 @@ public class UIController : MonoBehaviour
         //display the cursor and pause menu when ESC key is pressed
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            //unlock and display the cursor
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
-            OnOpenSettings();
+            OnOpenPauseMenu();
         }
     }
 
-    public void OnCloseSettings()
+    public void OnClosePauseMenu()
     {
         //don't display pause menu
         pauseMenu.gameObject.SetActive(false);
@@ -48,14 +44,38 @@ public class UIController : MonoBehaviour
         Time.timeScale = 1;
     }
 
-    public void OnOpenSettings()
+    public void OnOpenPauseMenu()
     {
         //display pause menu
         pauseMenu.gameObject.SetActive(true);
         player.GetComponent<FPSInput>().enabled = false;
         player.GetComponent<MouseLook>().enabled = false;
         mainCamera.GetComponent<MouseLook>().enabled = false;
+
+        //unlock and display cursor
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
         Time.timeScale = 0;
+    }
+
+    public void OnOpenRestartPrompt()
+    {
+        restartPrompt.gameObject.SetActive(true);
+    }
+
+    public void OnCloseRestartPrompt()
+    {
+        restartPrompt.gameObject.SetActive(false);
+    }
+
+    public void OnOpenQuitPrompt()
+    {
+        quitPrompt.gameObject.SetActive(true);
+    }
+
+    public void OnCloseQuitPrompt()
+    {
+        quitPrompt.gameObject.SetActive(false);
     }
 
     public void RestartGame()
@@ -66,11 +86,11 @@ public class UIController : MonoBehaviour
 
     public void QuitGame()
     {
-        #if UNITY_STANDALONE
-            Application.Quit();
-        #endif
-        #if UNITY_EDITOR
-            UnityEditor.EditorApplication.isPlaying = false;
-        #endif
+#if UNITY_STANDALONE
+        Application.Quit();
+#endif
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#endif
     }
 }
