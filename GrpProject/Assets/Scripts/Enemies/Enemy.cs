@@ -11,8 +11,7 @@ public class Enemy : MonoBehaviour
         maxHP, // max health
         dmgPerHit,// enemy's dmg per hit/shot
         wpnDropRate, hpDropRate, armorDropRate, spdDropRate; // drops 1 out of X times
-    public bool isDead;
-    public float spawnChance;
+    public bool isDead; 
 
     public void Awake()
     {
