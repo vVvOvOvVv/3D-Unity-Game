@@ -124,24 +124,5 @@ public class GruntBehavior : Behavior
                 Debug.Log(gameObject.name + " dealt " + enemyScript.dmgPerHit + " dmg!");
             }
         }
-    }
-
-    // when shock takes effect, enemy stays in place for 3 sec  
-    public new IEnumerator ShockEnemy(int timeInSec) 
-    {
-        Debug.Log("Shock effect on: " + gameObject.name);
-        agent.isStopped = true;
-        yield return new WaitForSeconds(timeInSec);
-        agent.isStopped = false;
-        Debug.Log("Shock effect ended on: " + gameObject.name);
-    }
-
-    // when poison is in effect, slow enemies  
-    public new IEnumerator PoisonEnemy(int timeInSec, float spdFactor) 
-    {
-        agent.speed *= spdFactor;
-        // dmg enemies over this time period
-        yield return new WaitForSeconds(timeInSec);
-        agent.speed /= spdFactor;
-    }
+    } 
 }

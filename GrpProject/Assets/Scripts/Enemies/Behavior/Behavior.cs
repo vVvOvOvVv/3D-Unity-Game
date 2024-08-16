@@ -7,7 +7,8 @@ public class Behavior : MonoBehaviour
 
     [SerializeField] public Transform playerTransform; // to allow AI to follow player
     [SerializeField] public Enemy enemyScript;
-    [SerializeField] public GameObject enemyModel; 
+    [SerializeField] public GameObject enemyModel,
+        poisonParticlePrefab, shockParticlePrefab; // status ailment indicators 
     public enum EnemyState { Move, Idle, Attack};
     public EnemyState enemyState = EnemyState.Move;
     public Animator enemyAnim;
@@ -26,9 +27,11 @@ public class Behavior : MonoBehaviour
         {
             isShocked = true;
             Debug.Log("Shock effect on: " + gameObject.name);
+            GameObject shock = Instantiate(shockParticlePrefab, transform);
             agent.isStopped = true;
             yield return new WaitForSeconds(timeInSec);
             agent.isStopped = false;
+            Destroy(shock);
             Debug.Log("Shock effect ended on: " + gameObject.name);
             isShocked = false;
         }
@@ -42,9 +45,11 @@ public class Behavior : MonoBehaviour
         {
             isPoisoned = true;
             Debug.Log("Poison effect on: " + gameObject.name);
+            GameObject poison = Instantiate(poisonParticlePrefab, transform);
             agent.speed *= spdFactor;
             yield return new WaitForSeconds(timeInSec);
             agent.speed /= spdFactor;
+            Destroy(poison);
             Debug.Log("Poison effect ended on: " + gameObject.name);
             isPoisoned = false;
         } 
