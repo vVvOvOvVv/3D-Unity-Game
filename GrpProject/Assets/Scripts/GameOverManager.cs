@@ -5,9 +5,9 @@ public class GameOverManager : MonoBehaviour
 {
     public void RestartGame()
     {
+        Time.timeScale = 1.0f; // resume
         // Reload the current scene to restart the game (Incomplete, add the scene that you want to reload to)
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        Time.timeScale = 1.0f; // resume
     }
 
     public void ExitGame()

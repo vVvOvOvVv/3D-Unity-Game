@@ -121,17 +121,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gunType: 2
   dmgType: 0
-  maxAmmo: 50
-  currentAmmo: 200
+  maxAmmo: 100
+  currentAmmo: 100
   dmg: 2
   spread: 15
   bulletsShot: 1
   bulletsPerTap: 1
-  reserveAmmo: 150
+  reserveAmmo: 300
   timeBetweenShots: 0.15
   reloadTime: 3
   timeBetweenShooting: 0.1
-  impulseStrength: 5
+  impulseStrength: 1
   wpnLevel: 0
   readyToShoot: 1
   isReloading: 0

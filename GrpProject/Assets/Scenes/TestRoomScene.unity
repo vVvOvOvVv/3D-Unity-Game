@@ -1659,6 +1659,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &325098990 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 277225916170912348, guid: a965c1999bcc4f544bfcbe2ca3db9c04, type: 3}
+  m_PrefabInstance: {fileID: 325098986}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &325098991 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 713076390859062021, guid: a965c1999bcc4f544bfcbe2ca3db9c04, type: 3}
+  m_PrefabInstance: {fileID: 325098986}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &335118208
 GameObject:
   m_ObjectHideFlags: 0
@@ -4150,6 +4172,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponHolder: {fileID: 5117624531351364970}
   pistolPrefab: {fileID: 1499070045634072845, guid: d0c71b5d4c6a13a41a19a9c38e0c376e, type: 3}
+  gunLvlTxt1: {fileID: 325098991}
+  gunLvlTxt2: {fileID: 325098990}
   inventoryPanel: {fileID: 1650813486}
   gunIcons:
   - {fileID: 666436456}
@@ -6050,6 +6074,11 @@ Transform:
   - {fileID: 75713302}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1173961521 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7019688480446749816, guid: a965c1999bcc4f544bfcbe2ca3db9c04, type: 3}
+  m_PrefabInstance: {fileID: 325098986}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1179180179 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 510248444000824863, guid: 9d3c6113164fd3b488040a35893b058c, type: 3}
@@ -7583,6 +7612,7 @@ MonoBehaviour:
   GameOverCanvas: {fileID: 1036266464}
   inventoryPanel: {fileID: 1650813486}
   wpnPickupCanvas: {fileID: 1199461944}
+  spdUpIndicator: {fileID: 1173961521}
 --- !u!143 &1625673878
 CharacterController:
   m_ObjectHideFlags: 0

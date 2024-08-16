@@ -1,4 +1,5 @@
 using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,6 +12,7 @@ public class Inventory : MonoBehaviour
     private Weapon currentWeapon;
     private GameObject lastPickedWeapon; // The last picked-up weapon
     private GameObject secondLastPickedWeapon;
+    [SerializeField] private TextMeshProUGUI gunLvlTxt1, gunLvlTxt2;
 
     // HUD
     [SerializeField]
@@ -211,9 +213,11 @@ public class Inventory : MonoBehaviour
             {
                 case 0:
                     lastPickedWeapon.GetComponent<Weapon>().wpnLevel += 0.5f;
+                    gunLvlTxt2.SetText("Lv. " + lastPickedWeapon.GetComponent<Weapon>().wpnLevel.ToString());
                     break;
                 default: // 1
                     secondLastPickedWeapon.GetComponent<Weapon>().wpnLevel += 0.5f;
+                    gunLvlTxt1.SetText("Lv. " + secondLastPickedWeapon.GetComponent<Weapon>().wpnLevel.ToString());
                     break;
             }
         }
