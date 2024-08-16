@@ -10,7 +10,7 @@ public class WeaponPickUp : MonoBehaviour
     private Collider collide;
     //private bool isPickedUp = false;
     [SerializeField] private Shooter shooterScript;
-    private GameObject inventoryPanel, wpnPickupCanvas;
+    private GameObject wpnPickupCanvas;
 
     void Awake()
     {
@@ -24,8 +24,7 @@ public class WeaponPickUp : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {  
         if (other.CompareTag("Player"))
-        {
-            inventoryPanel = other.gameObject.GetComponent<FPSInput>().inventoryPanel;
+        { 
             wpnPickupCanvas = other.gameObject.GetComponent<FPSInput>().wpnPickupCanvas;
             shooterScript = other.gameObject.GetComponentInChildren<Shooter>();
             PickUp();
