@@ -14,6 +14,7 @@ public class SniperBehavior : Behavior
     [SerializeField] private Transform[] waypoints;
     private LineRenderer lineRenderer;
 
+    [SerializeField] private Transform firePoint; // The point from where the projectile will be fired 
     private new void Start()
     {
         base.Start();  
@@ -30,6 +31,16 @@ public class SniperBehavior : Behavior
         if (waypoints.Length > 0)
         {
             agent.SetDestination(waypoints[currentWaypoint].position);
+        }
+        base.Start();
+
+        if (player != null)
+        {
+            playerTransform = player.transform;
+        } 
+        if (firePoint == null)
+        {
+            firePoint = transform.Find("Fire Point");
         }
     }
 
@@ -56,6 +67,7 @@ public class SniperBehavior : Behavior
             Vector3 direction = (playerTransform.position - transform.position).normalized;
             Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
             transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
+            Shoot();
         }
 
         // Update the laser beam's positions to follow the player
@@ -89,10 +101,10 @@ public class SniperBehavior : Behavior
 
         // Simulate shooting at the player
         enemyAnim.SetTrigger("aim to shoot");
-
-        // Simulate shooting at the player
-        Debug.Log("Sniper fires!");
-        isShooting = true;
+         
+        // fire at player
+        // Debug.Log("Sniper fires!");
+        isShooting = true; 
 
         // Wait before moving again
         yield return new WaitForSeconds(shootInterval);
@@ -112,5 +124,24 @@ public class SniperBehavior : Behavior
         }
  
         enemyAnim.SetTrigger("aim to walk");
-    } 
+    }
+
+    private void Shoot()
+    {
+        RaycastHit hit;  // Variable to store information about what the raycast hits.
+        Vector3 directionToPlayer = (playerTransform.position - firePoint.position).normalized;
+        // Calculate the direction from the fire point to the player's position and normalize it.
+
+        if (Physics.Raycast(firePoint.position, directionToPlayer, out hit))
+        {
+            // Perform a raycast from the fire point in the direction of the player. 
+            if (hit.collider.CompareTag("Player")) // Check if the raycast hit the player. 
+            {   
+                // make player take damage
+                FPSInput fps = hit.collider.GetComponent<FPSInput>();
+                fps.TakeDamage(enemyScript.dmgPerHit);
+                Debug.Log(gameObject.name + " dealt " + enemyScript.dmgPerHit + " dmg!");
+            }
+        }
+    }
 }

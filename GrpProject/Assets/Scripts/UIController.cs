@@ -81,6 +81,7 @@ public class UIController : MonoBehaviour
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         Time.timeScale = 1;
+        shooterScript.gamePaused = false;
     }
 
     public void QuitGame()

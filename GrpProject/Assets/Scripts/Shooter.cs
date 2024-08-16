@@ -1,6 +1,8 @@
 using UnityEngine;
 using TMPro;
 using EZCameraShake;
+using System.Collections;
+using UnityEngine.UI;
 
 public class Shooter : MonoBehaviour
 {  
@@ -8,6 +10,9 @@ public class Shooter : MonoBehaviour
 
     // TMPro elements from the HUD
     [SerializeField] private TextMeshProUGUI currentAmmoTxt, reserveAmmoTxt;
+    // Slider element to indicate reload time
+    [SerializeField] private Slider reloadSlider;
+    private GameObject reloadSliderObj;
 
     public bool gamePaused;
 
@@ -20,7 +25,10 @@ public class Shooter : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.R) &&
             currentWeapon.currentAmmo < currentWeapon.maxAmmo && !currentWeapon.isReloading)
+        {
             currentWeapon.Reload();
+            StartCoroutine(VisualizeReload());
+        }
 
         // shoot
         if (currentWeapon.readyToShoot && currentWeapon.shooting && 
@@ -56,11 +64,31 @@ public class Shooter : MonoBehaviour
         reserveAmmoTxt.SetText(currentWeapon.reserveAmmo.ToString());
     }
 
+    private IEnumerator VisualizeReload()
+    { 
+        float elapsedTime = 0f;
+        reloadSliderObj.SetActive(true);
+
+        while (elapsedTime < currentWeapon.reloadTime)
+        {
+            elapsedTime += Time.deltaTime;
+            reloadSlider.value = Mathf.Lerp(0, 1, elapsedTime / currentWeapon.reloadTime);
+            yield return null; // wait for next frame
+        }
+         
+        reloadSlider.value = 0f;
+        reloadSliderObj.SetActive(false); 
+    }
+
     void Start()
     { 
         Cursor.lockState = CursorLockMode.Locked; 
         Cursor.visible = false;
         gamePaused = false;
+        if (reloadSlider != null)
+            reloadSliderObj = reloadSlider.gameObject;
+        if (reloadSliderObj != null) 
+            reloadSliderObj.SetActive(false); // hide from player
     } 
 
     void Update()

@@ -63,7 +63,7 @@ public class FPSInput : MonoBehaviour
         wpnPickupCanvas.SetActive(false);
         spdUpIndicator.SetActive(false);
 
-        shooterScript = GetComponent<Shooter>(); 
+        shooterScript = GetComponentInChildren<Shooter>(); 
     }
 
     // Update is called once per frame

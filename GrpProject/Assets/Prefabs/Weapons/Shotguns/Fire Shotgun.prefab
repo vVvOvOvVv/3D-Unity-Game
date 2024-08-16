@@ -123,7 +123,7 @@ MonoBehaviour:
   dmgType: 1
   maxAmmo: 6
   currentAmmo: 6
-  dmg: 2
+  dmg: 5
   spread: 20
   bulletsShot: 1
   bulletsPerTap: 2

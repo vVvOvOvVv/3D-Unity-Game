@@ -1507,6 +1507,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 530375378}
     m_Modifications:
+    - target: {fileID: 1382664509570528075, guid: a965c1999bcc4f544bfcbe2ca3db9c04, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1382664509570528075, guid: a965c1999bcc4f544bfcbe2ca3db9c04, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4125365615524552690, guid: a965c1999bcc4f544bfcbe2ca3db9c04, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -1585,6 +1593,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4125365615524552690, guid: a965c1999bcc4f544bfcbe2ca3db9c04, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4246376423106771510, guid: a965c1999bcc4f544bfcbe2ca3db9c04, type: 3}
+      propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5516912431249943746, guid: a965c1999bcc4f544bfcbe2ca3db9c04, type: 3}
@@ -4889,6 +4901,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 210442451396089719, guid: 1696222c72e89ab4f9026119ef17826b, type: 3}
   m_PrefabInstance: {fileID: 973533803}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &980839760 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6602120683902459100, guid: a965c1999bcc4f544bfcbe2ca3db9c04, type: 3}
+  m_PrefabInstance: {fileID: 325098986}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &982585290
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5156,6 +5179,7 @@ MonoBehaviour:
   currentWeapon: {fileID: 0}
   currentAmmoTxt: {fileID: 890395399}
   reserveAmmoTxt: {fileID: 874263960}
+  reloadSlider: {fileID: 980839760}
   gamePaused: 0
 --- !u!114 &1057707579
 MonoBehaviour:
