@@ -13,8 +13,8 @@ public class HealthRecovery : MonoBehaviour
             FPSInput fps = other.GetComponent<FPSInput>();
             if (fps.currentHealth < fps.maxHealth) // only need to restore HP if < maxHP
             {
-                if (fps.maxHealth - fps.currentHealth <= increaseHP) // cannot exceed max HP
-                    increaseHP -= fps.maxHealth - fps.currentHealth;
+                if (fps.maxHealth - fps.currentHealth < increaseHP) // cannot exceed max HP
+                    increaseHP += fps.currentHealth - fps.maxHealth;
                 fps.Heal(increaseHP);
                 Destroy(gameObject); // Destroy the health pickup object 
             }

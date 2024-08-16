@@ -13,6 +13,7 @@ public class Inventory : MonoBehaviour
     private GameObject lastPickedWeapon; // The last picked-up weapon
     private GameObject secondLastPickedWeapon;
     [SerializeField] private TextMeshProUGUI gunLvlTxt1, gunLvlTxt2;
+    private Shooter shooterScript;
 
     // HUD
     [SerializeField]
@@ -45,6 +46,7 @@ public class Inventory : MonoBehaviour
         lastPickedWeapon = pistolPrefab; // Initialize with pistol
         secondLastPickedWeapon = null;
         inventoryPanel = GameObject.FindWithTag("InventoryPanel");
+        shooterScript = GameObject.FindWithTag("Player").GetComponentInChildren<Shooter>();
     }
 
     public void SwitchWeapon(GameObject weaponPrefab)
@@ -203,8 +205,12 @@ public class Inventory : MonoBehaviour
 
     public void UpgradeRandomWeapon()
     { 
-        if (secondLastPickedWeapon == null) // no weapon picked up yet
-            lastPickedWeapon.GetComponent<Weapon>().wpnLevel += 0.5f;
+        if (secondLastPickedWeapon == null) // only 1 weapon in inventory
+        {
+            Weapon wpn = lastPickedWeapon.GetComponent<Weapon>();
+            WpnLevelUp(wpn);
+            gunLvlTxt2.SetText("Lv. " + wpn.wpnLevel);
+        }
         else
         {
             int rand = Random.Range(0, 2);
@@ -212,14 +218,25 @@ public class Inventory : MonoBehaviour
             switch (rand)
             {
                 case 0:
-                    lastPickedWeapon.GetComponent<Weapon>().wpnLevel += 0.5f;
-                    gunLvlTxt2.SetText("Lv. " + lastPickedWeapon.GetComponent<Weapon>().wpnLevel.ToString());
+                    Weapon wpn = lastPickedWeapon.GetComponent<Weapon>();
+                    WpnLevelUp(wpn);
+                    gunLvlTxt2.SetText("Lv. " + wpn.wpnLevel);
                     break;
                 default: // 1
-                    secondLastPickedWeapon.GetComponent<Weapon>().wpnLevel += 0.5f;
-                    gunLvlTxt1.SetText("Lv. " + secondLastPickedWeapon.GetComponent<Weapon>().wpnLevel.ToString());
+                    Weapon secondWpn = secondLastPickedWeapon.GetComponent<Weapon>();
+                    WpnLevelUp(secondWpn);
+                    gunLvlTxt1.SetText("Lv. " + secondWpn.wpnLevel);
                     break;
             }
         }
+        shooterScript.UpdateAmmoText();
     }
+
+    private void WpnLevelUp(Weapon wpn)
+    {
+        Debug.Log(wpn.name + "  lvl: " + wpn.wpnLevel);
+        wpn.wpnLevel += 0.5f; // level acts more like a multiplier
+        Debug.Log(wpn.name + "  lvl after upgrade: " + wpn.wpnLevel);
+        wpn.reserveAmmo += wpn.maxAmmo * 2; // restore 2 mags worth of ammo
+    } 
 }

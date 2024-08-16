@@ -19,8 +19,9 @@ public class UIController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //get references to the player and camera
+        //get references to the player, shooter script and camera
         player = GameObject.FindGameObjectWithTag("Player");
+        shooterScript = player.GetComponentInChildren<Shooter>();
         mainCamera = GameObject.FindGameObjectWithTag("CameraAnchor");
     }
 
@@ -53,6 +54,7 @@ public class UIController : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         Time.timeScale = 1;
+        shooterScript.gamePaused = false;
     }
 
     public void OnOpenRestartPrompt()

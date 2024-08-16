@@ -50,6 +50,12 @@ public class Shooter : MonoBehaviour
         }
     }
 
+    public void UpdateAmmoText()
+    {
+        currentAmmoTxt.SetText(currentWeapon.currentAmmo.ToString());
+        reserveAmmoTxt.SetText(currentWeapon.reserveAmmo.ToString());
+    }
+
     void Start()
     { 
         Cursor.lockState = CursorLockMode.Locked; 
@@ -63,9 +69,7 @@ public class Shooter : MonoBehaviour
         if (currentWeapon != null && !gamePaused)
         {
             ShootInput();  
-            // set text - ammo count
-            currentAmmoTxt.SetText(currentWeapon.currentAmmo.ToString());
-            reserveAmmoTxt.SetText(currentWeapon.reserveAmmo.ToString());
+            UpdateAmmoText();
         } 
     }
 }

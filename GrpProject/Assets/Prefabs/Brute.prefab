@@ -172,12 +172,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   smokePrefab: {fileID: 6716933543107358056, guid: 8a334e7c388e77347a1dddd727ef3446, type: 3}
   weaponPickupPrefab: {fileID: 2401814541304874731, guid: 42e6feec1ea63aa4497661b57fba32a4, type: 3}
+  hpRecoveryPrefab: {fileID: 8038299117084755651, guid: 84ceedd67cbde754f8537b5d91ef5f95, type: 3}
+  armorPrefab: {fileID: 7615203973202518475, guid: 64324ff21ab48b04c9f2d67bec99cb50, type: 3}
+  speedUpPrefab: {fileID: 1863740057290477371, guid: f7918d66ab06e554186b2a85cfb15725, type: 3}
   hpBar: {fileID: 6319842937836839009}
-  hp: 0
-  maxHP: 30
+  hp: 45
+  maxHP: 45
   dmgPerHit: 15
   wpnDropRate: 4
+  hpDropRate: 0
+  armorDropRate: 0
+  spdDropRate: 0
   isDead: 0
+  spawnChance: 0
 --- !u!54 &4447081092965862696
 Rigidbody:
   m_ObjectHideFlags: 0

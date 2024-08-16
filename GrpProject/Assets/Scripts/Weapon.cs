@@ -39,7 +39,7 @@ public class Weapon : MonoBehaviour
     // FIRE LOGIC PROPERTIES
     public int fireDamage = 5; // damage over time per second
     public int fireDuration = 5; // duration of fire effect in seconds
-    private const int fireChance = 100; // 25% chance for fire effect
+    private const int fireChance = 25; // 25% chance for fire effect
 
 
     // references
@@ -53,7 +53,7 @@ public class Weapon : MonoBehaviour
         readyToShoot = true;
         reserveAmmo = maxAmmo * 3;
         normalSpread = spread;
-        wpnLevel = 1f;
+        wpnLevel = 1.0f;
     }
  
     public void Shoot() 

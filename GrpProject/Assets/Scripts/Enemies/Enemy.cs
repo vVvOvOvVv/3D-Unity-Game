@@ -4,17 +4,23 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     public GameObject smokePrefab; // hide enemy disappearing on death
-    public GameObject weaponPickupPrefab; // can use the same prefab for the pickup
+    public GameObject weaponPickupPrefab, hpRecoveryPrefab, armorPrefab, speedUpPrefab; // pick-up-ables
     public EnemyHPBar hpBar;
     public int hp, // health
         maxHP, // max health
         dmgPerHit,// enemy's dmg per hit/shot
-        wpnDropRate; // weapon drops 1 out of X times
+        wpnDropRate, hpDropRate, armorDropRate, spdDropRate; // drops 1 out of X times
     public bool isDead;
+    public float spawnChance;
 
     public void Awake()
     {
-        wpnDropRate = 4; // standard drop rate
+        // standard drop rates
+        wpnDropRate = 5; // 20% chance
+        hpDropRate = 5;
+        armorDropRate = 4; // 25% chance
+        spdDropRate = 3; // 33.3% chance
+
         isDead = false;
         if (hpBar != null)
             hpBar.UpdateHPBar(hp, maxHP);
@@ -56,14 +62,24 @@ public class Enemy : MonoBehaviour
     public IEnumerator HPDepleted()
     {
         isDead = true;
-        // chance of weapon drop 
-        /*  int wpnDropChance = Random.Range(1, wpnDropRate + 1);
-          if (wpnDropChance == 1) */
-        Instantiate(weaponPickupPrefab, transform.position, Quaternion.identity);
 
-        // drop ammo - random amount within a range
-        // to randomize which ammo type, just set random range as 0 or 1 (Range(0, 2)) to determine which 
-        // currently equipped gun to replenish
+        // randomize pick up drops
+        // chance of weapon drop 
+        int pickupDropChance = Random.Range(0, wpnDropRate);
+        if (pickupDropChance == 0)
+            Instantiate(weaponPickupPrefab, transform.position, Quaternion.identity);
+        // chance of HP recovery drop
+        pickupDropChance = Random.Range(0, hpDropRate);
+        if (pickupDropChance == 0)
+            Instantiate(hpRecoveryPrefab, transform.position, Quaternion.identity);
+        // chance of shield/armor drop
+        pickupDropChance = Random.Range(0, armorDropRate);
+        if (pickupDropChance == 0)
+            Instantiate(armorPrefab, transform.position, Quaternion.identity);
+        // chance of speed up drop
+        pickupDropChance = Random.Range(0, spdDropRate);
+        if (pickupDropChance == 0)
+            Instantiate(speedUpPrefab, transform.position, Quaternion.identity); 
 
         // create smoke effect to hide enemy disappearing
         GameObject smoke = Instantiate(smokePrefab, transform);

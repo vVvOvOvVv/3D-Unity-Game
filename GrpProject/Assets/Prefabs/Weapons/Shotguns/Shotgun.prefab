@@ -132,7 +132,7 @@ MonoBehaviour:
   reloadTime: 5
   timeBetweenShooting: 0.1
   impulseStrength: 2
-  wpnLevel: 0
+  wpnLevel: 1
   readyToShoot: 1
   isReloading: 0
   allowButtonHold: 0
