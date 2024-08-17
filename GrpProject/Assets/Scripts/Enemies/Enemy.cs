@@ -4,14 +4,14 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     public GameObject smokePrefab; // hide enemy disappearing on death
-    public GameObject weaponPickupPrefab, hpRecoveryPrefab, armorPrefab, speedUpPrefab; // pick-up-ables
+    public GameObject weaponPickupPrefab, hpRecoveryPrefab, armorPrefab, speedUpPrefab, // pick-up-ables
+        fireParticlePrefab; // status ailment indicator
     public EnemyHPBar hpBar;
     public int hp, // health
         maxHP, // max health
         dmgPerHit,// enemy's dmg per hit/shot
         wpnDropRate, hpDropRate, armorDropRate, spdDropRate; // drops 1 out of X times
-    public bool isDead;
-    public float spawnChance;
+    public bool isDead; 
 
     public void Awake()
     {
@@ -49,6 +49,7 @@ public class Enemy : MonoBehaviour
     public IEnumerator BurnEnemy(int fireDmg, int duration)
     {
         Debug.Log("Burn effect on: " + gameObject.name);
+        GameObject fire = Instantiate(fireParticlePrefab, transform);
 
         for (int i = 0; i < duration; i++)
         {
@@ -56,6 +57,7 @@ public class Enemy : MonoBehaviour
             yield return new WaitForSeconds(1);
         }
 
+        Destroy(fire);
         Debug.Log("Burn effect ended on: " + gameObject.name);
     }
 
@@ -86,5 +88,5 @@ public class Enemy : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         Destroy(smoke);
         Destroy(gameObject);
-    }
+    } 
 }

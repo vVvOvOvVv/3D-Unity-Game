@@ -4,8 +4,7 @@ public class Brute : Enemy
     {
         maxHP = 30;
         hp = maxHP;
-        dmgPerHit = 15;
-        spawnChance = 0f; // starting spawn rate
+        dmgPerHit = 15; 
         base.Awake();
     }
 }

@@ -4,8 +4,7 @@ public class Sniper : Enemy
     {
         maxHP = 20;
         hp = maxHP;
-        dmgPerHit = 25;
-        spawnChance = 0; // starting spawn rate
+        dmgPerHit = 25; 
         base.Awake();
     }
 }

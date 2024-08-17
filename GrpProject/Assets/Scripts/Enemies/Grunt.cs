@@ -4,8 +4,7 @@ public class Grunt : Enemy
     {
         maxHP = 10;
         hp = maxHP;
-        dmgPerHit = 2;
-        spawnChance = 100f; // starting spawn rate
+        dmgPerHit = 2; 
         base.Awake();
     } 
 }

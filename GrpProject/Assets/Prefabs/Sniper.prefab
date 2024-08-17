@@ -159,6 +159,8 @@ MonoBehaviour:
   playerTransform: {fileID: 0}
   enemyScript: {fileID: 8296782888063128743}
   enemyModel: {fileID: 350413288680012003}
+  poisonParticlePrefab: {fileID: 100748, guid: cd4d7020429cde74db076ffa72495419, type: 3}
+  shockParticlePrefab: {fileID: 194016, guid: 263867d4955e3644f9a1dfa779ab7d1e, type: 3}
   enemyState: 0
   enemyAnim: {fileID: 6446647228308437027}
   spd: 0
@@ -204,11 +206,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9b1b242441bddd48872c92ffc0e399a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  smokePrefab: {fileID: 6716933543107358056, guid: 8a334e7c388e77347a1dddd727ef3446, type: 3}
+  smokePrefab: {fileID: 100000, guid: ab1112643ee572748b01dede71158272, type: 3}
   weaponPickupPrefab: {fileID: 2401814541304874731, guid: 42e6feec1ea63aa4497661b57fba32a4, type: 3}
   hpRecoveryPrefab: {fileID: 8038299117084755651, guid: 84ceedd67cbde754f8537b5d91ef5f95, type: 3}
   armorPrefab: {fileID: 7615203973202518475, guid: 64324ff21ab48b04c9f2d67bec99cb50, type: 3}
   speedUpPrefab: {fileID: 1863740057290477371, guid: f7918d66ab06e554186b2a85cfb15725, type: 3}
+  fireParticlePrefab: {fileID: 100000, guid: 756d99540142b5e4a8d174e18a6310d9, type: 3}
   hpBar: {fileID: 7012329615855028158}
   hp: 20
   maxHP: 20
