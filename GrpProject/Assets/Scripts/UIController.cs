@@ -18,7 +18,7 @@ public class UIController : MonoBehaviour
     {
         //get references to the player and camera
         player = GameObject.FindGameObjectWithTag("Player");
-        mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
+        mainCamera = GameObject.FindGameObjectWithTag("CameraAnchor");
     }
 
     // Update is called once per frame
