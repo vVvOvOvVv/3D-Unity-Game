@@ -11,22 +11,10 @@ public class SniperSpawn : MonoBehaviour
         foreach (GameObject sniper in snipers) 
             sniper.SetActive(false);
 
-        spawnCounter = 0;
-        StartCoroutine(SpawnSnipers());
-    }
-    private IEnumerator SpawnSnipers()
-    {
-        yield return new WaitForSeconds(150); // 2.5 min
-        Spawn(1);
+        spawnCounter = 0; 
+    } 
 
-        yield return new WaitForSeconds(90); // 4 min
-        Spawn(2);
-
-        yield return new WaitForSeconds(90); // 5.5 min
-        Spawn(1);
-    }
-
-    private void Spawn(int numOfSpawns)
+    public void Spawn(int numOfSpawns)
     {
         for (int i = spawnCounter; i < numOfSpawns + spawnCounter; i++) 
             snipers[i].SetActive(true);

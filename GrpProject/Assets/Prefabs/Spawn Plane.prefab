@@ -58,7 +58,13 @@ MonoBehaviour:
   inRoom1: 0
   afterGate: 0
   inRoom2: 0
-  pillarRoom: 0
+  inFenceRoom: 0
+  inKegRoom: 0
+  inBalconyRoom: 0
+  inFenceRoom2: 0
+  inRoom3: 0
+  allEnemiesDefeated: 0
+  finalWaveSpawned: 0
 --- !u!1 &5922786383318423920
 GameObject:
   m_ObjectHideFlags: 0
@@ -109,7 +115,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5922786383318423920}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -122,7 +128,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: f59cbfd2e49b9fe45b19669c33c1d5c2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

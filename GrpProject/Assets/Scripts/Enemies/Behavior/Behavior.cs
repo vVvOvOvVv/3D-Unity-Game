@@ -16,7 +16,7 @@ public class Behavior : MonoBehaviour
 
     public NavMeshAgent agent;
     public GameObject player;
-    public bool isShocked, isPoisoned, isBurn;
+    public bool isShocked, isPoisoned, isBurn; 
 
     public virtual IEnumerator AgentNearPlayer() { yield return null; }
 

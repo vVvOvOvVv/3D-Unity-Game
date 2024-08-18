@@ -4,9 +4,14 @@ using UnityEngine.UI;
 public class EnemyHPBar : MonoBehaviour
 {
     [SerializeField] private Slider hpSlider;
-    [SerializeField] private Camera cam;
+    private Camera cam;
     [SerializeField] private Transform target;
-    [SerializeField] private Vector3 offset; 
+    [SerializeField] private Vector3 offset;
+
+    private void Awake()
+    {
+        cam = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
+    }
 
     public void UpdateHPBar(int hp, int maxHP)
     {
