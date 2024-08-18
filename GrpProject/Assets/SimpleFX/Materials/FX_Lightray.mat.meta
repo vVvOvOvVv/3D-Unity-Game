@@ -1,6 +1,11 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:GrpProject/Assets/SimpleFX/Materials/FX_Lightray.mat.meta
 guid: 7e0b60daf18511249a209d52beda2988
 timeCreated: 1465423084
+========
+guid: f1b0fea076fb0574d868f6e3d9523f52
+timeCreated: 1496248097
+>>>>>>>> V2:GrpProject/Assets/SimpleFX/Materials/FX_GunFlash.mat.meta
 licenseType: Store
 NativeFormatImporter:
   userData: 

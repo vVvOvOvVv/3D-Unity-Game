@@ -1,6 +1,11 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:GrpProject/Assets/SimpleFX/Materials/FX_GunFlash.mat.meta
 guid: f1b0fea076fb0574d868f6e3d9523f52
 timeCreated: 1496248097
+========
+guid: 040cfa3c61ad57946ae16c627e338920
+timeCreated: 1461193354
+>>>>>>>> V2:GrpProject/Assets/SimpleFX/Materials/FX_Glow.mat.meta
 licenseType: Store
 NativeFormatImporter:
   userData: 

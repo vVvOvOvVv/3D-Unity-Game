@@ -12,6 +12,8 @@ public class BruteBehavior : Behavior
     private new void Start()
     {
         base.Start();
+        if (player != null)
+            playerTransform = player.transform;
         canAttack = true;
         originalSpeed = spd; // initialize original speed
     }

@@ -1,6 +1,11 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:GrpProject/Assets/SimpleFX/Materials/FX_Rubble.mat.meta
 guid: 7a9bced7715b2c047b5413e33bc60d5c
 timeCreated: 1469255638
+========
+guid: 7e0b60daf18511249a209d52beda2988
+timeCreated: 1465423084
+>>>>>>>> V2:GrpProject/Assets/SimpleFX/Materials/FX_Lightray.mat.meta
 licenseType: Store
 NativeFormatImporter:
   userData: 
