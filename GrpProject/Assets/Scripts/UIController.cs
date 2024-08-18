@@ -10,19 +10,15 @@ public class UIController : MonoBehaviour
     [SerializeField] Image pauseMenu;
     [SerializeField] Image restartPrompt;
     [SerializeField] Image quitPrompt;
-
     GameObject player;
     GameObject mainCamera;
-
-    private Shooter shooterScript;
 
     // Start is called before the first frame update
     void Start()
     {
-        //get references to the player, shooter script and camera
+        //get references to the player and camera
         player = GameObject.FindGameObjectWithTag("Player");
-        shooterScript = player.GetComponentInChildren<Shooter>();
-        mainCamera = GameObject.FindGameObjectWithTag("CameraAnchor");
+        mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
     }
 
     // Update is called once per frame
@@ -31,15 +27,7 @@ public class UIController : MonoBehaviour
         //display the cursor and pause menu when ESC key is pressed
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            pauseMenu.gameObject.SetActive(true);
-            player.GetComponent<FPSInput>().enabled = false;
-            player.GetComponent<MouseLook>().enabled = false;
-            mainCamera.GetComponent<MouseLook>().enabled = false;
-
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
-            Time.timeScale = 0;
-            shooterScript.gamePaused = true;
+            OnOpenPauseMenu();
         }
     }
 
@@ -54,7 +42,20 @@ public class UIController : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         Time.timeScale = 1;
-        shooterScript.gamePaused = false;
+    }
+
+    public void OnOpenPauseMenu()
+    {
+        //display pause menu
+        pauseMenu.gameObject.SetActive(true);
+        player.GetComponent<FPSInput>().enabled = false;
+        player.GetComponent<MouseLook>().enabled = false;
+        mainCamera.GetComponent<MouseLook>().enabled = false;
+
+        //unlock and display cursor
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        Time.timeScale = 0;
     }
 
     public void OnOpenRestartPrompt()
@@ -81,16 +82,15 @@ public class UIController : MonoBehaviour
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         Time.timeScale = 1;
-        shooterScript.gamePaused = false;
     }
 
     public void QuitGame()
     {
-    #if UNITY_STANDALONE
-        Application.Quit();
-    #endif
-    #if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;
-    #endif
+        #if UNITY_STANDALONE
+            Application.Quit();
+        #endif
+        #if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+        #endif
     }
 }
