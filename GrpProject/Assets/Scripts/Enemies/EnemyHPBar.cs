@@ -3,12 +3,12 @@ using UnityEngine.UI;
 
 public class EnemyHPBar : MonoBehaviour
 {
-    [SerializeField] private Slider hpSlider;
+    [SerializeField] public Slider hpSlider;
     private Camera cam;
     [SerializeField] private Transform target;
     [SerializeField] private Vector3 offset;
 
-    private void Awake()
+    public void Awake()
     {
         cam = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
     }
@@ -19,9 +19,10 @@ public class EnemyHPBar : MonoBehaviour
         // Debug.Log("Slider value: " + hpSlider.value);
     }
 
-    private void Update()
+    public void Update()
     {
         transform.rotation = cam.transform.rotation; // ensure hp bar always faces camera
-        transform.position = target.position + offset; // keep hp bar on top of enemy
+        if (target != null) 
+            transform.position = target.position + offset; // keep hp bar on top of enemy
     }
 }

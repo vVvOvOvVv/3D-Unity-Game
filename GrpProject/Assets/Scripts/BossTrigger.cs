@@ -16,11 +16,12 @@ public class BossTrigger : MonoBehaviour
 
     private IEnumerator RoarAnimation()
     {
-        bossBehaviorScript.state = BossBehavior.EnemyState.Roar;
-        bossBehaviorScript.AnimationHandler();
+        bossBehaviorScript.enemyAnim.SetTrigger("Roar");
 
         yield return new WaitForSeconds(5.24f);
 
         bossBehaviorScript.playerInRoom = true;
+
+        gameObject.SetActive(false);
     }
 }

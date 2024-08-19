@@ -6375,6 +6375,17 @@ Transform:
   - {fileID: 1221936531}
   m_Father: {fileID: 101016210}
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!114 &1375931268 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7392085573277491253, guid: a965c1999bcc4f544bfcbe2ca3db9c04, type: 3}
+  m_PrefabInstance: {fileID: 325098986}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 005c258486d34cc49b2e6fa1f91f4ef8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1376068758
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9091,6 +9102,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Maw J Laygo
       objectReference: {fileID: 0}
+    - target: {fileID: 4868056184727879417, guid: 41eb28112085a2f46baa761367c2d96b, type: 3}
+      propertyPath: hpBar
+      value: 
+      objectReference: {fileID: 1375931268}
     - target: {fileID: 5283640702977985208, guid: 41eb28112085a2f46baa761367c2d96b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

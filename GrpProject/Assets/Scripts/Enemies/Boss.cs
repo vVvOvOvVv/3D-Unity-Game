@@ -44,8 +44,7 @@ public class Boss : Enemy
 
     public void BossHPDepleted()
     {
-        isDead = true;
-        behaviorScript.canAttack = false;
+        isDead = true; 
 
         // call on behavior script's death animation
         behaviorScript.enemyAnim.SetTrigger("Death");

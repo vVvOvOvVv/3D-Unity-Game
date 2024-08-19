@@ -9,15 +9,13 @@ public class BossBehavior : Behavior
     // attack-related variables
     [SerializeField] private Transform firePoint;
     [SerializeField]
-    private float jumpAtkRange = 50f,
-        runSpeed = 5f,
-        swipeRange = 5f;
+    private float jumpAtkRange = 50f;
 
     // bools
     public bool phase2, phase3, // determine phase of the fight
-        canAttack, // to prevent repeated attacks when not intended
+        isAttacking, // to prevent repeated attacks when not intended
         playerInRoom; // determine if player is in the room - begin fight 
-    private bool posMarked, // prevent repetitive marking of player position
+    private bool isRunning, // prevent repetitive animation of run
         alternateFlag;
 
     // enum variables
@@ -34,7 +32,7 @@ public class BossBehavior : Behavior
     public EnemyState state;
 
     // attack colliders
-    [SerializeField] private GameObject swipeHitBox;
+    [SerializeField] private GameObject swipeHitBox, swipeRange;
 
     private new void Start()
     {
@@ -50,8 +48,8 @@ public class BossBehavior : Behavior
         alternateFlag = true;
         phase2 = false;
         phase3 = false;
-        posMarked = false;
-        canAttack = true;
+        isRunning = false;
+        isAttacking = false;
     }
 
     // Update is called once per frame
@@ -89,13 +87,9 @@ public class BossBehavior : Behavior
             if (playerInRoom) // only start phases if player is in the room
             {
                 if (phase3)
-                {
-
-                }
+                    PhaseThree();
                 else if (phase2)
-                {
-
-                }
+                    PhaseTwo();
                 else // phase 1
                     PhaseOne();
             }
@@ -104,7 +98,7 @@ public class BossBehavior : Behavior
         }
     }
 
-    public void AnimationHandler()
+    /* public void AnimationHandler()
     {
         switch (state)
         {
@@ -127,14 +121,13 @@ public class BossBehavior : Behavior
                 enemyAnim.SetTrigger("Idle");
                 break;
         }
-    }
+    } */
 
-    private IEnumerator SwipeAttack()
+    public IEnumerator SwipeAttack()
     {
-        agent.speed = spd;
-        canAttack = false;
-        enemyAnim.SetTrigger("Swipe");
-        //AnimationHandler();
+        isAttacking = true;
+        agent.destination = agent.transform.position; // stop agent from moving
+        enemyAnim.SetTrigger("Swipe"); 
 
         yield return new WaitForSeconds(1.4f);
         swipeHitBox.SetActive(true); // make hitbox appear
@@ -153,27 +146,31 @@ public class BossBehavior : Behavior
             yield return new WaitForSeconds(5.4f);
         }
 
-        alternateFlag = !alternateFlag; 
-        posMarked = false; // allow for attack again
-        canAttack = true;
+        alternateFlag = !alternateFlag; // alternate between two animations
+        isAttacking = false;
+        isRunning = false;
     }
 
     private void PhaseOne()
-    { 
-        if (!posMarked) // prevent repetitive marking of player position
+    {   
+        if (!isAttacking)
         {
-            Debug.Log("Location marked!");
-            playerTransform = player.transform;
-            agent.destination = playerTransform.position;
+            agent.destination = player.transform.position; 
+            if (!isRunning) // ensure running animation only happens once each "cycle"
+            {
+                isRunning = true;  
+                enemyAnim.SetTrigger("Run");
+            }
+        } 
+    }
 
-            agent.speed *= runSpeed;
-            enemyAnim.SetTrigger("Run");
-            AnimationHandler();
-            posMarked = true;
-        }
+    private void PhaseTwo()
+    {
 
-        if (Vector2.Distance(agent.transform.position, playerTransform.position) <= swipeRange
-            && canAttack)
-            StartCoroutine(SwipeAttack());
+    }
+
+    private void PhaseThree()
+    {
+
     }
 } 
