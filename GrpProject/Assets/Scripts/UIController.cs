@@ -38,6 +38,7 @@ public class UIController : MonoBehaviour
         player.GetComponent<FPSInput>().enabled = true;
         player.GetComponent<MouseLook>().enabled = true;
         mainCamera.GetComponent<MouseLook>().enabled = true;
+        mainCamera.GetComponentInChildren<Shooter>().gamePaused = false;
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -51,6 +52,7 @@ public class UIController : MonoBehaviour
         player.GetComponent<FPSInput>().enabled = false;
         player.GetComponent<MouseLook>().enabled = false;
         mainCamera.GetComponent<MouseLook>().enabled = false;
+        mainCamera.GetComponentInChildren<Shooter>().gamePaused = true;
 
         //unlock and display cursor
         Cursor.lockState = CursorLockMode.None;

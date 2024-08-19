@@ -13,6 +13,9 @@ public class Shooter : MonoBehaviour
     // Slider element to indicate reload time
     [SerializeField] private Slider reloadSlider;
     private GameObject reloadSliderObj;
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip[] clips;
+    // ensure order: gunshot, empty mag but attempts to shoot, reload
 
     public bool gamePaused;
 
@@ -23,31 +26,37 @@ public class Shooter : MonoBehaviour
             currentWeapon.shooting = Input.GetKey(KeyCode.Mouse0);
         else currentWeapon.shooting = Input.GetKeyDown(KeyCode.Mouse0);
 
-        if (Input.GetKeyDown(KeyCode.R) &&
+        if (Input.GetKeyDown(KeyCode.R) && !gamePaused &&
             currentWeapon.currentAmmo < currentWeapon.maxAmmo && !currentWeapon.isReloading)
-        {
+        { 
+            audioSource.PlayOneShot(clips[2]);
             currentWeapon.Reload();
             StartCoroutine(VisualizeReload());
         }
 
         // shoot
         if (currentWeapon.readyToShoot && currentWeapon.shooting && 
-            !currentWeapon.isReloading && currentWeapon.currentAmmo > 0)
+            !currentWeapon.isReloading && currentWeapon.currentAmmo > 0 &&
+            !gamePaused)
         {
             currentWeapon.bulletsShot = currentWeapon.bulletsPerTap;
             CameraShaker.Instance.ShakeOnce(1f, 1f, 0.1f, 0.1f);
             currentWeapon.Shoot();
-        } 
+            for (int i = 0; i < currentWeapon.bulletsPerTap; i++)
+                audioSource.PlayOneShot(clips[0]);
+        } else if (currentWeapon.shooting && currentWeapon.currentAmmo == 0 && // attempts to shoot empty
+            !gamePaused) 
+            audioSource.PlayOneShot(clips[1]);
 
         // Switch weapons based on key input
-        if (Input.GetKeyDown(KeyCode.Alpha1)) 
+        if (Input.GetKeyDown(KeyCode.Alpha1) && !gamePaused) 
         {
             Inventory.Instance.SwitchWeaponByIndex(0);
         }
-        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        else if (Input.GetKeyDown(KeyCode.Alpha2) && !gamePaused)
         { 
             Inventory.Instance.SwitchWeaponByIndex(1);
-        }
+        } 
     }
 
     public void UpdateAmmoText()
@@ -81,6 +90,7 @@ public class Shooter : MonoBehaviour
             reloadSliderObj = reloadSlider.gameObject;
         if (reloadSliderObj != null) 
             reloadSliderObj.SetActive(false); // hide from player
+        audioSource = GetComponent<AudioSource>();
     } 
 
     void Update()

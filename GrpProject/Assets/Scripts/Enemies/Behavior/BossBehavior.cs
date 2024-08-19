@@ -152,7 +152,8 @@ public class BossBehavior : Behavior
     }
 
     private void PhaseOne()
-    {   
+    {
+        agent.speed = 10f; // increase max speed to 10f
         if (!isAttacking)
         {
             agent.destination = player.transform.position; 
