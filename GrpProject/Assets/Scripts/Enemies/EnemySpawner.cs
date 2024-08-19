@@ -20,7 +20,7 @@ public class EnemySpawner : MonoBehaviour
     private bool inUse, // to allow toggling of spawn locations
         inRoom1, afterGate, inRoom2, inFenceRoom, inKegRoom, // to separate spawn planes by rooms
         inBalconyRoom, inFenceRoom2, inRoom3;
-    public bool allEnemiesDefeated, // flag to determine if all enemies have been defeated
+    public bool waveCleared, // flag to determine if all enemies have been defeated
         finalWaveSpawned; // flag to determine if final wave has spawned
     private SniperSpawn sniperSpawnScript;
 
@@ -48,15 +48,20 @@ public class EnemySpawner : MonoBehaviour
         zUp = spawnPlaneCenter.z + zLengthFromCenter;
         zDown = spawnPlaneCenter.z - zLengthFromCenter;
 
-        allEnemiesDefeated = false;
+        waveCleared = true;
 
         StartCoroutine(GameTimer());
-    }
+    } 
 
-    private void Update()
+    private bool CheckForEnemies()
     {
-        if (GameObject.FindWithTag("Enemy") == null)
-            allEnemiesDefeated = true;
+
+        // check if enemies are present in the scene
+        GameObject[] enemiesInScene;
+        enemiesInScene = GameObject.FindGameObjectsWithTag("Enemy");
+        if (enemiesInScene.Length == 0)
+            return true;
+        else return false; 
     }
 
     private void SpawnRandomEnemy(Vector3 pos)
@@ -97,83 +102,144 @@ public class EnemySpawner : MonoBehaviour
             SpawnRandomEnemy(new Vector3(Random.Range(-3, 3), Random.Range(-3, 3), Random.Range(-3, 3))); */
 
         // initial wave - 6 grunts spread over 2 spawn areas to ease the player into the game
-        SpawnEnemies(3, inRoom1);
+        SpawnEnemies(2, inRoom1);
+        CalculateSpawnWeights(); // recalculate weights
 
-        enemies[0].chance = 80f; // decrease spawn rate of grunt
+        while (true) // time between waves
+        {
+            if (CheckForEnemies())
+                break;
+            yield return null; // wait for next frame 
+        }
+
+        // spawn after the gate to guide the player - 1 spawn area 
+        yield return new WaitForSeconds(2);
+        SpawnEnemies(4, afterGate); 
+
+        enemies[0].chance = 100f; // decrease spawn rate of grunt
         enemies[1].chance = 40f; // increase spawn rate of brutes
         CalculateSpawnWeights(); // recalculate weights
 
-        // after 20 seconds, introduce brutes over 2 spawn areas
-        yield return new WaitForSeconds(18); 
+        while (true)
+        {
+            if (CheckForEnemies())
+                break;
+            yield return null; // wait for next frame
+        }
 
-        SpawnEnemies(3, inRoom1); 
+        // room 2 - 1 spawn area, 10 enemies 
+        yield return new WaitForSeconds(2);
+        SpawnEnemies(5, inRoom2, inUse);
 
-        enemies[0].chance = 70f; // decrease spawn rate of grunt
-        enemies[1].chance = 60f; // increase spawn rate of brutes
+        enemies[0].chance = 80f; // decrease spawn rate of grunt
+        enemies[1].chance = 50f; // increase spawn rate of brutes
         CalculateSpawnWeights(); // recalculate weights
 
-        // spawn after the gate to guide the player - 1 spawn area
-        yield return new WaitForSeconds(20); 
+        while (true)
+        {
+            if (CheckForEnemies())
+                break;
+            yield return null; // wait for next frame
+        }
 
-        SpawnEnemies(5, afterGate); 
+        // room 2 - 2 spawn areas 
+        yield return new WaitForSeconds(2);
+        SpawnEnemies(4, inRoom2);
 
-        // room 2 - 1 spawn area, 10 enemies
-        yield return new WaitForSeconds(30); 
+        while (true)
+        {
+            if (CheckForEnemies())
+                break;
+            yield return null; // wait for next frame
+        }
 
-        SpawnEnemies(10, inRoom2, inUse);
+        // fence room - 1 spawn area 
+        yield return new WaitForSeconds(2);
+        SpawnEnemies(5, inFenceRoom);
 
-        // room 2 - 2 spawn areas
-        yield return new WaitForSeconds(30); 
+        while (true)
+        {
+            if (CheckForEnemies())
+                break;
+            yield return null; // wait for next frame
+        }
 
-        SpawnEnemies(6, inRoom2); 
+        // keg room - 1 spawn area + sniper  
+        yield return new WaitForSeconds(2);
+        SpawnEnemies(5, inKegRoom, true, 1); 
+
+        while (true)
+        {
+            if (CheckForEnemies())
+                break;
+            yield return null; // wait for next frame
+        }
+
+        // balcony room - 2 snipers, 1 spawn area 
+        yield return new WaitForSeconds(2);
+        SpawnEnemies(8, inBalconyRoom, true, 2); 
+
+        while (true)
+        {
+            if (CheckForEnemies())
+                break;
+            yield return null; // wait for next frame
+        }
 
         enemies[0].chance = 100f; // spawn ratio now 50/50
-        enemies[1].chance = 100f;  
+        enemies[1].chance = 100f;
         CalculateSpawnWeights(); // recalculate weights
 
-        // fence room - 1 spawn area
-        yield return new WaitForSeconds(90); 
+        while (true)
+        {
+            if (CheckForEnemies())
+                break;
+            yield return null; // wait for next frame
+        }
 
-        SpawnEnemies(5, inFenceRoom); 
+        // fence room 2 electric boogaloo - 1 sniper 
+        yield return new WaitForSeconds(2);
+        SpawnEnemies(5, inFenceRoom2, true, 1); 
 
-        // keg room - 1 spawn area + sniper
-        yield return new WaitForSeconds(90);  
+        while (true)
+        {
+            if (CheckForEnemies())
+                break;
+            yield return null; // wait for next frame
+        }
 
-        SpawnEnemies(5, inKegRoom);
-        sniperSpawnScript.Spawn(1);
+        // room 3, pt 1, bridge area 
+        yield return new WaitForSeconds(2);
+        SpawnEnemies(5, inRoom3, inUse, 2); 
 
-        // balcony room - 2 snipers, 1 spawn area
-        yield return new WaitForSeconds(60);  
+        while (true)
+        {
+            if (CheckForEnemies())
+                break;
+            yield return null; // wait for next frame
+        }
 
-        SpawnEnemies(8, inBalconyRoom);
-        sniperSpawnScript.Spawn(2);
-
-        // fence room 2 electric boogaloo - 1 sniper
-        yield return new WaitForSeconds(90);  
-
-        SpawnEnemies(5, inFenceRoom2);
-        sniperSpawnScript.Spawn(1);
-
-        // room 3, pt 1, bridge area
-        yield return new WaitForSeconds(60);  
-
-        SpawnEnemies(5, inRoom3, inUse);
-        sniperSpawnScript.Spawn(2);
-
-        // room 3, pt 2, larger area
-        yield return new WaitForSeconds(90);  
-
-        SpawnEnemies(5, inFenceRoom2);
-        sniperSpawnScript.Spawn(2);
+        // room 3, pt 2, larger area  
+        yield return new WaitForSeconds(2);
+        SpawnEnemies(5, inFenceRoom2, true, 1); 
         finalWaveSpawned = true;
+
+        while (true)
+        {
+            if (CheckForEnemies())
+                break;
+            yield return null; // wait for next frame
+        }
     }
 
-    private void SpawnEnemies(int numOfEnemies, bool inRoom, bool use = true)
+    private void SpawnEnemies(int numOfEnemies, bool inRoom, bool use = true, int sniperNum = 0)
     {
-        if (inRoom && use) 
+        if (inRoom && use && waveCleared) 
         {
             for (int i = 0; i < numOfEnemies; i++)
                 SpawnRandomEnemy(new Vector3(Random.Range(xDown, xUp), y, Random.Range(zDown, zUp)));
+            sniperSpawnScript.Spawn(sniperNum);
+            waveCleared = false;
         }
     }
 }
