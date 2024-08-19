@@ -55,7 +55,7 @@ public class Behavior : MonoBehaviour
         } 
     }
 
-    protected void Start()
+    public void Start()
     {
         agent = GetComponent<NavMeshAgent>(); 
         player = GameObject.FindWithTag("Player");

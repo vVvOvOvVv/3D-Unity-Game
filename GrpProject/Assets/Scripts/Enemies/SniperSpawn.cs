@@ -16,8 +16,10 @@ public class SniperSpawn : MonoBehaviour
 
     public void Spawn(int numOfSpawns)
     {
-        for (int i = spawnCounter; i < numOfSpawns + spawnCounter; i++) 
+        for (int i = spawnCounter; i < numOfSpawns + spawnCounter; i++)
+        {
             snipers[i].SetActive(true);
+        }
 
         spawnCounter += numOfSpawns;
     }

@@ -48,7 +48,7 @@ GameObject:
   - component: {fileID: 8296782888063128743}
   m_Layer: 0
   m_Name: Sniper
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -221,7 +221,6 @@ MonoBehaviour:
   armorDropRate: 0
   spdDropRate: 0
   isDead: 0
-  spawnChance: 0
 --- !u!1001 &584767384012981682
 PrefabInstance:
   m_ObjectHideFlags: 0

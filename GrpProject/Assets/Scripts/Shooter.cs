@@ -37,15 +37,7 @@ public class Shooter : MonoBehaviour
             currentWeapon.bulletsShot = currentWeapon.bulletsPerTap;
             CameraShaker.Instance.ShakeOnce(1f, 1f, 0.1f, 0.1f);
             currentWeapon.Shoot();
-        }
-
-        // RMB to aim - hold gun closer to camera and lower weapon spread 
-        if (Input.GetKeyDown(KeyCode.Mouse1))
-        {
-            // animations required
-            
-            Debug.Log("Aiming..."); // debug for now
-        }
+        } 
 
         // Switch weapons based on key input
         if (Input.GetKeyDown(KeyCode.Alpha1)) 
