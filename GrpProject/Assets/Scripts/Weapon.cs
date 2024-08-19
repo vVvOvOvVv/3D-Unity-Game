@@ -90,7 +90,7 @@ public class Weapon : MonoBehaviour
                 Vector3 impulse = Vector3.Normalize(hit.point - cam.transform.position) * impulseStrength;
                 hit.rigidbody.AddForceAtPosition(impulse, hit.point, ForceMode.Impulse); 
             }
-             
+              
             Enemy enemy = hitObject.GetComponent<Enemy>();
             if (enemy != null) 
             {

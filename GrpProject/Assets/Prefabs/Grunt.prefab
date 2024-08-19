@@ -110,7 +110,7 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.76
+  m_Radius: 0.75
   m_Height: 2.5
   m_Direction: 1
   m_Center: {x: 0, y: 0.21, z: 0}
@@ -186,7 +186,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -217,7 +217,6 @@ MonoBehaviour:
   armorDropRate: 0
   spdDropRate: 0
   isDead: 0
-  spawnChance: 0
 --- !u!1 &4879262298567200771
 GameObject:
   m_ObjectHideFlags: 0

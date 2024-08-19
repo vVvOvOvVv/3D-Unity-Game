@@ -23,16 +23,16 @@ public class Behavior : MonoBehaviour
     // when shock takes effect, enemy stays in place for 3 sec (just added debuglogs to test shock effect)
     public virtual IEnumerator ShockEnemy(int timeInSec)
     {
-        if (!isShocked)
+        if (!isShocked && agent != null)
         {
             isShocked = true;
-            Debug.Log("Shock effect on: " + gameObject.name);
+            // Debug.Log("Shock effect on: " + gameObject.name);
             GameObject shock = Instantiate(shockParticlePrefab, transform);
             agent.isStopped = true;
             yield return new WaitForSeconds(timeInSec);
             agent.isStopped = false;
             Destroy(shock);
-            Debug.Log("Shock effect ended on: " + gameObject.name);
+            // Debug.Log("Shock effect ended on: " + gameObject.name);
             isShocked = false;
         }
 
@@ -41,16 +41,16 @@ public class Behavior : MonoBehaviour
     // when poision is in effect, slow enemies
     public virtual IEnumerator PoisonEnemy(int timeInSec, float spdFactor)
     { 
-        if (!isPoisoned)
+        if (!isPoisoned && agent != null)
         {
             isPoisoned = true;
-            Debug.Log("Poison effect on: " + gameObject.name);
+            // Debug.Log("Poison effect on: " + gameObject.name);
             GameObject poison = Instantiate(poisonParticlePrefab, transform);
             agent.speed *= spdFactor;
             yield return new WaitForSeconds(timeInSec);
             agent.speed /= spdFactor;
             Destroy(poison);
-            Debug.Log("Poison effect ended on: " + gameObject.name);
+            // Debug.Log("Poison effect ended on: " + gameObject.name);
             isPoisoned = false;
         } 
     }

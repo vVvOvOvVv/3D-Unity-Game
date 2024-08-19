@@ -102,30 +102,19 @@ public class EnemySpawner : MonoBehaviour
             SpawnRandomEnemy(new Vector3(Random.Range(-3, 3), Random.Range(-3, 3), Random.Range(-3, 3))); */
 
         // initial wave - 6 grunts spread over 2 spawn areas to ease the player into the game
-        SpawnEnemies(3, inRoom1);
+        SpawnEnemies(2, inRoom1);
         CalculateSpawnWeights(); // recalculate weights
 
         while (true) // time between waves
         {
             if (CheckForEnemies())
                 break;
-            yield return null; // wait for next frame
-        }
-
-        // introduce brutes over 2 spawn areas  
-        yield return new WaitForSeconds(2);
-        SpawnEnemies(3, inRoom1);
-
-        while (true)
-        {
-            if (CheckForEnemies())
-                break;
-            yield return null; // wait for next frame
+            yield return null; // wait for next frame 
         }
 
         // spawn after the gate to guide the player - 1 spawn area 
         yield return new WaitForSeconds(2);
-        SpawnEnemies(5, afterGate); 
+        SpawnEnemies(4, afterGate); 
 
         enemies[0].chance = 100f; // decrease spawn rate of grunt
         enemies[1].chance = 40f; // increase spawn rate of brutes
@@ -140,7 +129,7 @@ public class EnemySpawner : MonoBehaviour
 
         // room 2 - 1 spawn area, 10 enemies 
         yield return new WaitForSeconds(2);
-        SpawnEnemies(10, inRoom2, inUse);
+        SpawnEnemies(5, inRoom2, inUse);
 
         enemies[0].chance = 80f; // decrease spawn rate of grunt
         enemies[1].chance = 50f; // increase spawn rate of brutes
@@ -155,7 +144,7 @@ public class EnemySpawner : MonoBehaviour
 
         // room 2 - 2 spawn areas 
         yield return new WaitForSeconds(2);
-        SpawnEnemies(6, inRoom2);
+        SpawnEnemies(4, inRoom2);
 
         while (true)
         {
@@ -177,8 +166,7 @@ public class EnemySpawner : MonoBehaviour
 
         // keg room - 1 spawn area + sniper  
         yield return new WaitForSeconds(2);
-        SpawnEnemies(5, inKegRoom);
-        sniperSpawnScript.Spawn(1);
+        SpawnEnemies(5, inKegRoom, true, 1); 
 
         while (true)
         {
@@ -189,8 +177,7 @@ public class EnemySpawner : MonoBehaviour
 
         // balcony room - 2 snipers, 1 spawn area 
         yield return new WaitForSeconds(2);
-        SpawnEnemies(8, inBalconyRoom);
-        sniperSpawnScript.Spawn(2);
+        SpawnEnemies(8, inBalconyRoom, true, 2); 
 
         while (true)
         {
@@ -212,8 +199,7 @@ public class EnemySpawner : MonoBehaviour
 
         // fence room 2 electric boogaloo - 1 sniper 
         yield return new WaitForSeconds(2);
-        SpawnEnemies(5, inFenceRoom2);
-        sniperSpawnScript.Spawn(1);
+        SpawnEnemies(5, inFenceRoom2, true, 1); 
 
         while (true)
         {
@@ -224,8 +210,7 @@ public class EnemySpawner : MonoBehaviour
 
         // room 3, pt 1, bridge area 
         yield return new WaitForSeconds(2);
-        SpawnEnemies(5, inRoom3, inUse);
-        sniperSpawnScript.Spawn(2);
+        SpawnEnemies(5, inRoom3, inUse, 2); 
 
         while (true)
         {
@@ -236,8 +221,7 @@ public class EnemySpawner : MonoBehaviour
 
         // room 3, pt 2, larger area  
         yield return new WaitForSeconds(2);
-        SpawnEnemies(5, inFenceRoom2);
-        sniperSpawnScript.Spawn(2);
+        SpawnEnemies(5, inFenceRoom2, true, 1); 
         finalWaveSpawned = true;
 
         while (true)
@@ -248,12 +232,13 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
-    private void SpawnEnemies(int numOfEnemies, bool inRoom, bool use = true)
+    private void SpawnEnemies(int numOfEnemies, bool inRoom, bool use = true, int sniperNum = 0)
     {
         if (inRoom && use && waveCleared) 
         {
             for (int i = 0; i < numOfEnemies; i++)
                 SpawnRandomEnemy(new Vector3(Random.Range(xDown, xUp), y, Random.Range(zDown, zUp)));
+            sniperSpawnScript.Spawn(sniperNum);
             waveCleared = false;
         }
     }

@@ -106,7 +106,7 @@ public class BruteBehavior : Behavior
     }
 
 
-    /* private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         FPSInput playerFPS = other.GetComponent<FPSInput>();
         if (playerFPS != null) // check for player
@@ -114,9 +114,9 @@ public class BruteBehavior : Behavior
             playerFPS.TakeDamage(enemyScript.GetDmgPerHit());
             Debug.Log("You took damage!");
         }
-    } */
+    }
 
-    private void OnCollisionEnter(Collision collision)
+    /*private void OnCollisionEnter(Collision collision)
     { 
         if (collision.gameObject.CompareTag("Player")) // check for player
         {
@@ -125,5 +125,5 @@ public class BruteBehavior : Behavior
             playerFPS.TakeDamage(enemyScript.GetDmgPerHit());
             Debug.Log("You took damage!");
         } 
-    } 
+    } */
 }
