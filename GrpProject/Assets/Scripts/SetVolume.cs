@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
@@ -8,14 +6,30 @@ public class SetVolume : MonoBehaviour
 {
     public AudioMixer mixer;
     public Slider slider;
+    public string paramName;
 
-    void Start()
+    private void Awake()
     {
-        slider.value = PlayerPrefs.GetFloat("MasterVolume", 0.75f);
+        if (slider == null)
+            slider = GetComponent<Slider>();
+
+        slider.value = slider.maxValue;
+        float savedVol = PlayerPrefs.GetFloat(paramName, slider.maxValue);
+        SetVol(savedVol); 
+        //Manually set value & volume to ensure it is set
+        // even if slider.value happens to start at the same value as is saved
+        slider.onValueChanged.AddListener((float _) => SetVol(_));
+    } 
+
+    void SetVol(float _value)
+    {
+        mixer.SetFloat(paramName, ConvertToDecibel(_value / slider.maxValue)); //Dividing by max allows arbitrary positive slider maxValue
+        PlayerPrefs.SetFloat(paramName, _value);
     }
-    public void SetLevel(float sliderValue)
+
+    // convert percentage fraction to decibels
+    public float ConvertToDecibel(float _value)
     {
-    mixer.SetFloat("MasterVol", Mathf.Log10(sliderValue) * 20);
-        PlayerPrefs.SetFloat("MasterVolume", sliderValue);
+        return Mathf.Log10(Mathf.Max(_value, 0.0001f)) * 20f;
     }
 }

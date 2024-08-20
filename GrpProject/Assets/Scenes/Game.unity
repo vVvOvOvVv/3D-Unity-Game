@@ -15677,6 +15677,10 @@ PrefabInstance:
       propertyPath: slider
       value: 
       objectReference: {fileID: 461706040}
+    - target: {fileID: 9141050909613134580, guid: f9608def1598b094d849e01a75cffd26, type: 3}
+      propertyPath: paramName
+      value: MasterVol
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -32112,7 +32116,7 @@ AudioSource:
   m_GameObject: {fileID: 1057707573}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: d790a293b0983104287475989d5ddc27, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -48858,7 +48862,7 @@ AudioSource:
   m_GameObject: {fileID: 1625673869}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: d790a293b0983104287475989d5ddc27, type: 2}
   m_audioClip: {fileID: 8300000, guid: c9abac777fa1b43038b8e3c07101562d, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.3
