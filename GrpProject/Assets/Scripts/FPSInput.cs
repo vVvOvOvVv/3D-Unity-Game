@@ -146,6 +146,7 @@ public class FPSInput : MonoBehaviour
 
     public void TakeDamage(int dmg)
     {
+        Debug.Log("You took " + dmg + " damage!");
         // if player has shield/armor, consume that first
         if (shield > 0)
         {

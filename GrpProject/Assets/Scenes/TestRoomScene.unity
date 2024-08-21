@@ -2684,6 +2684,11 @@ Transform:
   - {fileID: 101016210}
   m_Father: {fileID: 1171610956}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &516816815 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7927985440407920024, guid: a965c1999bcc4f544bfcbe2ca3db9c04, type: 3}
+  m_PrefabInstance: {fileID: 325098986}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &530375377
 GameObject:
   m_ObjectHideFlags: 0
@@ -3381,6 +3386,11 @@ Transform:
 Transform:
   m_CorrespondingSourceObject: {fileID: 4415414831895028658, guid: 67b47cb1d1900a94dad62e4e6d23487b, type: 3}
   m_PrefabInstance: {fileID: 4857226393312736339}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &783381707 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7019688480446749816, guid: a965c1999bcc4f544bfcbe2ca3db9c04, type: 3}
+  m_PrefabInstance: {fileID: 325098986}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &785740868
 PrefabInstance:
@@ -4938,6 +4948,8 @@ MonoBehaviour:
   currentAmmoTxt: {fileID: 890395399}
   reserveAmmoTxt: {fileID: 874263960}
   reloadSlider: {fileID: 0}
+  audioSource: {fileID: 0}
+  clips: []
   gamePaused: 0
 --- !u!1 &1078331349
 GameObject:
@@ -6125,7 +6137,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 9064007399202195400, guid: a965c1999bcc4f544bfcbe2ca3db9c04, type: 3}
   m_PrefabInstance: {fileID: 325098986}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 516816815}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
@@ -6342,6 +6354,11 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!1 &1345924601 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 493177536473154896, guid: a965c1999bcc4f544bfcbe2ca3db9c04, type: 3}
+  m_PrefabInstance: {fileID: 325098986}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1352398120
 GameObject:
   m_ObjectHideFlags: 0
@@ -7062,7 +7079,6 @@ GameObject:
   - component: {fileID: 1625673878}
   - component: {fileID: 1625673877}
   - component: {fileID: 1625673876}
-  - component: {fileID: 1625673875}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -7182,18 +7198,6 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &1625673875
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1625673869}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bbb5b5ad4c47d9d49b47b384d5304c79, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1625673876
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7238,12 +7242,12 @@ MonoBehaviour:
   shield: 0
   maxShield: 100
   playerShieldBar: {fileID: 1309758692}
-  playerShieldBarObj: {fileID: 0}
+  playerShieldBarObj: {fileID: 516816815}
   shieldTxt: {fileID: 277966294}
   GameOverCanvas: {fileID: 0}
-  inventoryPanel: {fileID: 0}
+  inventoryPanel: {fileID: 1345924601}
   wpnPickupCanvas: {fileID: 0}
-  spdUpIndicator: {fileID: 0}
+  spdUpIndicator: {fileID: 783381707}
 --- !u!143 &1625673878
 CharacterController:
   m_ObjectHideFlags: 0

@@ -84,7 +84,7 @@ public class BossBehavior : Behavior
                 //Debug.Log("AI Entity is no longer poisoned. Speed back to: " + agent.speed); // DEBUG LOG FOR POISON STATUS
             }
 
-            if (playerInRoom) // only start phases if player is in the room
+            if (playerInRoom && !isAttacking) // only start phases if player is in the room
             {
                 if (phase3)
                     PhaseThree();
@@ -153,15 +153,13 @@ public class BossBehavior : Behavior
 
     private void PhaseOne()
     {
-        agent.speed = 10f; // increase max speed to 10f
-        if (!isAttacking)
+        agent.speed = 10f; // increase max speed to 10f 
+        agent.destination = player.transform.position; 
+
+        if (!isRunning) // ensure call for running animation only happens once each "cycle"
         {
-            agent.destination = player.transform.position; 
-            if (!isRunning) // ensure running animation only happens once each "cycle"
-            {
-                isRunning = true;  
-                enemyAnim.SetTrigger("Run");
-            }
+            isRunning = true;  
+            enemyAnim.SetTrigger("Run");
         } 
     }
 

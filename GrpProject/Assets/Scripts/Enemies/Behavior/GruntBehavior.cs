@@ -114,7 +114,7 @@ public class GruntBehavior : Behavior
                     // make player take damage
                     FPSInput fps = hit.collider.GetComponent<FPSInput>();
                     fps.TakeDamage(enemyScript.dmgPerHit);
-                    Debug.Log(gameObject.name + " dealt " + enemyScript.dmgPerHit + " dmg!");
+                    // Debug.Log(gameObject.name + " dealt " + enemyScript.dmgPerHit + " dmg!");
                 }
             }
 
