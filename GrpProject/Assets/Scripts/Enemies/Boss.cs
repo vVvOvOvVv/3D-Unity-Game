@@ -48,13 +48,25 @@ public class Boss : Enemy
 
         // call on behavior script's death animation
         behaviorScript.enemyAnim.SetTrigger("Death");
+
+        // wait for animation to finish
+
+
+        // display victory screen
+
     }
 
     private void Update()
     {
         if (hp <= (maxHP / 4))
+        { 
             behaviorScript.phase3 = true;
-        else if (hp <= (maxHP / 2))
-            behaviorScript.phase2 = true;
+
+            // set jump range object to inactive
+            if (behaviorScript.jumpRange.activeInHierarchy)
+                behaviorScript.jumpRange.SetActive(false); 
+        }
+        else if (hp <= (maxHP / 2)) 
+            behaviorScript.phase2 = true; 
     }
 }

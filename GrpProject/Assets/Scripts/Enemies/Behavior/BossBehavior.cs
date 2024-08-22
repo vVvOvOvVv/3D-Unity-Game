@@ -7,9 +7,7 @@ using UnityEngine.AI;
 public class BossBehavior : Behavior
 {
     // attack-related variables
-    [SerializeField] private Transform firePoint;
-    [SerializeField]
-    private float jumpAtkRange = 50f;
+    [SerializeField] private Transform firePoint; 
 
     // bools
     public bool phase2, phase3, // determine phase of the fight
@@ -32,7 +30,8 @@ public class BossBehavior : Behavior
     public EnemyState state;
 
     // attack colliders
-    [SerializeField] private GameObject swipeHitBox, swipeRange;
+    [SerializeField] public GameObject swipeHitBox, swipeRange,
+        jumpHitBox, jumpRange;
 
     private new void Start()
     {
@@ -46,7 +45,7 @@ public class BossBehavior : Behavior
             firePoint = transform.Find("FirePoint");
 
         alternateFlag = true;
-        phase2 = false;
+        // phase2 = false;
         phase3 = false;
         isRunning = false;
         isAttacking = false;
@@ -148,7 +147,7 @@ public class BossBehavior : Behavior
 
         alternateFlag = !alternateFlag; // alternate between two animations
         isAttacking = false;
-        isRunning = false;
+        isRunning = false; // allow for animation trigger call
     }
 
     private void PhaseOne()
@@ -163,9 +162,49 @@ public class BossBehavior : Behavior
         } 
     }
 
-    private void PhaseTwo()
+    public IEnumerator JumpAttack()
     {
+        isAttacking = true;
+        agent.destination = agent.transform.position; // stop for a moment
+        // Debug.Log("Boss will jump!");
+        enemyAnim.SetTrigger("Jump Attack");
+        yield return new WaitForSeconds(0.1f);
 
+        agent.speed = 30f; // max speed to 30f
+        agent.destination = player.transform.position;
+        // Debug.Log("Boss landed!");
+        yield return new WaitForSeconds(1.1f);
+
+        // Debug.Log("Boss finished the jump attack!"); 
+        jumpHitBox.SetActive(true);
+        yield return new WaitForSeconds(0.5f);
+        jumpHitBox.SetActive(false);
+
+        yield return new WaitForSeconds(2.1f); // wait for end of animation 
+
+        enemyAnim.SetTrigger("Roar"); // taunt
+        yield return new WaitForSeconds(5.4f);
+
+        isAttacking = false;
+        isRunning = false; // allow for animation trigger call
+    }
+
+    private void PhaseTwo()
+    { 
+        if (Vector2.Distance(agent.transform.position, player.transform.position) > 
+            jumpRange.GetComponent<SphereCollider>().radius)
+        {
+            agent.speed = 20f; // max spead to 15f
+            agent.destination = player.transform.position;
+            if (!isRunning) // ensure call for running animation only happens once each "cycle"
+            {
+                isRunning = true;
+                enemyAnim.SetTrigger("Run");
+            }
+        } else // player is still within the "jump range"
+        {
+            // like phase 1, approach player and attack
+        }
     }
 
     private void PhaseThree()

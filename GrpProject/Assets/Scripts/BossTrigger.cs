@@ -25,10 +25,9 @@ public class BossTrigger : MonoBehaviour
     {
         bossBehaviorScript.enemyAnim.SetTrigger("Roar");
 
-        bossBehaviorScript.playerInRoom = true;
-
         yield return new WaitForSeconds(5.24f);
 
+        bossBehaviorScript.playerInRoom = true; 
         gameObject.SetActive(false);
     }
 }
