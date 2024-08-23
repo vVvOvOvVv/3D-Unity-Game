@@ -7,10 +7,10 @@ using UnityEngine.AI;
 public class BossBehavior : Behavior
 {
     // attack-related variables
-    [SerializeField] private Transform firePoint; 
+    [SerializeField] private Transform firePoint;
 
     // bools
-    public bool phase2, phase3, // determine phase of the fight
+    public bool phase2,  // determine phase of the fight
         isAttacking, // to prevent repeated attacks when not intended
         playerInRoom; // determine if player is in the room - begin fight 
     private bool isRunning, // prevent repetitive animation of run
@@ -30,7 +30,8 @@ public class BossBehavior : Behavior
     public EnemyState state;
 
     // attack colliders
-    [SerializeField] public GameObject swipeHitBox, swipeRange,
+    [SerializeField]
+    public GameObject swipeHitBox, swipeRange,
         jumpHitBox, jumpRange;
 
     private new void Start()
@@ -46,7 +47,6 @@ public class BossBehavior : Behavior
 
         alternateFlag = true;
         // phase2 = false;
-        phase3 = false;
         isRunning = false;
         isAttacking = false;
     }
@@ -85,9 +85,7 @@ public class BossBehavior : Behavior
 
             if (playerInRoom && !isAttacking) // only start phases if player is in the room
             {
-                if (phase3)
-                    PhaseThree();
-                else if (phase2)
+                if (phase2)
                     PhaseTwo();
                 else // phase 1
                     PhaseOne();
@@ -126,7 +124,7 @@ public class BossBehavior : Behavior
     {
         isAttacking = true;
         agent.destination = agent.transform.position; // stop agent from moving
-        enemyAnim.SetTrigger("Swipe"); 
+        enemyAnim.SetTrigger("Swipe");
 
         yield return new WaitForSeconds(1.4f);
         swipeHitBox.SetActive(true); // make hitbox appear
@@ -153,17 +151,18 @@ public class BossBehavior : Behavior
     private void PhaseOne()
     {
         agent.speed = 10f; // increase max speed to 10f 
-        agent.destination = player.transform.position; 
+        agent.destination = player.transform.position;
 
         if (!isRunning) // ensure call for running animation only happens once each "cycle"
         {
-            isRunning = true;  
+            isRunning = true;
             enemyAnim.SetTrigger("Run");
-        } 
+        }
     }
 
     public IEnumerator JumpAttack()
     {
+        if (isAttacking) yield break; // prevent overlapping jump attacks
         isAttacking = true;
         agent.destination = agent.transform.position; // stop for a moment
         // Debug.Log("Boss will jump!");
@@ -187,28 +186,50 @@ public class BossBehavior : Behavior
 
         isAttacking = false;
         isRunning = false; // allow for animation trigger call
+
+        yield return new WaitForSeconds(2f); // Cooldown to prevent immediate jump
     }
 
     private void PhaseTwo()
-    { 
-        if (Vector2.Distance(agent.transform.position, player.transform.position) > 
-            jumpRange.GetComponent<SphereCollider>().radius)
+    {
+        float distanceToPlayer = Vector3.Distance(agent.transform.position, player.transform.position);
+        float jumpRangeRadius = jumpRange.GetComponent<SphereCollider>().radius;
+        WithinBossRange withinBossRange = jumpRange.GetComponent<WithinBossRange>();
+
+        Debug.Log($"[PhaseTwo] Distance to player: {distanceToPlayer}, Jump Range: {jumpRangeRadius}");
+        Debug.Log($"[PhaseTwo] IsAttacking: {isAttacking}, IsRunning: {isRunning}");
+
+        if (!isAttacking)
         {
-            agent.speed = 20f; // max spead to 15f
-            agent.destination = player.transform.position;
-            if (!isRunning) // ensure call for running animation only happens once each "cycle"
+            if (distanceToPlayer > jumpRangeRadius || !withinBossRange.isJump)
             {
-                isRunning = true;
-                enemyAnim.SetTrigger("Run");
+                // Player is out of jump range or isJump is false, boss should run
+                if (!isRunning)
+                {
+                    Debug.Log("[PhaseTwo] Player is out of jump range or jump is disabled. Boss should start running.");
+                    isRunning = true;
+                    agent.speed = 20f;
+                    agent.destination = player.transform.position;
+                    enemyAnim.SetTrigger("Run");
+                }
             }
-        } else // player is still within the "jump range"
+            else if (withinBossRange.isJump)
+            {
+                // Player is within jump range, boss should stop running and start jumping
+                if (isRunning)
+                {
+                    Debug.Log("[PhaseTwo] Player is within jump range. Boss should stop running.");
+                    isRunning = false;
+                }
+                Debug.Log("[PhaseTwo] Boss should start jumping.");
+                StartCoroutine(JumpAttack());
+            }
+        }
+        else
         {
-            // like phase 1, approach player and attack
+            Debug.Log("[PhaseTwo] Boss is currently attacking, skipping logic.");
         }
     }
 
-    private void PhaseThree()
-    {
 
-    }
-} 
+}

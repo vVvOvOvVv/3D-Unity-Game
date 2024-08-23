@@ -3,7 +3,7 @@ using UnityEngine;
 public class WithinBossRange : MonoBehaviour
 {
     [SerializeField] private BossBehavior bossBehaviorScript;
-    [SerializeField] private bool isSwipe, isJump; // to reuse the script for different attacks
+    [SerializeField] public bool isSwipe, isJump; // to reuse the script for different attacks
 
     private void Awake()
     {

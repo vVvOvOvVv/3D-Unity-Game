@@ -58,15 +58,9 @@ public class Boss : Enemy
 
     private void Update()
     {
-        if (hp <= (maxHP / 4))
-        { 
-            behaviorScript.phase3 = true;
-
-            // set jump range object to inactive
-            if (behaviorScript.jumpRange.activeInHierarchy)
-                behaviorScript.jumpRange.SetActive(false); 
+        if (hp <= (maxHP / 2))
+        {
+            behaviorScript.phase2 = true;
         }
-        else if (hp <= (maxHP / 2)) 
-            behaviorScript.phase2 = true; 
     }
 }
