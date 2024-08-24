@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 8820534166207445683}
   m_Layer: 5
   m_Name: Weapon Pickup Canvas
-  m_TagString: Untagged
+  m_TagString: WeaponPickupCanvas
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -116,6 +116,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wpnPickupPrefab: {fileID: 2401814541304874731, guid: 42e6feec1ea63aa4497661b57fba32a4, type: 3}
+  shooterScript: {fileID: 0}
+  inventoryPanel: {fileID: 0}
 --- !u!1 &2934742813585475792
 GameObject:
   m_ObjectHideFlags: 0

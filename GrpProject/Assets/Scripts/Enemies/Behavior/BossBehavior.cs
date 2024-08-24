@@ -14,31 +14,16 @@ public class BossBehavior : Behavior
         isAttacking, // to prevent repeated attacks when not intended
         playerInRoom; // determine if player is in the room - begin fight 
     private bool isRunning, // prevent repetitive animation of run
-        alternateFlag;
-
-    // enum variables
-    public new enum EnemyState
-    {
-        Idle,
-        Roar,
-        Run,
-        SwipeAttack,
-        JumpAttack,
-        Flex,
-        Death
-    }
-    public EnemyState state;
+        alternateFlag; 
 
     // attack colliders
     [SerializeField]
     public GameObject swipeHitBox, swipeRange,
-        jumpHitBox, jumpRange;
+        jumpHitBox, jumpRange, jumpColliders;
 
     private new void Start()
     {
-        base.Start(); // call parent Start() 
-
-        state = EnemyState.Idle;
+        base.Start(); // call parent Start()  
 
         if (player == null)
             player = GameObject.FindGameObjectWithTag("Player");
@@ -49,6 +34,7 @@ public class BossBehavior : Behavior
         // phase2 = false;
         isRunning = false;
         isAttacking = false;
+        jumpColliders.SetActive(false);
     }
 
     // Update is called once per frame
@@ -175,6 +161,7 @@ public class BossBehavior : Behavior
         yield return new WaitForSeconds(1.1f);
 
         // Debug.Log("Boss finished the jump attack!"); 
+        agent.destination = agent.transform.position; // stop in place to prevent "sliding"
         jumpHitBox.SetActive(true);
         yield return new WaitForSeconds(0.5f);
         jumpHitBox.SetActive(false);
@@ -191,44 +178,30 @@ public class BossBehavior : Behavior
     }
 
     private void PhaseTwo()
-    {
-        float distanceToPlayer = Vector3.Distance(agent.transform.position, player.transform.position);
-        float jumpRangeRadius = jumpRange.GetComponent<SphereCollider>().radius;
-        WithinBossRange withinBossRange = jumpRange.GetComponent<WithinBossRange>();
-
-        Debug.Log($"[PhaseTwo] Distance to player: {distanceToPlayer}, Jump Range: {jumpRangeRadius}");
-        Debug.Log($"[PhaseTwo] IsAttacking: {isAttacking}, IsRunning: {isRunning}");
-
+    { 
         if (!isAttacking)
         {
-            if (distanceToPlayer > jumpRangeRadius || !withinBossRange.isJump)
+            float distanceToPlayer = Vector3.Distance(agent.transform.position, player.transform.position);
+            float jumpRangeRadius = jumpRange.GetComponent<SphereCollider>().radius;
+            WithinBossRange withinBossRange = jumpRange.GetComponent<WithinBossRange>();
+
+            // Debug.Log($"[PhaseTwo] Distance to player: {distanceToPlayer}, Jump Range: {jumpRangeRadius}");
+            // Debug.Log($"[PhaseTwo] IsAttacking: {isAttacking}, IsRunning: {isRunning}"); 
+
+            agent.speed = 20f;
+            agent.destination = player.transform.position;
+            if (!isRunning) // to prevent repeated calls to SetTrigger
             {
-                // Player is out of jump range or isJump is false, boss should run
-                if (!isRunning)
-                {
-                    Debug.Log("[PhaseTwo] Player is out of jump range or jump is disabled. Boss should start running.");
-                    isRunning = true;
-                    agent.speed = 20f;
-                    agent.destination = player.transform.position;
-                    enemyAnim.SetTrigger("Run");
-                }
-            }
-            else if (withinBossRange.isJump)
-            {
-                // Player is within jump range, boss should stop running and start jumping
-                if (isRunning)
-                {
-                    Debug.Log("[PhaseTwo] Player is within jump range. Boss should stop running.");
-                    isRunning = false;
-                }
-                Debug.Log("[PhaseTwo] Boss should start jumping.");
-                StartCoroutine(JumpAttack());
-            }
-        }
+                // Debug.Log("[PhaseTwo] Player is out of jump range or jump is disabled. Boss should start running.");
+                isRunning = true;
+                enemyAnim.SetTrigger("Run");
+            } 
+            // swipe attack still active -  will attack when in range
+        } /*
         else
         {
             Debug.Log("[PhaseTwo] Boss is currently attacking, skipping logic.");
-        }
+        } */
     }
 
 

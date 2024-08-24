@@ -11,15 +11,19 @@ public class Boss : Enemy
 
         isDead = false;
         hp = maxHP;
-
-        // ensure to assign HP Bar
+         
+        if (hpBar == null)
+            hpBar = GameObject.FindWithTag("BossHPBar").GetComponent<EnemyHPBar>();
         if (hpBar != null)
+        {
             hpBar.UpdateHPBar(hp, maxHP);
+            hpBar.gameObject.SetActive(false); // hide from player until fight initiated
+        }
         else Debug.LogError("Boss's HP Bar missing!");
         behaviorScript = GetComponent<BossBehavior>();
     }
 
-    /* public void CritHit(int dmg)
+    public void CritHit(int dmg)
     {
         // take double damage on crit hit
         hp -= Mathf.FloorToInt(dmg * 1.5f);
@@ -29,7 +33,7 @@ public class Boss : Enemy
 
         if (hp <= 0 && !isDead) // prevent repeat death 
             BossHPDepleted(); 
-    } */
+    }
 
     public new void TakeDamage(int dmg)
     {
@@ -60,6 +64,7 @@ public class Boss : Enemy
     {
         if (hp <= (maxHP / 2))
         {
+            behaviorScript.jumpColliders.SetActive(true);
             behaviorScript.phase2 = true;
         }
     }

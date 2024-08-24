@@ -5,6 +5,7 @@ using UnityEngine;
 public class BossTrigger : MonoBehaviour
 {
     [SerializeField] private BossBehavior bossBehaviorScript;
+    [SerializeField] private Boss bossScript;
     private bool triggered; // ensure this is only triggered once
 
     private void Awake()
@@ -27,6 +28,7 @@ public class BossTrigger : MonoBehaviour
 
         yield return new WaitForSeconds(5.24f);
 
+        bossScript.hpBar.gameObject.SetActive(true);
         bossBehaviorScript.playerInRoom = true; 
         gameObject.SetActive(false);
     }

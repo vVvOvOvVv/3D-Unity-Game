@@ -8,6 +8,9 @@ TagManager:
   - InventoryPanel
   - WeaponPickupCanvas
   - CameraAnchor
+  - BossHPBar
+  - Normal HitBox
+  - Crit Hitbox
   layers:
   - Default
   - TransparentFX
@@ -16,7 +19,7 @@ TagManager:
   - Water
   - UI
   - Ground
-  - 
+  - Boss HitBoxes
   - 
   - 
   - 
