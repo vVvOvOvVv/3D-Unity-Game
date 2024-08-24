@@ -1043,8 +1043,8 @@ MonoBehaviour:
   playerTransform: {fileID: 0}
   enemyScript: {fileID: 4868056184727879417}
   enemyModel: {fileID: 4762718874900369410}
-  poisonParticlePrefab: {fileID: 0}
-  shockParticlePrefab: {fileID: 0}
+  poisonParticlePrefab: {fileID: 100748, guid: cd4d7020429cde74db076ffa72495419, type: 3}
+  shockParticlePrefab: {fileID: 194016, guid: 263867d4955e3644f9a1dfa779ab7d1e, type: 3}
   enemyState: 0
   enemyAnim: {fileID: 9030009610854887477}
   spd: 0

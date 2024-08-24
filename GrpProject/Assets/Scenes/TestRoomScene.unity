@@ -9504,6 +9504,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1615604923775999179, guid: 41eb28112085a2f46baa761367c2d96b, type: 3}
+      propertyPath: m_Height
+      value: 2.18
+      objectReference: {fileID: 0}
+    - target: {fileID: 1615604923775999179, guid: 41eb28112085a2f46baa761367c2d96b, type: 3}
+      propertyPath: m_Radius
+      value: 0.89
+      objectReference: {fileID: 0}
+    - target: {fileID: 4325061783596669296, guid: 41eb28112085a2f46baa761367c2d96b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 164
+      objectReference: {fileID: 0}
+    - target: {fileID: 4633341329917813878, guid: 41eb28112085a2f46baa761367c2d96b, type: 3}
+      propertyPath: m_Radius
+      value: 0.62
+      objectReference: {fileID: 0}
     - target: {fileID: 4762718874900369410, guid: 41eb28112085a2f46baa761367c2d96b, type: 3}
       propertyPath: m_Name
       value: Maw J Laygo
