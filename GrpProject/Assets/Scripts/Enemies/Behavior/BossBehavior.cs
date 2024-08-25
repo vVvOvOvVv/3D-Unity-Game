@@ -6,9 +6,6 @@ using UnityEngine.AI;
 [RequireComponent(typeof(Boss))]
 public class BossBehavior : Behavior
 {
-    // attack-related variables
-    [SerializeField] private Transform firePoint;
-
     // bools
     public bool phase2,  // determine phase of the fight
         isAttacking, // to prevent repeated attacks when not intended
@@ -27,8 +24,6 @@ public class BossBehavior : Behavior
 
         if (player == null)
             player = GameObject.FindGameObjectWithTag("Player");
-        if (firePoint == null)
-            firePoint = transform.Find("FirePoint");
 
         alternateFlag = true;
         // phase2 = false;
