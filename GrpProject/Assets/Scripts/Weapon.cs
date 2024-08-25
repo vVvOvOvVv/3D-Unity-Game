@@ -76,12 +76,12 @@ public class Weapon : MonoBehaviour
         RaycastHit hit;
 
         // raycast shot
-        if (Physics.Raycast(ray, out hit, ~7)) // ignore layer 7 (boss hitboxes to dmg player)
+        if (Physics.Raycast(ray, out hit)) // ignore layer 7 (boss hitboxes to dmg player)
         {
             // get the GameObject that was hit
             GameObject hitObject = hit.transform.gameObject;
-            Debug.Log("Hit: " + hitObject.name); // debug log
-
+            //Debug.Log("Hit: " + hitObject.name); // debug log
+            Debug.Log($"Hit object: {hitObject.name}, Tag: {hitObject.tag}");
             // shake the camera
             CameraShaker.Instance.ShakeOnce(0.1f, 1f, 0.1f, 0.1f);
 
@@ -113,16 +113,22 @@ public class Weapon : MonoBehaviour
                     ApplyPoisonEffect(hitObject); 
             }
 
-            // boss
-            if (hitObject.CompareTag("Normal HitBox"))
+            // Check for boss hitboxes
+            if (hitObject.CompareTag("Normal"))
+            {
                 bossScript.TakeDamage(dmg);
-            else if (hitObject.CompareTag("Crit Hitbox"))
+            }
+            else if (hitObject.CompareTag("Crit"))
+            {
                 bossScript.CritHit(dmg);
+            }
 
-                StartCoroutine(GeneratePS(hit));
+            StartCoroutine(GeneratePS(hit));
         }
-        else Debug.Log("No hit :(");
-
+        else
+        {
+            Debug.Log("No hit :(");
+        }
         //Debug.DrawRay(ray.origin, ray.direction * 100f, Color.red, 1f); // Visualize the ray 
 
         currentAmmo--;

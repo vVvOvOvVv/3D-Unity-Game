@@ -25,19 +25,26 @@ public class Boss : Enemy
 
     public void CritHit(int dmg)
     {
-        // take double damage on crit hit
-        hp -= Mathf.FloorToInt(dmg * 1.5f);
+        int critDamage = Mathf.FloorToInt(dmg * 1.5f);
+        hp -= critDamage;
+
+        // Debug log to track critical hit damage
+        Debug.Log($"Critical Hit! Damage: {critDamage}, Boss HP Remaining: {hp}");
+
         if (hpBar != null)
             hpBar.UpdateHPBar(hp, maxHP);
-        else Debug.LogError("HP DONDE ESTA");
+        else
+            Debug.LogError("HP DONDE ESTA");
 
         if (hp <= 0 && !isDead) // prevent repeat death 
-            BossHPDepleted(); 
+            BossHPDepleted();
     }
 
     public new void TakeDamage(int dmg)
     {
         hp -= dmg;
+        Debug.Log($"Normal Hit! Damage: {dmg}, Boss HP Remaining: {hp}");
+
         if (hpBar != null)
             hpBar.UpdateHPBar(hp, maxHP);
         else Debug.LogError("HP Bar missing from boss!");
