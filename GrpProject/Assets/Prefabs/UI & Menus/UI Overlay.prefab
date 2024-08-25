@@ -950,7 +950,7 @@ GameObject:
   - component: {fileID: 7392085573277491253}
   m_Layer: 0
   m_Name: Boss HP Bar
-  m_TagString: Untagged
+  m_TagString: BossHPBar
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

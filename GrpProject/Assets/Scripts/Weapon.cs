@@ -39,12 +39,12 @@ public class Weapon : MonoBehaviour
     // FIRE LOGIC PROPERTIES
     public int fireDamage = 5; // damage over time per second
     public int fireDuration = 5; // duration of fire effect in seconds
-    private const int fireChance = 25; // 25% chance for fire effect
-
+    private const int fireChance = 25; // 25% chance for fire effect 
 
     // references
     protected Camera cam;
-    public GameObject particleSysPrefab; 
+    public GameObject particleSysPrefab;
+    private Boss bossScript;
 
     private void Start()
     {
@@ -54,6 +54,7 @@ public class Weapon : MonoBehaviour
         reserveAmmo = maxAmmo * 3;
         normalSpread = spread;
         wpnLevel = 1.0f;
+        bossScript = GameObject.Find("Maw J Laygo").GetComponent<Boss>();
     }
  
     public void Shoot() 
@@ -75,15 +76,16 @@ public class Weapon : MonoBehaviour
         RaycastHit hit;
 
         // raycast shot
-        if (Physics.Raycast(ray, out hit)) // i wanted to implement range but alas, no dice
+        if (Physics.Raycast(ray, out hit)) // ignore layer 7 (boss hitboxes to dmg player)
         {
             // get the GameObject that was hit
             GameObject hitObject = hit.transform.gameObject;
-            Debug.Log("Hit: " + hitObject.name); // debug log
+            //Debug.Log("Hit: " + hitObject.name); // debug log 
 
             // shake the camera
             CameraShaker.Instance.ShakeOnce(0.1f, 1f, 0.1f, 0.1f);
 
+            // physics response
             Rigidbody rBody = hitObject.GetComponent<Rigidbody>();
             if (rBody != null)
             {
@@ -91,6 +93,7 @@ public class Weapon : MonoBehaviour
                 hit.rigidbody.AddForceAtPosition(impulse, hit.point, ForceMode.Impulse); 
             }
               
+            // check for basic enemies
             Enemy enemy = hitObject.GetComponent<Enemy>();
             if (enemy != null) 
             {
@@ -98,30 +101,35 @@ public class Weapon : MonoBehaviour
 
                 // DAMAGE TYPES
                 // FIRE LOGIC
-                if (isFire)
-                {
-                    ApplyFireEffect(hitObject);
-                }
+                if (isFire) 
+                    ApplyFireEffect(hitObject); 
 
                 // SHOCK LOGIC
-                if (isShock)
-                {
-                    ApplyShockEffect(hitObject);
-                }
+                if (isShock) 
+                    ApplyShockEffect(hitObject); 
                 // POISON LOGIC
-                if (isPoison)
-                {
+                if (isPoison) 
                     // hitObject.GetComponent<Behavior>().PoisonEnemy(PoisonTime, PoisonSlowFactor);
-                    ApplyPoisonEffect(hitObject);
-                }
+                    ApplyPoisonEffect(hitObject); 
+            }
+
+            // Check for boss hitboxes
+            if (hitObject.CompareTag("Normal HitBox"))
+            {
+                bossScript.TakeDamage(dmg);
+            }
+            else if (hitObject.CompareTag("Critical HitBox"))
+            {
+                bossScript.CritHit(dmg);
             }
 
             StartCoroutine(GeneratePS(hit));
         }
-        else Debug.Log("No hit :(");
-
-        Debug.DrawRay(ray.origin, ray.direction * 100f, Color.red, 1f); // Visualize the ray
- 
+        else
+        {
+            Debug.Log("No hit :(");
+        }
+        //Debug.DrawRay(ray.origin, ray.direction * 100f, Color.red, 1f); // Visualize the ray 
 
         currentAmmo--;
         bulletsShot--;

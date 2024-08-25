@@ -156,7 +156,7 @@ MonoBehaviour:
   enemyState: 0
   enemyAnim: {fileID: 8044316625510170572}
   spd: 0
-  agent: {fileID: 0}
+  agent: {fileID: 6252535049604599172}
   player: {fileID: 0}
   isShocked: 0
   isPoisoned: 0

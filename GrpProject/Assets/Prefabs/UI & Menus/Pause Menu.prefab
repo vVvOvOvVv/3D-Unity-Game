@@ -812,8 +812,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a8fe3fc3d1dde24fa1d317066763764, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mixer: {fileID: 0}
-  slider: {fileID: 0}
+  mixer: {fileID: 24100000, guid: d790a293b0983104287475989d5ddc27, type: 2}
+  slider: {fileID: 3152824853953529033}
+  paramName: MasterVol
 --- !u!1 &7746195489036847456
 GameObject:
   m_ObjectHideFlags: 0

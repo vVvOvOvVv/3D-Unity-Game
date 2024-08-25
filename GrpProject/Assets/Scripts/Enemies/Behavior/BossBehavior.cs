@@ -6,56 +6,41 @@ using UnityEngine.AI;
 [RequireComponent(typeof(Boss))]
 public class BossBehavior : Behavior
 {
-    // attack-related variables
-    [SerializeField] private Transform firePoint;
-    [SerializeField]
-    private float jumpAtkRange = 50f;
-
     // bools
-    public bool phase2, phase3, // determine phase of the fight
+    public bool phase2,  // determine phase of the fight
         isAttacking, // to prevent repeated attacks when not intended
         playerInRoom; // determine if player is in the room - begin fight 
     private bool isRunning, // prevent repetitive animation of run
         alternateFlag;
-
-    // enum variables
-    public new enum EnemyState
-    {
-        Idle,
-        Roar,
-        Run,
-        SwipeAttack,
-        JumpAttack,
-        Flex,
-        Death
-    }
-    public EnemyState state;
+    private Boss bossScript;
+    [HideInInspector] public AudioSource roar;
 
     // attack colliders
-    [SerializeField] private GameObject swipeHitBox, swipeRange;
+    [SerializeField]
+    public GameObject swipeHitBox, swipeRange,
+        jumpHitBox, jumpRange, jumpColliders;
 
     private new void Start()
     {
-        base.Start(); // call parent Start() 
-
-        state = EnemyState.Idle;
+        base.Start(); // call parent Start()  
 
         if (player == null)
             player = GameObject.FindGameObjectWithTag("Player");
-        if (firePoint == null)
-            firePoint = transform.Find("FirePoint");
+
+        bossScript = GetComponent<Boss>();  
+        roar = GetComponent<AudioSource>();
 
         alternateFlag = true;
-        phase2 = false;
-        phase3 = false;
+        // phase2 = false;
         isRunning = false;
         isAttacking = false;
+        jumpColliders.SetActive(false);
     }
 
     // Update is called once per frame
     private new void Update()
     {
-        if (agent != null && !isShocked)
+        if (agent != null && !isShocked && !bossScript.isDead)
             StartCoroutine(BehaviorHandler());
     }
 
@@ -84,11 +69,9 @@ public class BossBehavior : Behavior
                 //Debug.Log("AI Entity is no longer poisoned. Speed back to: " + agent.speed); // DEBUG LOG FOR POISON STATUS
             }
 
-            if (playerInRoom) // only start phases if player is in the room
+            if (playerInRoom && !isAttacking) // only start phases if player is in the room
             {
-                if (phase3)
-                    PhaseThree();
-                else if (phase2)
+                if (phase2)
                     PhaseTwo();
                 else // phase 1
                     PhaseOne();
@@ -96,38 +79,13 @@ public class BossBehavior : Behavior
 
             yield return null; // wait for next frame
         }
-    }
-
-    /* public void AnimationHandler()
-    {
-        switch (state)
-        {
-            case EnemyState.Roar:
-                enemyAnim.SetTrigger("Roar");
-                break;
-            case EnemyState.Run:
-                enemyAnim.SetTrigger("Run");
-                break;
-            case EnemyState.SwipeAttack:
-                enemyAnim.SetTrigger("Swipe");
-                break;
-            case EnemyState.JumpAttack:
-                enemyAnim.SetTrigger("Jump Attack");
-                break;
-            case EnemyState.Flex:
-                enemyAnim.SetTrigger("Flex");
-                break;
-            default: // idle
-                enemyAnim.SetTrigger("Idle");
-                break;
-        }
-    } */
+    } 
 
     public IEnumerator SwipeAttack()
     {
         isAttacking = true;
         agent.destination = agent.transform.position; // stop agent from moving
-        enemyAnim.SetTrigger("Swipe"); 
+        enemyAnim.SetTrigger("Swipe");
 
         yield return new WaitForSeconds(1.4f);
         swipeHitBox.SetActive(true); // make hitbox appear
@@ -143,35 +101,87 @@ public class BossBehavior : Behavior
         else
         {
             enemyAnim.SetTrigger("Roar");
-            yield return new WaitForSeconds(5.4f);
+            yield return new WaitForSeconds(1.21f);
+            roar.Play();
+            yield return new WaitForSeconds(4.03f);
         }
 
         alternateFlag = !alternateFlag; // alternate between two animations
         isAttacking = false;
-        isRunning = false;
+        isRunning = false; // allow for animation trigger call
     }
 
     private void PhaseOne()
     {
-        agent.speed = 10f; // increase max speed to 10f
-        if (!isAttacking)
+        agent.speed = 10f; // increase max speed to 10f 
+        agent.destination = player.transform.position;
+
+        if (!isRunning) // ensure call for running animation only happens once each "cycle"
         {
-            agent.destination = player.transform.position; 
-            if (!isRunning) // ensure running animation only happens once each "cycle"
-            {
-                isRunning = true;  
-                enemyAnim.SetTrigger("Run");
-            }
-        } 
+            isRunning = true;
+            enemyAnim.SetTrigger("Run");
+        }
+    }
+
+    public IEnumerator JumpAttack()
+    {
+        if (isAttacking) yield break; // prevent overlapping jump attacks
+        isAttacking = true;
+        agent.destination = agent.transform.position; // stop for a moment
+        // Debug.Log("Boss will jump!");
+        enemyAnim.SetTrigger("Jump Attack");
+        yield return new WaitForSeconds(0.1f);
+
+        agent.speed = 30f; // max speed to 30f
+        agent.destination = player.transform.position;
+        // Debug.Log("Boss landed!");
+        yield return new WaitForSeconds(1.1f);
+
+        // Debug.Log("Boss finished the jump attack!"); 
+        agent.destination = agent.transform.position; // stop in place to prevent "sliding"
+        jumpHitBox.SetActive(true);
+        yield return new WaitForSeconds(0.5f);
+        jumpHitBox.SetActive(false);
+
+        yield return new WaitForSeconds(2.1f); // wait for end of animation 
+
+        enemyAnim.SetTrigger("Roar"); // taunt
+        yield return new WaitForSeconds(1.21f);
+        roar.Play();
+        yield return new WaitForSeconds(4.03f);
+
+        isAttacking = false;
+        isRunning = false; // allow for animation trigger call
+
+        yield return new WaitForSeconds(2f); // Cooldown to prevent immediate jump
     }
 
     private void PhaseTwo()
-    {
+    { 
+        if (!isAttacking)
+        {
+            float distanceToPlayer = Vector3.Distance(agent.transform.position, player.transform.position);
+            float jumpRangeRadius = jumpRange.GetComponent<SphereCollider>().radius;
+            WithinBossRange withinBossRange = jumpRange.GetComponent<WithinBossRange>();
 
+            // Debug.Log($"[PhaseTwo] Distance to player: {distanceToPlayer}, Jump Range: {jumpRangeRadius}");
+            // Debug.Log($"[PhaseTwo] IsAttacking: {isAttacking}, IsRunning: {isRunning}"); 
+
+            agent.speed = 20f;
+            agent.destination = player.transform.position;
+            if (!isRunning) // to prevent repeated calls to SetTrigger
+            {
+                // Debug.Log("[PhaseTwo] Player is out of jump range or jump is disabled. Boss should start running.");
+                isRunning = true;
+                enemyAnim.SetTrigger("Run");
+            } 
+            // swipe attack still active -  will attack when in range
+        } /*
+        else
+        {
+            Debug.Log("[PhaseTwo] Boss is currently attacking, skipping logic.");
+        } */
     }
 
-    private void PhaseThree()
-    {
 
-    }
-} 
+}
