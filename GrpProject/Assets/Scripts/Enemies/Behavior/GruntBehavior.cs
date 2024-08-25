@@ -1,7 +1,6 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.AI;
-using static UnityEditor.FilePathAttribute;
+using UnityEngine.AI; 
 
 [RequireComponent(typeof(NavMeshAgent))]
 public class GruntBehavior : Behavior 

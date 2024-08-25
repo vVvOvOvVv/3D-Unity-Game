@@ -624,7 +624,7 @@ MeshCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 5
   m_Convex: 1
   m_CookingOptions: 30
@@ -1047,6 +1047,7 @@ MonoBehaviour:
   phase2: 0
   isAttacking: 0
   playerInRoom: 0
+  roar: {fileID: 0}
   swipeHitBox: {fileID: 6087555629661615145}
   swipeRange: {fileID: 4665006110927278442}
   jumpHitBox: {fileID: 5109850295771221807}
