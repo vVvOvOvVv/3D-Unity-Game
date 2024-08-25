@@ -11,7 +11,9 @@ public class BossBehavior : Behavior
         isAttacking, // to prevent repeated attacks when not intended
         playerInRoom; // determine if player is in the room - begin fight 
     private bool isRunning, // prevent repetitive animation of run
-        alternateFlag; 
+        alternateFlag;
+    private Boss bossScript;
+    [HideInInspector] public AudioSource roar;
 
     // attack colliders
     [SerializeField]
@@ -25,6 +27,9 @@ public class BossBehavior : Behavior
         if (player == null)
             player = GameObject.FindGameObjectWithTag("Player");
 
+        bossScript = GetComponent<Boss>();  
+        roar = GetComponent<AudioSource>();
+
         alternateFlag = true;
         // phase2 = false;
         isRunning = false;
@@ -35,7 +40,7 @@ public class BossBehavior : Behavior
     // Update is called once per frame
     private new void Update()
     {
-        if (agent != null && !isShocked)
+        if (agent != null && !isShocked && !bossScript.isDead)
             StartCoroutine(BehaviorHandler());
     }
 
@@ -74,32 +79,7 @@ public class BossBehavior : Behavior
 
             yield return null; // wait for next frame
         }
-    }
-
-    /* public void AnimationHandler()
-    {
-        switch (state)
-        {
-            case EnemyState.Roar:
-                enemyAnim.SetTrigger("Roar");
-                break;
-            case EnemyState.Run:
-                enemyAnim.SetTrigger("Run");
-                break;
-            case EnemyState.SwipeAttack:
-                enemyAnim.SetTrigger("Swipe");
-                break;
-            case EnemyState.JumpAttack:
-                enemyAnim.SetTrigger("Jump Attack");
-                break;
-            case EnemyState.Flex:
-                enemyAnim.SetTrigger("Flex");
-                break;
-            default: // idle
-                enemyAnim.SetTrigger("Idle");
-                break;
-        }
-    } */
+    } 
 
     public IEnumerator SwipeAttack()
     {
@@ -121,7 +101,9 @@ public class BossBehavior : Behavior
         else
         {
             enemyAnim.SetTrigger("Roar");
-            yield return new WaitForSeconds(5.4f);
+            yield return new WaitForSeconds(1.21f);
+            roar.Play();
+            yield return new WaitForSeconds(4.03f);
         }
 
         alternateFlag = !alternateFlag; // alternate between two animations
@@ -164,7 +146,9 @@ public class BossBehavior : Behavior
         yield return new WaitForSeconds(2.1f); // wait for end of animation 
 
         enemyAnim.SetTrigger("Roar"); // taunt
-        yield return new WaitForSeconds(5.4f);
+        yield return new WaitForSeconds(1.21f);
+        roar.Play();
+        yield return new WaitForSeconds(4.03f);
 
         isAttacking = false;
         isRunning = false; // allow for animation trigger call

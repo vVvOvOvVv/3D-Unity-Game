@@ -11,10 +11,11 @@ public class BossAttack : MonoBehaviour
 {
     [SerializeField] private Attack atk;
     [SerializeField] private BossBehavior behaviorScript;
+    [SerializeField] private Boss bossScript;
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") && behaviorScript.isAttacking) // look for player
+        if (other.CompareTag("Player") && behaviorScript.isAttacking && !bossScript.isDead) // look for player
         {
             FPSInput fps = other.GetComponent<FPSInput>();
             fps.TakeDamage(atk.dmg);

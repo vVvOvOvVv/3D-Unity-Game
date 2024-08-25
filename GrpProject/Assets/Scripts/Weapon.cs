@@ -80,8 +80,8 @@ public class Weapon : MonoBehaviour
         {
             // get the GameObject that was hit
             GameObject hitObject = hit.transform.gameObject;
-            //Debug.Log("Hit: " + hitObject.name); // debug log
-            Debug.Log($"Hit object: {hitObject.name}, Tag: {hitObject.tag}");
+            //Debug.Log("Hit: " + hitObject.name); // debug log 
+
             // shake the camera
             CameraShaker.Instance.ShakeOnce(0.1f, 1f, 0.1f, 0.1f);
 
@@ -114,11 +114,11 @@ public class Weapon : MonoBehaviour
             }
 
             // Check for boss hitboxes
-            if (hitObject.CompareTag("Normal"))
+            if (hitObject.CompareTag("Normal HitBox"))
             {
                 bossScript.TakeDamage(dmg);
             }
-            else if (hitObject.CompareTag("Crit"))
+            else if (hitObject.CompareTag("Critical HitBox"))
             {
                 bossScript.CritHit(dmg);
             }

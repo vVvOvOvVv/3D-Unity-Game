@@ -10,7 +10,7 @@ TagManager:
   - CameraAnchor
   - BossHPBar
   - Normal HitBox
-  - Crit Hitbox
+  - Critical HitBox
   layers:
   - Default
   - TransparentFX
