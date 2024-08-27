@@ -46,7 +46,7 @@ public class Boss : Enemy
     public new void TakeDamage(int dmg)
     {
         hp -= dmg;
-         Debug.Log($"Normal Hit! Damage: {dmg}, Boss HP Remaining: {hp}");
+        // Debug.Log($"Normal Hit! Damage: {dmg}, Boss HP Remaining: {hp}");
 
         if (hpBar != null)
             hpBar.UpdateHPBar(hp, maxHP);

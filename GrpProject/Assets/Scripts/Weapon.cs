@@ -117,10 +117,36 @@ public class Weapon : MonoBehaviour
             if (hitObject.CompareTag("Normal HitBox"))
             {
                 bossScript.TakeDamage(dmg);
+
+                // DAMAGE TYPES
+                // FIRE LOGIC
+                if (isFire)
+                    ApplyFireEffect(hitObject);
+
+                // SHOCK LOGIC
+                if (isShock)
+                    ApplyShockEffect(hitObject);
+                // POISON LOGIC
+                if (isPoison)
+                    // hitObject.GetComponent<Behavior>().PoisonEnemy(PoisonTime, PoisonSlowFactor);
+                    ApplyPoisonEffect(hitObject);
             }
             else if (hitObject.CompareTag("Critical HitBox"))
             {
                 bossScript.CritHit(dmg);
+
+                // DAMAGE TYPES
+                // FIRE LOGIC
+                if (isFire)
+                    ApplyFireEffect(hitObject);
+
+                // SHOCK LOGIC
+                if (isShock)
+                    ApplyShockEffect(hitObject);
+                // POISON LOGIC
+                if (isPoison)
+                    // hitObject.GetComponent<Behavior>().PoisonEnemy(PoisonTime, PoisonSlowFactor);
+                    ApplyPoisonEffect(hitObject);
             }
 
             StartCoroutine(GeneratePS(hit));
