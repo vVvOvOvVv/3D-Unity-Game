@@ -55,9 +55,13 @@ public class Behavior : MonoBehaviour
         } 
     }
 
+    private void Awake()
+    {
+        agent = GetComponent<NavMeshAgent>();
+    }
+
     public void Start()
     {
-        agent = GetComponent<NavMeshAgent>(); 
         player = GameObject.FindWithTag("Player");
         spd = agent.speed;
     }

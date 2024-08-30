@@ -3,8 +3,7 @@ using UnityEngine;
 using UnityEngine.AI;
 
 public class SniperBehavior : Behavior
-{ 
-    public int health = 10;
+{  
      
     private float shootInterval = 5.0f; // Time between shots
     private bool isShooting = false;

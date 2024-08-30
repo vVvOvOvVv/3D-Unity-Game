@@ -77,7 +77,7 @@ public class BossBehavior : Behavior
                     PhaseOne();
             }
 
-            yield return null; // wait for next frame
+            yield return new WaitForSeconds(1); // wait for a second, no need to recalculate every frame
         }
     } 
 
